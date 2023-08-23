@@ -1,0 +1,43 @@
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cl-card {
+  font-family: arial;
+}
+
+.cl-headerTitle {
+  font-size: 26px;
+}
+
+// vertical banner
+.cl-internal-1nqig9d,
+.cl-internal-11lqcp9 {
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+}
+
+.cl-formFieldLabel, // input label
+.cl-footerActionText,
+.cl-footerActionLink {
+  font-size: 13.5px;
+}
+
+.cl-footerActionLink {
+  border-bottom: 0;
+}
+
+// btns socials media acc and text sign-up
+.cl-socialButtonsBlockButtonText,
+.cl-socialButtonsBlockButtonText,
+.cl-footerActionText,
+.cl-footerActionLink,
+.cl-formFieldLabel,
+.cl-formFieldLabel {
+  font-weight: bold;
+}
