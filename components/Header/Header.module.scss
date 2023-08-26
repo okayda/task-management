@@ -1,0 +1,93 @@
+@use "../../scss/index.scss" as *;
+
+.header {
+  transition: $transition;
+  background-color: theme(header);
+  border-bottom: 1px solid theme(borderLine);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    padding: rem(32px) rem(16px) rem(32px) rem(26px);
+    gap: rem(20px);
+
+    @include tablet() {
+      padding: 0 rem(32px) 0 rem(26px);
+    }
+  }
+
+  &__logo {
+    img {
+      @include tablet() {
+        width: rem(153px);
+        height: 26px;
+      }
+    }
+
+    @include tablet() {
+      padding: rem(32px) rem(64px) rem(32px) 0;
+      border-right: 1px solid theme(borderLine);
+    }
+  }
+
+  &__menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      transition: $transition;
+      color: theme(title);
+      display: flex;
+      align-items: center;
+      gap: rem(8px);
+      font-size: $fluidTitle;
+      font-weight: 700;
+    }
+  }
+
+  &__launch {
+    img {
+      @include tablet() {
+        display: none;
+      }
+    }
+  }
+
+  &__sub {
+    display: flex;
+    align-items: center;
+    gap: rem(24px);
+
+    &--cross {
+      background-color: $darkBlue;
+      color: $white;
+      padding: rem(6px) rem(14px);
+      border-radius: 100px;
+
+      span {
+        display: none;
+        color: $white;
+        font-size: rem(15px);
+      }
+
+      img {
+        width: rem(18px);
+        height: rem(18px);
+      }
+
+      @include tablet() {
+        padding: rem(12px) (16px);
+
+        span {
+          display: block;
+        }
+
+        img {
+          display: none;
+        }
+      }
+    }
+  }
+}

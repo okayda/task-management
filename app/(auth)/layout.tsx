@@ -1,4 +1,4 @@
-import "../../scss/_auth.scss";
+import "./auth.scss";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {

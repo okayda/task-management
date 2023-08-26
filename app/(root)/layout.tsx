@@ -1,4 +1,4 @@
-import "../../scss/_global.scss";
+import "./global.scss";
 
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";

@@ -1,0 +1,49 @@
+$transition: background-color 0.35s linear;
+
+$black: #000;
+$white: #fff;
+$lightGray: #f4f7fd;
+$darkBlue: #635fc7;
+$darkGray: #2b2c37;
+$veryDarkGray: #20212c;
+
+$borderLight: #e4ebfa;
+$borderDark: #3e3f4e;
+
+$light: (
+  bg: $lightGray,
+  header: $white,
+  title: $black,
+  borderLine: $borderLight,
+);
+
+$dark: (
+  bg: $veryDarkGray,
+  header: $darkGray,
+  title: $white,
+  borderLine: $borderDark,
+);
+
+.dark {
+  @each $name, $color in $dark {
+    --color-#{""+$name}: #{$color};
+  }
+}
+
+.light {
+  @each $name, $color in $light {
+    --color-#{""+$name}: #{$color};
+  }
+}
+
+// ***** Fluid increasing can be use in "font-size", "width" and "height" ***** created by: (Jhon Queñano)
+// you can modify everything according to your wants except for the "1920" and "math operators".
+// (minimum font-szie 20px) 20 / 16 = 1.25rem
+// (maximum font-size 24px) 24 / 16 = 1.5rem
+// (width view port) 375px = font-size increasing will start to be applied in a fluid way.
+// 3.94 = the speed of increasing. (modifying is required if want to achieve certain font-size)
+$fluidTitle: clamp(
+  1.25rem,
+  calc(1.25rem + (24 - 20) * ((100vw - 375px) / (1920 - 375)) * 3.94),
+  1.5rem
+); // 375px -> 768px
