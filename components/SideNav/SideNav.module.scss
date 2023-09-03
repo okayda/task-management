@@ -1,0 +1,93 @@
+@use "../../scss/index.scss" as *;
+
+.sidenav {
+  position: fixed;
+  top: rem(80px);
+  width: 100%;
+  z-index: 10;
+  padding: 0 10px;
+
+  @include tablet() {
+    position: fixed;
+    height: 100%;
+    width: rem(300px);
+    padding: 0;
+    top: rem(90px);
+    left: 0;
+  }
+
+  &__container {
+    color: $sideNav;
+    background-color: $white;
+    max-width: rem(300px);
+    padding: rem(16px) 0 rem(32px);
+    margin: 0 auto;
+    border-radius: 9px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+      rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+    @include tablet() {
+      // height: calc(100% - rem(90px));
+      height: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  h3 {
+    padding: 0 rem(32px);
+    font-size: rem(12px);
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    margin-bottom: rem(16px);
+  }
+
+  ul {
+    padding: 0 0 0 rem(32px);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // <li></li>
+  &__active {
+    color: $white;
+    position: relative;
+    height: 100%;
+    z-index: 5;
+
+    &::before {
+      z-index: -1;
+      display: block;
+      position: absolute;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+      top: 0;
+      left: rem(-32px);
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: $darkBlue;
+    }
+  }
+
+  button {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: bold;
+    padding: rem(10px) 0;
+  }
+
+  &__switch {
+    margin: rem(8px) rem(32px) 0;
+    background-color: theme(switch);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    padding: rem(10px) 0;
+    border-radius: 6px;
+  }
+}

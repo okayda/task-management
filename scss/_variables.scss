@@ -10,11 +10,14 @@ $veryDarkGray: #20212c;
 $borderLight: #e4ebfa;
 $borderDark: #3e3f4e;
 
+$sideNav: #828fa3;
+
 $light: (
   bg: $lightGray,
   header: $white,
   title: $black,
   borderLine: $borderLight,
+  switch: $lightGray,
 );
 
 $dark: (
@@ -22,6 +25,7 @@ $dark: (
   header: $darkGray,
   title: $white,
   borderLine: $borderDark,
+  switch: $veryDarkGray,
 );
 
 .dark {

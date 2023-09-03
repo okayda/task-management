@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Header from "@/components/Header/Header";
 import { UserButton } from "@clerk/nextjs";
+import Drag from "@/components/Drag/Drag";
+
+import SideNav from "@/components/SideNav/SideNav";
 
 export default function page() {
   // false => Light theme
@@ -16,11 +19,21 @@ export default function page() {
   };
 
   return (
-    <div className={`main-container ${currentTheme}`}>
+    <>
       <Header theme={theme} />
-      <h1>Protected & Landing Page</h1>
-      <button onClick={changeTheme}>{currentTheme}</button>
-      <UserButton afterSignOutUrl="/" />
-    </div>
+      <div className={`main-container ${currentTheme}`}>
+        {/* overlay is only for mobile layout */}
+        {/* <div className="overlay">&nbsp;</div> */}
+        <SideNav />
+
+        {/* <h1>Authorized user page</h1>
+
+<button onClick={changeTheme}>{currentTheme}</button>
+
+<UserButton afterSignOutUrl="/" /> */}
+
+        <Drag />
+      </div>
+    </>
   );
 }
