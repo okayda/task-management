@@ -42,8 +42,6 @@ const Drag: React.FC = () => {
     { id: "17", content: "Research the market" },
   ];
 
-  const data4 = [{ id: "18", content: "awit sayo" }];
-
   const taskStatus: Columns = {
     requested: {
       name: "test",

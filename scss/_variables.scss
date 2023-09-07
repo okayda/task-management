@@ -1,3 +1,11 @@
+// z-index values
+// dragBoard
+$z-1: 5;
+// overlay
+$z-2: 10;
+// sideNav & mobileNav
+$z-3: 15;
+
 $transition: background-color 0.35s linear;
 
 $black: #000;
@@ -50,4 +58,4 @@ $fluidTitle: clamp(
   1.25rem,
   calc(1.25rem + (24 - 20) * ((100vw - 375px) / (1920 - 375)) * 3.94),
   1.5rem
-); // 375px -> 768px
+); // 375px <--> 768px

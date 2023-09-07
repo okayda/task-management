@@ -1,5 +1,4 @@
 import style from "./Header.module.scss";
-import Link from "next/link";
 import Image from "next/image";
 import logoMobile from "../../public/assets/logo-mobile.svg";
 import logoNameDark from "../../public/assets/logo-dark.svg";
@@ -9,7 +8,13 @@ import arrowDown from "../../public/assets/icon-chevron-down.svg";
 import plusImg from "../../public/assets/plus.svg";
 import ellipImg from "../../public/assets/icon-vertical-ellipsis.svg";
 
-export default function Header({ theme }: { theme: boolean }) {
+export default function Header({
+  theme,
+  setShowNav,
+}: {
+  theme: boolean;
+  setShowNav: () => void;
+}) {
   // false => Light theme
   // true => Dark theme
   const logoName = !theme ? logoNameDark : logoNameLight;
@@ -25,7 +30,7 @@ export default function Header({ theme }: { theme: boolean }) {
           </picture>
         </div>
         <div className={style.header__menu}>
-          <button className={style.header__launch}>
+          <button className={style.header__launch} onClick={setShowNav}>
             {/* // TODO: change title if the user click specific board. */}
             Platform Launch
             {/* this img is only for mobile layout */}

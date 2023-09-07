@@ -18,19 +18,25 @@ export default function page() {
     setTheme((prev) => !prev);
   };
 
+  // only for mobile layout
+  const [showNav, setShowNav] = useState(false);
+
+  const openNav = function () {
+    setShowNav(true);
+  };
+
+  const closeNav = function () {
+    setShowNav(false);
+  };
+
   return (
     <>
-      <Header theme={theme} />
+      <Header theme={theme} setShowNav={openNav} />
       <div className={`main-container ${currentTheme}`}>
-        {/* overlay is only for mobile layout */}
-        {/* <div className="overlay">&nbsp;</div> */}
-        <SideNav />
+        <SideNav showNav={showNav} setShowNav={closeNav} />
 
-        {/* <h1>Authorized user page</h1>
-
-<button onClick={changeTheme}>{currentTheme}</button>
-
-<UserButton afterSignOutUrl="/" /> */}
+        {/* <button onClick={changeTheme}>{currentTheme}</button>
+        <UserButton afterSignOutUrl="/" /> */}
 
         <Drag />
       </div>

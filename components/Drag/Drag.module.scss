@@ -9,6 +9,7 @@
   padding: 26px 26px 0;
   width: 100%;
   height: 100vh;
+  z-index: $z-1;
 
   @include tablet() {
     height: 140vh;

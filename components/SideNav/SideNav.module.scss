@@ -1,19 +1,26 @@
 @use "../../scss/index.scss" as *;
 
 .sidenav {
+  display: none;
   position: fixed;
+  transform: translate(-50%);
   top: rem(80px);
-  width: 100%;
-  z-index: 10;
-  padding: 0 10px;
+  left: 50%;
+  z-index: $z-3;
+  width: rem(300px);
+
+  // only for mobile layout
+  &__mobileShow {
+    display: block;
+  }
 
   @include tablet() {
+    display: block;
     position: fixed;
-    height: 100%;
-    width: rem(300px);
-    padding: 0;
+    transform: none;
     top: rem(90px);
     left: 0;
+    height: 100%;
   }
 
   &__container {
@@ -27,8 +34,10 @@
       rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
     @include tablet() {
-      // height: calc(100% - rem(90px));
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: calc(100% - rem(90px));
       border-radius: 0;
       box-shadow: none;
     }
@@ -47,9 +56,29 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    button {
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: bold;
+      padding: rem(10px) 0;
+    }
+
+    .createBoard {
+      button {
+        color: #635fc7;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+    }
   }
 
-  // <li></li>
   &__active {
     color: $white;
     position: relative;
@@ -71,23 +100,34 @@
     }
   }
 
-  button {
-    color: inherit;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-weight: bold;
-    padding: rem(10px) 0;
-  }
+  &__btn {
+    &--switch {
+      margin: rem(8px) rem(32px) 0;
+      background-color: theme(switch);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      padding: rem(10px) 0;
+      border-radius: 6px;
 
-  &__switch {
-    margin: rem(8px) rem(32px) 0;
-    background-color: theme(switch);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 26px;
-    padding: rem(10px) 0;
-    border-radius: 6px;
+      @include tablet {
+        margin-bottom: rem(16px);
+      }
+    }
+
+    &--hide {
+      color: inherit;
+      display: none;
+      font-weight: 700;
+      font-size: rem(15px);
+
+      @include tablet {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-left: rem(32px);
+      }
+    }
   }
 }

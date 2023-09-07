@@ -1,0 +1,16 @@
+@use "../../scss/index.scss" as *;
+
+.overlay {
+  position: fixed;
+  z-index: $z-2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transition: $transition;
+  background: rgba(0, 0, 0, 0.5);
+
+  @include tablet() {
+    display: none;
+  }
+}
