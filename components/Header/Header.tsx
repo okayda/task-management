@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./Header.module.scss";
 import Image from "next/image";
 import logoMobile from "../../public/assets/logo-mobile.svg";
@@ -8,19 +10,28 @@ import arrowDown from "../../public/assets/icon-chevron-down.svg";
 import plusImg from "../../public/assets/plus.svg";
 import ellipImg from "../../public/assets/icon-vertical-ellipsis.svg";
 
-export default function Header({
-  theme,
-  setShowNav,
-}: {
-  theme: boolean;
-  setShowNav: () => void;
-}) {
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { toggleNav } from "@/redux/features/display-slice";
+
+export default function Header() {
+  const dispatch = useDispatch<AppDispatch>();
+
   // false => Light theme
   // true => Dark theme
+  const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
+  const currentTheme = !theme ? "light" : "dark";
   const logoName = !theme ? logoNameDark : logoNameLight;
 
+  // only for mobile layout and only way to show the mobile side nav list modal
+  const showNav = useAppSelector((state) => state.displayReducer.data.showNav);
+
+  const handlerNav = function (): void {
+    dispatch(toggleNav({ show: !showNav }));
+  };
+
   return (
-    <header className={style.header}>
+    <header className={`${style.header} ${currentTheme}`}>
       <div className={style.header__container}>
         <div className={style.header__logo}>
           <picture>
@@ -30,7 +41,7 @@ export default function Header({
           </picture>
         </div>
         <div className={style.header__menu}>
-          <button className={style.header__launch} onClick={setShowNav}>
+          <button className={style.header__launch} onClick={handlerNav}>
             {/* // TODO: change title if the user click specific board. */}
             Platform Launch
             {/* this img is only for mobile layout */}

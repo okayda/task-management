@@ -24,8 +24,9 @@
   }
 
   &__container {
+    transition: $transition;
     color: $sideNav;
-    background-color: $white;
+    background-color: theme(main);
     max-width: rem(300px);
     padding: rem(16px) 0 rem(32px);
     margin: 0 auto;

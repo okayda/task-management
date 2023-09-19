@@ -3,6 +3,9 @@ import "./global.scss";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { ReduxProvider } from "@/redux/Provider";
+
+import Header from "@/components/Header/Header";
 
 const jakarta = Plus_Jakarta_Sans({
   weight: ["500", "700"],
@@ -24,7 +27,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={jakarta.className}>{children}</body>
+        <body className={jakarta.className}>
+          <ReduxProvider>
+            <Header />
+            <main>{children}</main>
+          </ReduxProvider>
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -12,20 +12,24 @@
     "@clerk/nextjs": "^4.23.2",
     "@clerk/themes": "^1.7.5",
     "@hello-pangea/dnd": "^16.3.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "@types/uuid": "^9.0.4",
     "framer-motion": "^10.16.1",
     "mongoose": "^7.4.3",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.1.2",
     "react-switch": "^7.0.0",
     "react-tsparticles": "^2.12.2",
     "tsparticles": "^2.12.0",
     "tsparticles-engine": "^2.12.0",
     "tsparticles-slim": "^2.12.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "sass": "^1.66.1"

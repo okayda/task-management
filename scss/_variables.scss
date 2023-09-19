@@ -26,6 +26,7 @@ $light: (
   title: $black,
   borderLine: $borderLight,
   switch: $lightGray,
+  main: $white,
 );
 
 $dark: (
@@ -34,6 +35,7 @@ $dark: (
   title: $white,
   borderLine: $borderDark,
   switch: $veryDarkGray,
+  main: $darkGray,
 );
 
 .dark {

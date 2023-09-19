@@ -1,44 +1,57 @@
-import React from "react";
-
-interface Task {
+interface Items {
   id: string;
-  content: string;
+  title: string;
+  description: string;
+  subItems: { item: string; isComplete: boolean }[];
 }
 
-interface Column {
-  name: string;
-  items: Task[];
+interface DataObj {
+  [key: string]: { name: string; items: Items };
 }
 
-export interface Columns {
-  [key: string]: Column;
+interface Obj {
+  [key: string]: Items[] | {};
 }
 
-export const taskData: Task[] = [
-  { id: "1", content: "Design settings and search pages" },
-  { id: "2", content: "Add account management endpoints" },
-  { id: "3", content: "Third task" },
-  { id: "4", content: "Fourth task" },
-  { id: "5", content: "Fifth task" },
-];
+interface ColumnsObj {
+  [key: string]: {
+    name: string;
+    items: Items[];
+  };
+}
+
+// removing the: name & items and assigning only the Array values
+// {name: 'doing', items: [{}, {}]}
+const formatData = function (dataObj: DataObj): Obj {
+  const obj: Obj = {};
+
+  for (const [key, value] of Object.entries(dataObj)) {
+    obj[key] = value.items;
+  }
+
+  return obj;
+};
 
 export const onDragEnd = function (
   result: any,
-  columns: Columns,
-  setColumns: React.Dispatch<React.SetStateAction<Columns>>
+  columnsObj: ColumnsObj,
+  updateDrag: (newPosition: Obj) => void
 ): void {
   if (!result.destination) return;
   const { source, destination } = result;
 
+  let obj: Obj = {};
+
   if (source.droppableId !== destination.droppableId) {
-    const sourceColumn = columns[source.droppableId];
-    const destColumn = columns[destination.droppableId];
+    const sourceColumn = columnsObj[source.droppableId];
+    const destColumn = columnsObj[destination.droppableId];
     const sourceItems = [...sourceColumn.items];
     const destItems = [...destColumn.items];
     const [removed] = sourceItems.splice(source.index, 1);
     destItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
+
+    const updatedData = {
+      ...columnsObj,
       [source.droppableId]: {
         ...sourceColumn,
         items: sourceItems,
@@ -47,18 +60,25 @@ export const onDragEnd = function (
         ...destColumn,
         items: destItems,
       },
-    });
+    };
+
+    obj = formatData(updatedData);
   } else {
-    const column = columns[source.droppableId];
+    const column = columnsObj[source.droppableId];
     const copiedItems = [...column.items];
     const [removed] = copiedItems.splice(source.index, 1);
     copiedItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
+
+    const updatedData = {
+      ...columnsObj,
       [source.droppableId]: {
         ...column,
         items: copiedItems,
       },
-    });
+    };
+
+    obj = formatData(updatedData);
   }
+
+  updateDrag(obj);
 };

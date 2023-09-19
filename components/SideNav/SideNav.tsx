@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+
 import Switch from "react-switch";
 import Image from "next/image";
 import style from "./SideNav.module.scss";
@@ -13,14 +14,15 @@ import dark from "../../public/assets/icon-dark-theme.svg";
 import light from "../../public/assets/icon-light-theme.svg";
 import hideSide from "../../public/assets/icon-hide-sidebar.svg";
 
-export default function SideNav({
-  showNav,
-  setShowNav,
-}: {
-  showNav: boolean;
-  setShowNav: () => void;
-}) {
-  const [isChecked, setChecked] = useState(false);
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { changeTheme } from "@/redux/features/kanban-slice";
+
+export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
+  const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
+
+  const handlerTheme = function (): void {
+    dispatch(changeTheme({ theme: !theme }));
+  };
 
   const alterIcn = function (isActive: boolean) {
     return isActive ? boardWhite : boardGray;
@@ -33,16 +35,11 @@ export default function SideNav({
     { id: "3", boardName: "Roadmap", isActive: false },
   ];
 
-  const onChange = function () {
-    setChecked((prev) => !prev);
-  };
-
   return (
     <>
-      {showNav && <Overlay onClose={setShowNav} />}
-      <div
-        className={`${style.sidenav} ${showNav && style.sidenav__mobileShow}`}
-      >
+      {/* {showNav && <Overlay onClose={setShowNav} />} */}
+      {/* ${showNav && style.sidenav__mobileShow} */}
+      <div className={`${style.sidenav}`}>
         <div className={style.sidenav__container}>
           {/* TODO Add length of drag boards */}
           <div>
@@ -88,8 +85,8 @@ export default function SideNav({
             <div className={style["sidenav__btn--switch"]}>
               <Image src={dark} alt="" width={16} height={16} />
               <Switch
-                onChange={onChange}
-                checked={isChecked}
+                onChange={handlerTheme}
+                checked={theme}
                 width={46}
                 height={22}
                 onColor="#635fc7"
