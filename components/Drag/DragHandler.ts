@@ -1,9 +1,4 @@
-interface Items {
-  id: string;
-  title: string;
-  description: string;
-  subItems: { item: string; isComplete: boolean }[];
-}
+import { Items } from "@/constants/types";
 
 interface DataObj {
   [key: string]: { name: string; items: Items };

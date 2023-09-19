@@ -1,3 +1,10 @@
+export type Items = {
+  id: string;
+  title: string;
+  description: string;
+  subItems: { item: string; isComplete: boolean }[];
+};
+
 export type TypeKanban = {
   userId: string;
   name: string;
@@ -6,6 +13,8 @@ export type TypeKanban = {
     titleId: string;
     title: string;
     isActive: boolean;
-    columns: any;
+    columns: {
+      [key: string]: Items[];
+    };
   }[];
 };

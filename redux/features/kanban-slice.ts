@@ -10,6 +10,7 @@ const initialState = {
       {
         titleId: "",
         title: "",
+        isActive: false,
         columns: {
           todo: [],
           doiing: [],
@@ -32,22 +33,38 @@ export const kanban = createSlice({
       state.data.isDarkTheme = action.payload.theme;
     },
 
+    changeBoard(state, action) {
+      const list = state.data.sideNavList;
+      const targetId = action.payload.id;
+      const activeIndexBoard = list.findIndex((li) => li.isActive);
+
+      // Guard clause
+      if (activeIndexBoard === targetId) return;
+
+      list.forEach((li) => {
+        if (li.titleId === targetId) {
+          li.isActive = true;
+          list[activeIndexBoard].isActive = false;
+          return;
+        }
+      });
+    },
+
     updatePosition(state, action) {
+      const list = state.data.sideNavList;
       const { targetId, newPosition } = action.payload;
-      const index = state.data.sideNavList.findIndex(
-        (li) => li.titleId === targetId
-      );
+      const index = list.findIndex((li) => li.titleId === targetId);
 
       if (index !== -1) {
         const updatedDrag = {
-          ...state.data.sideNavList[index],
+          ...list[index],
           columns: newPosition,
         };
 
         state.data.sideNavList = [
-          ...state.data.sideNavList.slice(0, index),
+          ...list.slice(0, index),
           updatedDrag,
-          ...state.data.sideNavList.slice(index + 1),
+          ...list.slice(index + 1),
         ];
       }
     },
@@ -56,4 +73,5 @@ export const kanban = createSlice({
 
 export default kanban.reducer;
 
-export const { replaceKanban, changeTheme, updatePosition } = kanban.actions;
+export const { replaceKanban, changeTheme, changeBoard, updatePosition } =
+  kanban.actions;

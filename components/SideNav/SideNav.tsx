@@ -15,25 +15,29 @@ import light from "../../public/assets/icon-light-theme.svg";
 import hideSide from "../../public/assets/icon-hide-sidebar.svg";
 
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { changeTheme } from "@/redux/features/kanban-slice";
+import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
 
 export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
-  const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
+  const {
+    userId,
+    isDarkTheme: theme,
+    sideNavList: list,
+  } = useAppSelector((state) => state.kanbanReducer.data);
+
+  // id is not valid
+  if (!userId) return null;
+
+  const changeBoardHandler = function (id: string): any {
+    dispatch(changeBoard({ id }));
+  };
 
   const handlerTheme = function (): void {
     dispatch(changeTheme({ theme: !theme }));
   };
 
-  const alterIcn = function (isActive: boolean) {
+  const alterIcn = function (isActive: boolean): string {
     return isActive ? boardWhite : boardGray;
   };
-
-  // Fake data
-  const data = [
-    { id: "1", boardName: "Platform Launch", isActive: true },
-    { id: "2", boardName: "Marketing Plan", isActive: false },
-    { id: "3", boardName: "Roadmap", isActive: false },
-  ];
 
   return (
     <>
@@ -46,7 +50,7 @@ export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
             <h3>all boards (3)</h3>
             <ul>
               {/* TODO Add one list of board */}
-              {data.map((board) => {
+              {list.map((board) => {
                 // Is used for avoiding the empty className
                 const prop: {
                   className?: string;
@@ -54,15 +58,15 @@ export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
                 if (board.isActive) prop.className = style.sidenav__active;
 
                 return (
-                  <li {...prop} key={board.id}>
-                    <button>
+                  <li {...prop} key={board.titleId}>
+                    <button onClick={() => changeBoardHandler(board.titleId)}>
                       <Image
                         src={alterIcn(board.isActive)}
                         alt=""
                         width={16}
                         height={16}
                       />
-                      {board.boardName}
+                      {board.title}
                     </button>
                   </li>
                 );
