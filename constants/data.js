@@ -1,6 +1,6 @@
 // data1, data2, data3, data4, data5
 
-export const data1 = [
+const data1 = [
   {
     id: "0",
     title: "Build UI for onboarding flow",
@@ -42,7 +42,7 @@ export const data1 = [
   },
 ];
 
-export const data2 = [
+const data2 = [
   {
     id: "5",
     title: "Design settings and search pages",
@@ -119,7 +119,7 @@ export const data2 = [
   },
 ];
 
-export const data3 = [
+const data3 = [
   {
     id: "11",
     title: "Conduct 5 wireframe tests",
@@ -195,7 +195,7 @@ export const data3 = [
   },
 ];
 
-export const data4 = [
+const data4 = [
   {
     id: "21",
     title: "Plan Product Hunt Launch",
@@ -234,7 +234,7 @@ export const data4 = [
   },
 ];
 
-export const data5 = [
+const data5 = [
   {
     id: "24",
     title: "Launch version one",
@@ -265,5 +265,36 @@ export const data5 = [
         isComplete: false,
       },
     ],
+  },
+];
+
+export const dataList = [
+  {
+    title: "Platform Launch",
+    isActive: true,
+    columns: {
+      todo: data1,
+      doing: data2,
+      done: data3,
+    },
+  },
+
+  {
+    title: "Marketing Plan",
+    isActive: false,
+    columns: {
+      todo: data4,
+      doing: [],
+    },
+  },
+
+  {
+    title: "Roadmap",
+    isActive: false,
+    columns: {
+      now: data5,
+      next: [],
+      later: [],
+    },
   },
 ];

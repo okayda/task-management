@@ -11,7 +11,7 @@ export const display = createSlice({
   initialState,
   reducers: {
     toggleNav(state, action) {
-      state.data.showNav = action.payload.show;
+      state.data.showNav = action.payload.showNav;
     },
   },
 });

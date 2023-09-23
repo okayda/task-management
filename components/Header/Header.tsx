@@ -24,10 +24,9 @@ export default function Header() {
   const logoName = !theme ? logoNameDark : logoNameLight;
 
   // only for mobile layout and only way to show the mobile side nav list modal
-  const showNav = useAppSelector((state) => state.displayReducer.data.showNav);
 
-  const handlerNav = function (): void {
-    dispatch(toggleNav({ show: !showNav }));
+  const handlerNewTask = function (): void {
+    dispatch(toggleNav({ showNav: true }));
   };
 
   return (
@@ -41,7 +40,7 @@ export default function Header() {
           </picture>
         </div>
         <div className={style.header__menu}>
-          <button className={style.header__launch} onClick={handlerNav}>
+          <button className={style.header__launch}>
             {/* // TODO: change title if the user click specific board. */}
             Platform Launch
             {/* this img is only for mobile layout */}
@@ -49,7 +48,10 @@ export default function Header() {
           </button>
 
           <div className={style.header__sub}>
-            <button className={style["header__sub--cross"]}>
+            <button
+              className={style["header__sub--cross"]}
+              onClick={handlerNewTask}
+            >
               <span>Add New Task</span>
               {/* this img is only for mobile layout */}
               <Image alt="" src={plusImg} width={20} height={20} />

@@ -1,6 +1,7 @@
 @use "../../scss/index.scss" as *;
 
-.overlay {
+.overlay,
+.wrapped-overlay {
   position: fixed;
   z-index: $z-2;
   top: 0;
@@ -10,7 +11,7 @@
   transition: $transition;
   background: rgba(0, 0, 0, 0.5);
 
-  @include tablet() {
-    display: none;
-  }
+  // @include tablet() {
+  //   display: none;
+  // }
 }

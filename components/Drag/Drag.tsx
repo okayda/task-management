@@ -1,7 +1,6 @@
 "use client";
-
-import { TypeKanban } from "@/constants/types";
-import { AppDispatch } from "@/redux/store";
+import React from "react";
+import { ComponentProps } from "@/constants/types";
 import { updatePosition } from "@/redux/features/kanban-slice";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
@@ -9,13 +8,7 @@ import { onDragEnd } from "./DragHandler";
 
 import style from "./Drag.module.scss";
 
-const Drag = function ({
-  data,
-  dispatch,
-}: {
-  data: TypeKanban;
-  dispatch: AppDispatch;
-}) {
+export default React.memo(({ data, dispatch }: ComponentProps) => {
   // id is not valid
   if (!data.userId) return null;
 
@@ -104,6 +97,4 @@ const Drag = function ({
       </div>
     </div>
   );
-};
-
-export default Drag;
+});

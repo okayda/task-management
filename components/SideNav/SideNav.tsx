@@ -1,10 +1,10 @@
 "use client";
+import React from "react";
+import { ComponentProps } from "@/constants/types";
 
 import Switch from "react-switch";
 import Image from "next/image";
 import style from "./SideNav.module.scss";
-
-import Overlay from "../Overlay/Overlay";
 
 import boardWhite from "../../public/assets/icon-board-white.svg";
 import boardBlue from "../../public/assets/icon-board-blue.svg";
@@ -14,18 +14,13 @@ import dark from "../../public/assets/icon-dark-theme.svg";
 import light from "../../public/assets/icon-light-theme.svg";
 import hideSide from "../../public/assets/icon-hide-sidebar.svg";
 
-import { AppDispatch, useAppSelector } from "@/redux/store";
 import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
 
-export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
-  const {
-    userId,
-    isDarkTheme: theme,
-    sideNavList: list,
-  } = useAppSelector((state) => state.kanbanReducer.data);
-
+export default React.memo(({ data, dispatch }: ComponentProps) => {
   // id is not valid
-  if (!userId) return null;
+  if (!data.userId) return null;
+
+  const { isDarkTheme: theme, sideNavList: list } = data;
 
   const changeBoardHandler = function (id: string): any {
     dispatch(changeBoard({ id }));
@@ -108,4 +103,4 @@ export default function SideNav({ dispatch }: { dispatch: AppDispatch }) {
       </div>
     </>
   );
-}
+});

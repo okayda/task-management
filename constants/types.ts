@@ -1,3 +1,5 @@
+import { AppDispatch } from "@/redux/store";
+
 export type Items = {
   id: string;
   title: string;
@@ -17,4 +19,9 @@ export type TypeKanban = {
       [key: string]: Items[];
     };
   }[];
+};
+
+export type ComponentProps = {
+  data: TypeKanban;
+  dispatch: AppDispatch;
 };

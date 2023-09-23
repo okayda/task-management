@@ -1,20 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-import Drag from "@/components/Drag/Drag";
-
-import SideNav from "@/components/SideNav/SideNav";
-
-import { UserButton, currentUser } from "@clerk/nextjs";
-import { createKanban, fetchKanbanById } from "@/lib/actions/kanban.action";
+import { useEffect } from "react";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-
 import { getData, sendData } from "@/redux/features/kanban-action";
 
-let initialExec = true;
+import SideNav from "@/components/SideNav/SideNav";
+import AddTask from "@/components/Forms/AddTask";
+import Drag from "@/components/Drag/Drag";
+
+import { currentUser } from "@clerk/nextjs";
+// import { UserButton, currentUser } from "@clerk/nextjs";
+// import { createKanban, fetchKanbanById } from "@/lib/actions/kanban.action";
+
+let initialExecute = true;
 
 export default function page() {
   // const user = await currentUser();
@@ -56,18 +56,17 @@ export default function page() {
   const currentTheme = !theme ? "light" : "dark";
 
   const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
+  const { showNav } = useAppSelector((state) => state.displayReducer.data);
 
   useEffect(() => {
-    if (initialExec) {
+    if (initialExecute) {
       // retrieved if there is any existed data otherwise the default data will be applied to the redux store
       dispatch(getData());
-      initialExec = false;
+      initialExecute = false;
 
       // prevent send the initial state to the localStorage
       return;
     }
-
-    // console.log(kanbanData);
 
     dispatch(sendData(kanbanData));
   }, [kanbanData]);
@@ -75,7 +74,9 @@ export default function page() {
   return (
     <>
       <div className={`main-container ${currentTheme}`}>
-        <SideNav dispatch={dispatch} />
+        <SideNav data={kanbanData} dispatch={dispatch} />
+
+        {showNav && <AddTask dispatch={dispatch} />}
 
         <Drag data={kanbanData} dispatch={dispatch} />
       </div>
