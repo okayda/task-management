@@ -1,41 +1,52 @@
 // z-index values
 // dragBoard
 $z-1: 5;
-// overlay
-$z-2: 20;
 // sideNav & mobileNav
-$z-3: 15;
+$z-2: 15;
+// overlay
+$z-3: 20;
+// modal
+$z-4: 25;
 
-$transition: background-color 0.35s linear;
+// Used only for large area of background-color
+$transition: background-color 0.3s linear;
+// Used only for buttons background-color
+$transitionBtn: 0.35s;
 
 $black: #000;
 $white: #fff;
 $lightGray: #f4f7fd;
 $darkBlue: #635fc7;
 $darkGray: #2b2c37;
+$mediumGray: #828fa3;
 $veryDarkGray: #20212c;
+$veryLightBlue: #f0effa;
 
 $borderLight: #e4ebfa;
 $borderDark: #3e3f4e;
-
-$sideNav: #828fa3;
 
 $light: (
   bg: $lightGray,
   header: $white,
   title: $black,
+  subTitle: $mediumGray,
   borderLine: $borderLight,
   switch: $lightGray,
   main: $white,
+  addBtn: $veryLightBlue,
+  board: $white,
 );
 
 $dark: (
   bg: $veryDarkGray,
   header: $darkGray,
   title: $white,
+  subTitle: $white,
   borderLine: $borderDark,
   switch: $veryDarkGray,
   main: $darkGray,
+  addBtn: $white,
+  board: $veryDarkGray,
 );
 
 .dark {

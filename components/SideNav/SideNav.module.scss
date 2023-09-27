@@ -6,7 +6,7 @@
   transform: translate(-50%);
   top: rem(80px);
   left: 50%;
-  z-index: $z-3;
+  z-index: $z-2;
   width: rem(300px);
 
   // only for mobile layout
@@ -25,7 +25,7 @@
 
   &__container {
     transition: $transition;
-    color: $sideNav;
+    color: $mediumGray;
     background-color: theme(main);
     max-width: rem(300px);
     padding: rem(16px) 0 rem(32px);

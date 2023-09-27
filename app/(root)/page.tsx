@@ -10,6 +10,8 @@ import SideNav from "@/components/SideNav/SideNav";
 import AddTask from "@/components/Forms/AddTask";
 import Drag from "@/components/Drag/Drag";
 
+import { AnimatePresence } from "framer-motion";
+
 import { currentUser } from "@clerk/nextjs";
 // import { UserButton, currentUser } from "@clerk/nextjs";
 // import { createKanban, fetchKanbanById } from "@/lib/actions/kanban.action";
@@ -76,7 +78,9 @@ export default function page() {
       <div className={`main-container ${currentTheme}`}>
         <SideNav data={kanbanData} dispatch={dispatch} />
 
-        {showNav && <AddTask dispatch={dispatch} />}
+        <AnimatePresence>
+          {showNav && <AddTask data={kanbanData} dispatch={dispatch} />}
+        </AnimatePresence>
 
         <Drag data={kanbanData} dispatch={dispatch} />
       </div>

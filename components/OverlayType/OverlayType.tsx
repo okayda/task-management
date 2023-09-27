@@ -1,19 +1,21 @@
 import "./OverlayType.scss";
 
+import { OverlayFade } from "../Animation/Transition";
+
 export const Overlay = function ({ onClose }: { onClose: () => void }) {
   return <div className="overlay" onClick={onClose} />;
 };
 
 export const WrappedOverlay = function ({
   children,
-  onClose,
+  onClick,
 }: {
   children: React.ReactNode;
-  onClose: () => void;
+  onClick: () => void;
 }) {
   return (
-    <div className="wrapped-overlay" onClick={onClose}>
+    <OverlayFade className="wrapped-overlay" onClick={onClick}>
       {children}
-    </div>
+    </OverlayFade>
   );
 };
