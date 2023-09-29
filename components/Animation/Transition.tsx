@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShowStatusAnimated, ScaleAnimated, Fade } from "./Animation";
-
 import arrowDown from "../../public/assets/icon-chevron-down.svg";
 
 interface ShowStatusProps {
@@ -64,6 +63,7 @@ export const ShowStatus = function ({
   );
 };
 
+// Only used for AddTask Form
 export const SubTaskInput = function ({
   value,
   onChange,
@@ -80,7 +80,6 @@ export const SubTaskInput = function ({
       type="text"
       value={value}
       onChange={onChange}
-      required
     />
   );
 };

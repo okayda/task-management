@@ -1,10 +1,10 @@
 import { AppDispatch } from "@/redux/store";
 
 export type Items = {
-  id: string;
-  title: string;
+  itemId: string;
+  itemTitle: string;
   description: string;
-  subItems: { item: string; isComplete: boolean }[];
+  subTasks: { subTitle: string; isComplete: boolean }[];
 };
 
 export type TypeKanban = {

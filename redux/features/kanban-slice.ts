@@ -29,6 +29,16 @@ export const kanban = createSlice({
       state.data = action.payload.data;
     },
 
+    addTask(state, action) {
+      const list = state.data.sideNavList;
+      const currentBoard = list.findIndex((li) => li.isActive);
+
+      const data = action.payload.data;
+      const targetColumn = action.payload.column;
+
+      state.data.sideNavList[currentBoard].columns[targetColumn].push(data);
+    },
+
     changeTheme(state, action) {
       state.data.isDarkTheme = action.payload.theme;
     },
@@ -73,5 +83,10 @@ export const kanban = createSlice({
 
 export default kanban.reducer;
 
-export const { replaceKanban, changeTheme, changeBoard, updatePosition } =
-  kanban.actions;
+export const {
+  replaceKanban,
+  addTask,
+  changeTheme,
+  changeBoard,
+  updatePosition,
+} = kanban.actions;

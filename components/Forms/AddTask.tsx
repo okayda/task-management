@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
+import { v4 as uuidv4 } from "uuid";
 
 import { ComponentProps } from "@/constants/types";
 
 import { WrappedOverlay } from "../OverlayType/OverlayType";
 
 import { toggleNav } from "@/redux/features/display-slice";
+import { addTask } from "@/redux/features/kanban-slice";
 
 import { ShowStatus, SubTaskInput } from "../Animation/Transition";
 
@@ -21,14 +23,20 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
     dispatch(toggleNav({ showNav: false }));
   };
 
+  // get the columns keys needed for displaying in the status dropdown
   const list = data.sideNavList;
-
-  // get the columns keys
   const [activeBoard] = list.filter((li) => li.isActive);
   const boardColumns = Object.keys(activeBoard.columns);
-
   const [showStatus, setShowStatus] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>(boardColumns[0]);
 
+  // responsible for changing the value of the dropdown
+  const changeStatusHandler = function (colVal: string): void {
+    setStatus(colVal);
+  };
+
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [subtasks, setSubtasks] = useState<string[]>([""]);
 
   const addSubtask = () => {
@@ -49,15 +57,30 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
     setSubtasks(updatedSubtasks);
   };
 
-  const [status, setStatue] = useState<string>(boardColumns[0]);
-  const changeStatusHandler = function (colVal: string): void {
-    setStatue(colVal);
-  };
-
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(subtasks);
+    const desc = description.trim() || "No description";
+
+    // Checking if there is any empty items in the subTaks Input
+    const subTasks = subtasks
+      .filter((li) => li.trim())
+      .map((li) => ({
+        subTitle: li.trim(),
+        isComplete: false,
+      }));
+
+    dispatch(
+      addTask({
+        data: {
+          itemId: uuidv4(),
+          itemTitle: title,
+          description: desc,
+          subTasks,
+        },
+        column: status,
+      })
+    );
   };
 
   return (
@@ -78,12 +101,21 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
         <form autoComplete="off" onSubmit={handlerSubmit}>
           <div>
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" required />
+            <input
+              type="text"
+              id="title"
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
           </div>
 
           <div>
             <label htmlFor="description">Description</label>
-            <textarea id="description" rows={4}></textarea>
+            <textarea
+              id="description"
+              rows={4}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
           </div>
 
           <div className={style.addtask__subtask}>

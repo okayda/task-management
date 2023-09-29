@@ -61,8 +61,8 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                         {column.items.map((item: any, index: any) => {
                           return (
                             <Draggable
-                              key={item.id}
-                              draggableId={item.id}
+                              key={item.itemId}
+                              draggableId={item.itemId}
                               index={index}
                             >
                               {(provided, _) => {
@@ -73,7 +73,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                   >
-                                    {item.title}
+                                    {item.itemTitle}
                                   </div>
                                 );
                               }}
