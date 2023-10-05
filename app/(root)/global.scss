@@ -16,17 +16,29 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-// disabling the copy highlight background color
-::selection {
-  color: none;
-  background: none;
-}
-
+// disabling the copy Highlights background color
+::selection,
 ::-moz-selection {
   color: none;
   background: none;
 }
 
+/**************************************/
+
+// main scroll bar
+::-webkit-scrollbar {
+  height: 0.6rem;
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(#000, 0.25);
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
+  background-color: $darkBlue;
+}
 /**************************************/
 
 html,

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AnimatePresence } from "framer-motion";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { getData, sendData } from "@/redux/features/kanban-action";
@@ -17,7 +18,7 @@ let initialExecute = true;
 export default function page() {
   const dispatch = useDispatch<AppDispatch>();
 
-  // true = Dark theme, false = Light theme
+  // true = Dark theme, false = Light theme ( obj.isDarkTheme = false )
   const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
   const currentTheme = !theme ? "light" : "dark";
 
@@ -41,24 +42,28 @@ export default function page() {
   }, [kanbanData]);
 
   return (
-    <>
-      <div className={`main-container ${currentTheme}`}>
-        <SideNav data={kanbanData} dispatch={dispatch} />
+    <ScrollContainer
+      className={`main-container ${currentTheme}`}
+      vertical={false}
+      hideScrollbars={false}
+      ignoreElements={".card-item"}
+    >
+      <SideNav data={kanbanData} dispatch={dispatch} />
 
-        <AnimatePresence>
-          {showAddTask && <AddTask data={kanbanData} dispatch={dispatch} />}
+      {/* // Modals */}
+      <AnimatePresence>
+        {showAddTask && <AddTask data={kanbanData} dispatch={dispatch} />}
 
-          {showTaskItem.display && (
-            <TaskItem
-              data={kanbanData}
-              dispatch={dispatch}
-              targetTaskId={showTaskItem.targetTaskId}
-            />
-          )}
-        </AnimatePresence>
+        {showTaskItem.display && (
+          <TaskItem
+            data={kanbanData}
+            dispatch={dispatch}
+            targetTaskId={showTaskItem.targetTaskId}
+          />
+        )}
+      </AnimatePresence>
 
-        <Drag data={kanbanData} dispatch={dispatch} />
-      </div>
-    </>
+      <Drag data={kanbanData} dispatch={dispatch} />
+    </ScrollContainer>
   );
 }

@@ -77,6 +77,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                         {column.items.map((item: any, index: any) => {
                           return (
                             <div
+                              className="card-item"
                               onClick={() => openModalTask(item.itemId)}
                               key={item.itemId}
                             >
