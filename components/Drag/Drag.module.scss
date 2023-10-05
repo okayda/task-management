@@ -17,6 +17,7 @@
   }
 
   &__title {
+    color: $mediumGray;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -54,13 +55,27 @@
   }
 
   &__item {
+    transition: $transition;
     font-size: 15px;
     border: 6px;
-    background-color: #fff;
-    color: #000;
+    background-color: theme(main);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 4px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     padding: 24px 16px;
     border-radius: 9px;
     margin-bottom: 24px;
+
+    h4 {
+      color: theme(title);
+      font-weight: 400;
+      margin-bottom: rem(10px);
+    }
+
+    p {
+      color: $mediumGray;
+      font-weight: 700;
+      font-size: rem(12px);
+    }
   }
 
   &__emptyColumn {

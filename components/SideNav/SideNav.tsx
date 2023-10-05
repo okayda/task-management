@@ -22,8 +22,8 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
   const { isDarkTheme: theme, sideNavList: list } = data;
 
-  const changeBoardHandler = function (id: string): any {
-    dispatch(changeBoard({ id }));
+  const changeBoardHandler = function (id: string): void {
+    dispatch(changeBoard({ titleId: id }));
   };
 
   const handlerTheme = function (): void {

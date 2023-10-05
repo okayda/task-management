@@ -1,22 +1,22 @@
-import { Items } from "@/constants/types";
+import { Item } from "@/constants/types";
 
 interface DataObj {
-  [key: string]: { name: string; items: Items };
+  [key: string]: { name: string; items: Item };
 }
 
 interface Obj {
-  [key: string]: Items[] | {};
+  [key: string]: Item[] | {};
 }
 
 interface ColumnsObj {
   [key: string]: {
     name: string;
-    items: Items[];
+    items: Item[];
   };
 }
 
 // removing the: name & items and assigning only the Array values
-// {name: 'doing', items: [{}, {}]}
+// i.e {name: 'doing', items: [{}, {}]}
 const formatData = function (dataObj: DataObj): Obj {
   const obj: Obj = {};
 

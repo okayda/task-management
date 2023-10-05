@@ -5,11 +5,11 @@ import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 
-import { ComponentProps } from "@/constants/types";
+import { ComponentProps, List } from "@/constants/types";
 
 import { WrappedOverlay } from "../OverlayType/OverlayType";
 
-import { toggleNav } from "@/redux/features/display-slice";
+import { toggleAddTask } from "@/redux/features/display-slice";
 import { addTask } from "@/redux/features/kanban-slice";
 
 import { ShowStatus, SubTaskInput } from "../Animation/Transition";
@@ -20,19 +20,22 @@ import style from "./AddTask.module.scss";
 
 export default function AddTask({ data, dispatch }: ComponentProps) {
   const closeNav = function (): void {
-    dispatch(toggleNav({ showNav: false }));
+    dispatch(toggleAddTask({ showAddTask: false }));
   };
 
-  // get the columns keys needed for displaying in the status dropdown
   const list = data.sideNavList;
-  const [activeBoard] = list.filter((li) => li.isActive);
-  const boardColumns = Object.keys(activeBoard.columns);
-  const [showStatus, setShowStatus] = useState<boolean>(false);
+  const currentBoard: List | undefined = list.find((li) => li.isActive);
+
+  // get the columns keys needed for displaying in the status dropdown
+  let boardColumns: string[] = [];
+  if (currentBoard) boardColumns = Object.keys(currentBoard.columns);
   const [status, setStatus] = useState<string>(boardColumns[0]);
 
-  // responsible for changing the value of the dropdown
-  const changeStatusHandler = function (colVal: string): void {
-    setStatus(colVal);
+  const [showStatus, setShowStatus] = useState<boolean>(false);
+
+  // responsible for changing the value of the dropdown status
+  const changeStatusHandler = function (newStatus: string): void {
+    setStatus(newStatus);
   };
 
   const [title, setTitle] = useState<string>("");
@@ -72,13 +75,13 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
 
     dispatch(
       addTask({
-        data: {
+        formData: {
           itemId: uuidv4(),
           itemTitle: title,
           description: desc,
           subTasks,
         },
-        column: status,
+        targetColumn: status,
       })
     );
   };
@@ -144,7 +147,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
             </button>
           </div>
 
-          <div className={style.addtask__statusContainer}>
+          <div>
             <span>Status</span>
 
             <ShowStatus
@@ -153,8 +156,6 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
               setShown={setShowStatus}
               status={status}
               changeStatusHandler={changeStatusHandler}
-              classStatusBtn={style.addtask__statusBtn}
-              classStatuList={style.addtask__statusList}
             />
           </div>
 

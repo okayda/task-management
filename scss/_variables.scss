@@ -7,6 +7,8 @@ $z-2: 15;
 $z-3: 20;
 // modal
 $z-4: 25;
+// modal inside of modal
+$z-5: 30;
 
 // Used only for large area of background-color
 $transition: background-color 0.3s linear;
@@ -35,6 +37,8 @@ $light: (
   main: $white,
   addBtn: $veryLightBlue,
   board: $white,
+  checked: rgba(0, 0, 0, 0.5),
+  ellipsis: $borderLight,
 );
 
 $dark: (
@@ -47,6 +51,8 @@ $dark: (
   main: $darkGray,
   addBtn: $white,
   board: $veryDarkGray,
+  checked: rgba(255, 255, 255, 0.5),
+  ellipsis: $veryDarkGray,
 );
 
 .dark {

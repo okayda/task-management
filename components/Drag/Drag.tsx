@@ -2,6 +2,7 @@
 import React from "react";
 import { ComponentProps } from "@/constants/types";
 import { updatePosition } from "@/redux/features/kanban-slice";
+import { toggleModalTask } from "@/redux/features/display-slice";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { onDragEnd } from "./DragHandler";
@@ -34,6 +35,17 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     dispatch(updatePosition({ targetId: targetDrag, newPosition }));
   };
 
+  const openModalTask = function (itemId: string): void {
+    dispatch(
+      toggleModalTask({
+        showModalTask: {
+          display: true,
+          targetTaskId: itemId,
+        },
+      })
+    );
+  };
+
   return (
     <div className={style.drag}>
       <DragDropContext
@@ -41,13 +53,17 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
       >
         {Object.entries(columnsObj).map(
           ([columnId, column]: [string, any], index) => {
+            const length = column.items.length;
+
             return (
               <div key={index}>
                 <div className={style.drag__title}>
                   <span className={style["drag__title--" + (index + 1)]}>
                     &nbsp;
                   </span>
-                  <h3>{column.name}</h3>
+                  <h3>
+                    {column.name}({length})
+                  </h3>
                 </div>
 
                 <Droppable droppableId={columnId} key={columnId}>
@@ -60,24 +76,32 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                       >
                         {column.items.map((item: any, index: any) => {
                           return (
-                            <Draggable
+                            <div
+                              onClick={() => openModalTask(item.itemId)}
                               key={item.itemId}
-                              draggableId={item.itemId}
-                              index={index}
                             >
-                              {(provided, _) => {
-                                return (
-                                  <div
-                                    className={style.drag__item}
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                  >
-                                    {item.itemTitle}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
+                              <Draggable
+                                draggableId={item.itemId}
+                                index={index}
+                              >
+                                {(provided, _) => {
+                                  return (
+                                    <div
+                                      className={style.drag__item}
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                    >
+                                      <h4>{item.itemTitle}</h4>
+
+                                      <p>
+                                        0 of {item.subTasks.length} subtasks
+                                      </p>
+                                    </div>
+                                  );
+                                }}
+                              </Draggable>
+                            </div>
                           );
                         })}
                         {provided.placeholder}

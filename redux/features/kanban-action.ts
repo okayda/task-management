@@ -1,5 +1,5 @@
 import { AppDispatch } from "@/redux/store";
-import { TypeKanban, Items } from "@/constants/types";
+import { TypeKanban, Item } from "@/constants/types";
 import { replaceKanban } from "./kanban-slice";
 import { v4 as uuidv4 } from "uuid";
 import { dataList } from "@/constants/dataList";
@@ -23,7 +23,7 @@ export const getData = function () {
 
           // initializing itemId for each item in the drag board
           for (const [key, _] of Object.entries(li.columns)) {
-            li.columns[key].forEach((el: Items) => (el.itemId = uuidv4()));
+            li.columns[key].forEach((el: Item) => (el.itemId = uuidv4()));
           }
 
           return li;

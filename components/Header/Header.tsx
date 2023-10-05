@@ -12,7 +12,7 @@ import ellipImg from "../../public/assets/icon-vertical-ellipsis.svg";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { toggleNav } from "@/redux/features/display-slice";
+import { toggleAddTask } from "@/redux/features/display-slice";
 
 export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +26,7 @@ export default function Header() {
   // only for mobile layout and only way to show the mobile side nav list modal
 
   const handlerNewTask = function (): void {
-    dispatch(toggleNav({ showNav: true }));
+    dispatch(toggleAddTask({ showAddTask: true }));
   };
 
   return (

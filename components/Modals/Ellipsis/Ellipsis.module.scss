@@ -1,0 +1,43 @@
+@use "../../../scss/index.scss" as *;
+
+.ellipsis {
+  position: absolute;
+  top: 36%;
+  right: -20%;
+  z-index: $z-5;
+  transform: translate(20%, 36%);
+
+  padding: rem(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  border-radius: 9px;
+  width: rem(200px);
+  background-color: theme(board);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+  @include mobile() {
+    top: 38%;
+    right: 0;
+    transform: translateY(38%);
+  }
+
+  button {
+    transition: $transitionBtn;
+    text-align: left;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__edit {
+    color: $mediumGray;
+  }
+
+  &__delete {
+    color: #ea5555;
+  }
+}

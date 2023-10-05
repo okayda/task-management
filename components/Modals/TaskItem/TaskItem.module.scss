@@ -1,0 +1,115 @@
+@use "../../../scss/index.scss" as *;
+
+.modaltask {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: $z-4;
+  padding: rem(32px);
+  width: 100%;
+  max-width: rem(480px);
+  background-color: theme(main);
+  border-radius: 9px;
+
+  @include mobile() {
+    border-radius: 0;
+    padding: rem(42px) rem(32px);
+    height: 100vh;
+    top: 0;
+    transform: translate(-50%, 0);
+  }
+
+  &__close {
+    display: none;
+    line-height: 0;
+
+    @include mobile() {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    button {
+      padding: 8px;
+      background-color: rgba(8, 8, 8, 0.1);
+      border-top-left-radius: 9px;
+      border-bottom-left-radius: 9px;
+    }
+  }
+
+  span {
+    display: block;
+    font-size: rem(13px);
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: theme(subTitle);
+  }
+
+  &__title {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: rem(16px);
+    margin-bottom: rem(20px);
+
+    h2 {
+      font-size: rem(18px);
+      color: theme(title);
+    }
+
+    &--ellipsis {
+      padding: 8px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: theme(ellipsis);
+      }
+    }
+  }
+
+  p {
+    font-size: rem(12.5px);
+    margin-bottom: rem(20px);
+    color: $mediumGray;
+    font-weight: 700;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background-color: theme(main);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  }
+
+  &__subtasks {
+    label {
+      transition: $transitionBtn;
+      display: flex;
+      align-items: center;
+      gap: rem(16px);
+      padding: 0.75rem;
+      color: theme(checked);
+
+      background-color: theme(switch);
+      border-radius: 8px;
+      margin-bottom: 5px;
+      font-size: rem(12px);
+      font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(99, 95, 199, 0.25);
+      }
+    }
+    input[type="checkbox"] {
+      width: 14.5px;
+      height: 14.5px;
+      accent-color: $darkBlue;
+    }
+
+    &--checked {
+      text-decoration: line-through !important;
+    }
+  }
+}
