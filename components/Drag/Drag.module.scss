@@ -108,6 +108,12 @@
       font-weight: 700;
 
       &:hover {
+        background: linear-gradient(
+          to bottom,
+          rgba(121, 132, 147, 0.4),
+          rgba(130, 143, 163, 0.3),
+          rgba(130, 143, 163, 0)
+        );
         color: #635fc7;
       }
     }

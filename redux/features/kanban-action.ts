@@ -1,5 +1,5 @@
 import { AppDispatch } from "@/redux/store";
-import { TypeKanban, Item } from "@/constants/types";
+import { TypeKanban, Item } from "@/types";
 import { replaceKanban } from "./kanban-slice";
 import { v4 as uuidv4 } from "uuid";
 import { dataList } from "@/constants/dataList";

@@ -1,4 +1,4 @@
-// Was used in add task form component
+// Used in DropStatus Component
 export const ShowStatusAnimated = {
   enter: {
     scale: 1,
@@ -22,6 +22,7 @@ export const ShowStatusAnimated = {
   },
 };
 
+// Used in SubInput Component
 export const ScaleAnimated = {
   hidden: {
     scale: 0,
@@ -45,8 +46,8 @@ export const ScaleAnimated = {
   },
 };
 
-// Used in overlay component
-export const Fade = {
+// Used in Overlay Component
+export const FadeAnimated = {
   hidden: {
     opacity: 0,
   },
@@ -63,5 +64,13 @@ export const Fade = {
     transition: {
       duration: 0.2,
     },
+  },
+};
+
+// Used in all forms & modals with buttons
+export const ClickAnimated = {
+  scale: [1, 1.25, 1],
+  transition: {
+    duration: 0.3,
   },
 };

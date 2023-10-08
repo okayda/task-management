@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TypeKanban, Item, List } from "@/constants/types";
+import { TypeKanban, Item, List } from "@/types";
 
 const initialState = {
   data: {

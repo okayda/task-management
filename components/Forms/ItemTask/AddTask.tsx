@@ -5,21 +5,22 @@ import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 
-import { ComponentProps, List } from "@/constants/types";
+import { ComponentProps, List } from "@/types";
 
-import { WrappedOverlay } from "../OverlayType/OverlayType";
+import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 
 import { toggleAddTask } from "@/redux/features/display-slice";
 import { addTask } from "@/redux/features/kanban-slice";
 
-import { ShowStatus, SubTaskInput } from "../Animation/Transition";
+import SubInput from "@/components/Animation/Standard/SubInput";
+import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
+import Button from "../../Animation/Standard/Button";
 
-import remove from "../../public/assets/icon-cross.svg";
-
+import remove from "../../../public/assets/icon-cross.svg";
 import style from "./AddTask.module.scss";
 
 export default function AddTask({ data, dispatch }: ComponentProps) {
-  const closeNav = function (): void {
+  const closeAddTask = function (): void {
     dispatch(toggleAddTask({ showAddTask: false }));
   };
 
@@ -42,14 +43,8 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   const [description, setDescription] = useState<string>("");
   const [subtasks, setSubtasks] = useState<string[]>([""]);
 
-  const addSubtask = () => {
+  const addSubtask = function () {
     setSubtasks([...subtasks, ""]);
-  };
-
-  const handleSubtaskChange = (index: number, value: string) => {
-    const updatedSubtasks = [...subtasks];
-    updatedSubtasks[index] = value;
-    setSubtasks(updatedSubtasks);
   };
 
   const removeSubtask = (index: number) => {
@@ -60,12 +55,19 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
     setSubtasks(updatedSubtasks);
   };
 
-  const handlerSubmit = (e: React.FormEvent) => {
+  const handleSubtaskChange = (index: number, value: string) => {
+    const updatedSubtasks = [...subtasks];
+    updatedSubtasks[index] = value;
+    setSubtasks(updatedSubtasks);
+  };
+
+  const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
 
     const desc = description.trim() || "No description";
 
     // Checking if there is any empty items in the subTaks Input
+    // If yes will not be included
     const subTasks = subtasks
       .filter((li) => li.trim())
       .map((li) => ({
@@ -87,14 +89,14 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   };
 
   return (
-    <WrappedOverlay onClick={closeNav}>
+    <WrappedOverlay onClose={closeAddTask}>
       <div
         className={style.addtask}
         // Preventing to disappear the AddTask since the overlay is wrapped
         onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
       >
         <div className={style.addtask__close}>
-          <button onClick={closeNav}>
+          <button onClick={closeAddTask}>
             <Image src={remove} alt="" width={15} height={15} />
           </button>
         </div>
@@ -102,7 +104,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
         <h3>Add New Task</h3>
 
         <form autoComplete="off" onSubmit={handlerSubmit}>
-          <div>
+          <div className={style.addtask__title}>
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -112,7 +114,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
             />
           </div>
 
-          <div>
+          <div className={style.addtask__description}>
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
@@ -125,32 +127,31 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
             <span>Subtasks</span>
 
             <AnimatePresence initial={false}>
-              {subtasks.map((subtask, index) => (
-                <div key={index}>
-                  <SubTaskInput
-                    value={subtask}
-                    onChange={(e) => handleSubtaskChange(index, e.target.value)}
-                  />
-                  <button type="button" onClick={() => removeSubtask(index)}>
-                    <Image src={remove} alt="" width={15} height={15} />
-                  </button>
-                </div>
+              {subtasks.map((subtask, i) => (
+                <SubInput
+                  key={i}
+                  className={style["addtask__subtask--input"]}
+                  value={subtask}
+                  onChange={(e) => handleSubtaskChange(i, e.target.value)}
+                  removeSubInput={removeSubtask}
+                  index={i}
+                />
               ))}
             </AnimatePresence>
 
-            <button
+            <Button
               type="button"
               className={style["addtask__subtask--insert"]}
               onClick={addSubtask}
             >
               Add New Subtask
-            </button>
+            </Button>
           </div>
 
-          <div>
+          <div className={style.addtask__status}>
             <span>Status</span>
 
-            <ShowStatus
+            <DropStatus
               columnsKeys={boardColumns}
               shown={showStatus}
               setShown={setShowStatus}
@@ -159,9 +160,9 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
             />
           </div>
 
-          <button type="submit" className={style.addtask__submit}>
+          <Button type="submit" className={style.addtask__submit}>
             Create Task
-          </button>
+          </Button>
         </form>
       </div>
     </WrappedOverlay>

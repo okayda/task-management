@@ -1,4 +1,4 @@
-import { Item } from "@/constants/types";
+import { Item } from "@/types";
 
 interface DataObj {
   [key: string]: { name: string; items: Item };

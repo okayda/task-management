@@ -1,8 +1,11 @@
 "use client";
 import React from "react";
-import { ComponentProps } from "@/constants/types";
+import { ComponentProps } from "@/types";
 import { updatePosition } from "@/redux/features/kanban-slice";
-import { toggleModalTask } from "@/redux/features/display-slice";
+import {
+  toggleModalTask,
+  toggleAddColumn,
+} from "@/redux/features/display-slice";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { onDragEnd } from "./DragHandler";
@@ -42,6 +45,14 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
           display: true,
           targetTaskId: itemId,
         },
+      })
+    );
+  };
+
+  const openAddColumn = function (): void {
+    dispatch(
+      toggleAddColumn({
+        showAddColumn: true,
       })
     );
   };
@@ -118,7 +129,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
       <div className={style.drag__emptyColumn}>
         <div className={style["drag__emptyColumn--title"]}>&nbsp;</div>
-        <button>New Column</button>
+        <button onClick={openAddColumn}>New Column</button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-@use "../../scss/index.scss" as *;
+@use "../../../../scss/index.scss" as *;
 
 .overlay,
-.wrapped-overlay {
+.wrappedOverlay {
   position: fixed;
   z-index: $z-3;
   top: 0;

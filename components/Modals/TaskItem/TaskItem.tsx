@@ -2,11 +2,11 @@ import Image from "next/image";
 import style from "./TaskItem.module.scss";
 
 import { useState } from "react";
-import { ComponentProps, SubTasks, List } from "@/constants/types";
+import { ComponentProps, SubTasks, List } from "@/types";
 
 import { findItem, findCurrentColumns } from "./taskItemMethods";
 
-import { WrappedOverlay } from "../../OverlayType/OverlayType";
+import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 
 import { toggleModalTask } from "@/redux/features/display-slice";
 import {
@@ -14,7 +14,8 @@ import {
   updateStatusItem,
 } from "@/redux/features/kanban-slice";
 
-import { ShowStatus, SubTasksLabel } from "../../Animation/Transition";
+import CheckboxLabel from "@/components/Animation/Standard/CheckboxLabel";
+import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
 
 import Ellipsis from "../Ellipsis/Ellipsis";
 import ellipImg from "../../../public/assets/icon-vertical-ellipsis.svg";
@@ -110,7 +111,7 @@ export default function ModalTask({
   };
 
   return (
-    <WrappedOverlay onClick={closeModalTask}>
+    <WrappedOverlay onClose={closeModalTask}>
       <div
         className={style.modaltask}
         // Preventing to disappear the AddTask since the overlay is wrapped
@@ -146,14 +147,14 @@ export default function ModalTask({
             <ul>
               {subTasks?.map((li: SubTasks, i: number) => (
                 <li key={li.subTitle}>
-                  <SubTasksLabel className={style[toggleCheck(li.isComplete)]}>
+                  <CheckboxLabel className={style[toggleCheck(li.isComplete)]}>
                     <input
                       type="checkbox"
                       checked={li.isComplete}
                       onChange={() => checkboxHandler(i)}
                     />
                     {li.subTitle}
-                  </SubTasksLabel>
+                  </CheckboxLabel>
                 </li>
               ))}
             </ul>
@@ -165,7 +166,7 @@ export default function ModalTask({
         <div>
           <span>Current Status</span>
 
-          <ShowStatus
+          <DropStatus
             columnsKeys={boardColumns}
             shown={showStatus}
             setShown={setShowStatus}

@@ -1,4 +1,4 @@
-import { Item, List } from "@/constants/types";
+import { Item, List } from "@/types";
 
 interface FindProps {
   currentBoard: List | undefined;

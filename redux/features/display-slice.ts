@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   data: {
     showAddTask: false,
+    showAddColumn: false,
 
     // targetTaskId will only change to the valid id
     // if the display turn to "true" basically was used to display the modal
@@ -21,6 +22,10 @@ export const display = createSlice({
       state.data.showAddTask = action.payload.showAddTask;
     },
 
+    toggleAddColumn(state, action) {
+      state.data.showAddColumn = action.payload.showAddColumn;
+    },
+
     toggleModalTask(state, action) {
       state.data.showTaskItem = action.payload.showModalTask;
     },
@@ -29,4 +34,5 @@ export const display = createSlice({
 
 export default display.reducer;
 
-export const { toggleAddTask, toggleModalTask } = display.actions;
+export const { toggleAddTask, toggleAddColumn, toggleModalTask } =
+  display.actions;

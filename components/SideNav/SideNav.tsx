@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { ComponentProps } from "@/constants/types";
+import { ComponentProps } from "@/types";
 
 import Switch from "react-switch";
 import Image from "next/image";

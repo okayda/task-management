@@ -1,4 +1,4 @@
-@use "../../scss/index.scss" as *;
+@use "../../../scss/index.scss" as *;
 
 .addtask {
   position: absolute;
@@ -33,12 +33,6 @@
     margin-bottom: rem(12px);
   }
 
-  form div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: rem(18px);
-  }
-
   &__subtask span,
   &__statusContainer span,
   label {
@@ -68,20 +62,33 @@
     resize: none;
   }
 
-  form &__subtask {
-    div {
+  &__title,
+  &__description,
+  &__status {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: rem(18px);
+  }
+
+  &__subtask {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &--input {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: rem(16px);
-      margin-bottom: rem(18px);
-    }
 
-    input {
-      width: 100%;
+      input {
+        width: 100%;
+      }
     }
 
     &--insert {
+      margin-top: 6px;
+      width: 100%;
       background-color: theme(addBtn);
       padding: rem(8px);
       font-size: rem(13.5px);
