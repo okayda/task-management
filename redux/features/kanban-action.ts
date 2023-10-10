@@ -21,9 +21,13 @@ export const getData = function () {
           // initializing main titleId for specific drag board
           li.titleId = uuidv4();
 
+          // initializing columnId
           // initializing itemId for each item in the drag board
           for (const [key, _] of Object.entries(li.columns)) {
-            li.columns[key].forEach((el: Item) => (el.itemId = uuidv4()));
+            li.columns[key].columnId = uuidv4();
+            li.columns[key].values.forEach(
+              (el: Item) => (el.itemId = uuidv4())
+            );
           }
 
           return li;

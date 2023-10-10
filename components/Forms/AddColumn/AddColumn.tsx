@@ -4,6 +4,8 @@ import { ComponentProps, List } from "@/types";
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import { toggleAddColumn } from "@/redux/features/display-slice";
 
+import { addColumn } from "@/redux/features/kanban-slice";
+
 import SubInput from "@/components/Animation/Standard/SubInput";
 
 import Button from "@/components/Animation/Standard/Button";
@@ -42,6 +44,12 @@ export default function AddColumn({ data, dispatch }: ComponentProps) {
 
   const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
+
+    console.log(subInputs);
+
+    // dispatch(addColumn({
+    //   updatedColumn: subInputs,
+    // }))
   };
 
   return (

@@ -1,22 +1,34 @@
 import { Item } from "@/types";
 
-interface DataObj {
-  [key: string]: { name: string; items: Item };
-}
-
-interface Obj {
-  [key: string]: Item[] | {};
-}
-
-interface ColumnsObj {
+type DataObj = {
   [key: string]: {
     name: string;
-    items: Item[];
+    items: {
+      columnId: string;
+      values: Item[];
+    };
   };
-}
+};
 
-// removing the: name & items and assigning only the Array values
-// i.e {name: 'doing', items: [{}, {}]}
+type Obj = {
+  [key: string]: {
+    columnId: string;
+    values: Item[];
+  };
+};
+
+type ColumnsObj = {
+  [key: string]: {
+    name: string;
+    items: {
+      columnId: string;
+      values: Item[];
+    };
+  };
+};
+
+// raw data {name: name, items: {...}}
+// returning data {columnId: id ,values: data[]}
 const formatData = function (dataObj: DataObj): Obj {
   const obj: Obj = {};
 
@@ -38,29 +50,45 @@ export const onDragEnd = function (
   let obj: Obj = {};
 
   if (source.droppableId !== destination.droppableId) {
+    // from (item column)
     const sourceColumn = columnsObj[source.droppableId];
+    // new (item column)
     const destColumn = columnsObj[destination.droppableId];
-    const sourceItems = [...sourceColumn.items];
-    const destItems = [...destColumn.items];
+
+    const sourceId = sourceColumn.items.columnId;
+    const sourceItems = [...sourceColumn.items.values];
+
+    const destId = destColumn.items.columnId;
+    const destItems = [...destColumn.items.values];
+
     const [removed] = sourceItems.splice(source.index, 1);
+
     destItems.splice(destination.index, 0, removed);
 
     const updatedData = {
       ...columnsObj,
       [source.droppableId]: {
         ...sourceColumn,
-        items: sourceItems,
+        items: {
+          columnId: sourceId,
+          values: sourceItems,
+        },
       },
       [destination.droppableId]: {
         ...destColumn,
-        items: destItems,
+        items: {
+          columnId: destId,
+          values: destItems,
+        },
       },
     };
 
     obj = formatData(updatedData);
   } else {
     const column = columnsObj[source.droppableId];
-    const copiedItems = [...column.items];
+    const copiedId = column.items.columnId;
+    const copiedItems = [...column.items.values];
+
     const [removed] = copiedItems.splice(source.index, 1);
     copiedItems.splice(destination.index, 0, removed);
 
@@ -68,7 +96,10 @@ export const onDragEnd = function (
       ...columnsObj,
       [source.droppableId]: {
         ...column,
-        items: copiedItems,
+        items: {
+          columnId: copiedId,
+          values: copiedItems,
+        },
       },
     };
 

@@ -20,7 +20,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
   let targetDrag: string | null = null;
 
-  // creating columns for displaying the items in the drag
+  // creating columns for displaying the items in the drag board
   data.sideNavList.forEach((li) => {
     if (!li.isActive) return;
 
@@ -64,7 +64,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
       >
         {Object.entries(columnsObj).map(
           ([columnId, column]: [string, any], index) => {
-            const length = column.items.length;
+            const length = column.items.values.length;
 
             return (
               <div key={index}>
@@ -85,7 +85,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
-                        {column.items.map((item: any, index: any) => {
+                        {column.items.values.map((item: any, index: any) => {
                           return (
                             <div
                               className="card-item"

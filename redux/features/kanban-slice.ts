@@ -12,9 +12,18 @@ const initialState = {
         title: "",
         isActive: false,
         columns: {
-          todo: [],
-          doiing: [],
-          done: [],
+          todo: {
+            columnId: "",
+            values: [],
+          },
+          doiing: {
+            columnId: "",
+            values: [],
+          },
+          done: {
+            columnId: "",
+            values: [],
+          },
         },
       },
     ],
@@ -67,7 +76,22 @@ export const kanban = createSlice({
 
       if (!currentBoard) return;
 
-      currentBoard.columns[targetColumn].push(formData);
+      currentBoard.columns[targetColumn].values.push(formData);
+    },
+
+    // AddColumn Component
+    addColumn(state, action) {
+      const updatedColumn = action.payload.updatedColumn;
+
+      const list = state.data.sideNavList;
+      const currentBoard: List | undefined = list.find((li) => li.isActive);
+
+      if (!currentBoard) return;
+
+      // for (const [key, value] of Object.entries(currentBoard.columns)) {
+
+      // }
+      updatedColumn.forEach((el: any, i: number) => {});
     },
 
     // ModalTask Component
@@ -79,7 +103,7 @@ export const kanban = createSlice({
       const currentBoard: List | undefined = list.find((li) => li.isActive);
       const currentTask: Item | undefined = currentBoard?.columns[
         targetColumn
-      ].find((li) => li.itemId === targetTaskId);
+      ].values.find((li) => li.itemId === targetTaskId);
 
       if (!currentTask) return;
 
@@ -99,18 +123,18 @@ export const kanban = createSlice({
       // change item into a different column
       const targetItem: Item | undefined = currentBoard.columns[
         currColumn
-      ].find((item) => item.itemId === targetTaskId);
+      ].values.find((item) => item.itemId === targetTaskId);
 
       if (!targetItem) return;
 
-      currentBoard.columns[newColumn].push(targetItem);
+      currentBoard.columns[newColumn].values.push(targetItem);
 
       //remove item from the previous column
-      const updated = currentBoard.columns[currColumn].filter(
+      const updated = currentBoard.columns[currColumn].values.filter(
         (item) => item.itemId !== targetTaskId
       );
 
-      currentBoard.columns[currColumn] = updated;
+      currentBoard.columns[currColumn].values = updated;
     },
 
     // Drag Component
@@ -144,6 +168,7 @@ export default kanban.reducer;
 export const {
   replaceKanban,
   addTask,
+  addColumn,
   updateSubTasksItem,
   updateStatusItem,
   changeTheme,

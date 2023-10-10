@@ -6,10 +6,17 @@ export const dataList = [
     title: "Platform Launch",
     isActive: true,
     columns: {
-      // same with each (values) itemId at kanban-action.ts
-      todo: data1,
-      doing: data2,
-      done: data3,
+      // same with each (column obj) columnId at kanban-action.ts
+      // same with (values item) itemId at kanban-action.ts
+      todo: {
+        values: data1,
+      },
+      doing: {
+        values: data2,
+      },
+      done: {
+        values: data3,
+      },
     },
   },
 
@@ -18,9 +25,14 @@ export const dataList = [
     title: "Marketing Plan",
     isActive: false,
     columns: {
-      // same with each (values) itemId at kanban-action.ts
-      todo: data4,
-      doing: [],
+      // same with each (column obj) columnId at kanban-action.ts
+      // same with (values item) itemId at kanban-action.ts
+      todo: {
+        values: data4,
+      },
+      doing: {
+        values: [],
+      },
     },
   },
 
@@ -29,10 +41,17 @@ export const dataList = [
     title: "Roadmap",
     isActive: false,
     columns: {
-      // same with each (values) itemId at kanban-action.ts
-      now: data5,
-      next: [],
-      later: [],
+      // same with each (column obj) columnId at kanban-action.ts
+      // same with (values item) itemId at kanban-action.ts
+      now: {
+        values: data5,
+      },
+      next: {
+        values: [],
+      },
+      later: {
+        values: [],
+      },
     },
   },
 ];

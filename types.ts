@@ -14,7 +14,10 @@ export type List = {
   title: string;
   isActive: boolean;
   columns: {
-    [key: string]: Item[];
+    [key: string]: {
+      columnId: string;
+      values: Item[];
+    };
   };
 };
 
