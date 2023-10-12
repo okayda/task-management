@@ -1,14 +1,18 @@
+import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import { ComponentProps, List } from "@/types";
-import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
-import { toggleAddColumn } from "@/redux/features/display-slice";
+import { v4 as uuidv4 } from "uuid";
 
+import { AnimatePresence } from "framer-motion";
+import { ComponentProps, List, KeysColumn } from "@/types";
+
+import { toggleAddColumn } from "@/redux/features/display-slice";
 import { addColumn } from "@/redux/features/kanban-slice";
 
+import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
+import Card from "@/components/Animation/Standard/Card/Card";
 import SubInput from "@/components/Animation/Standard/SubInput";
-
 import Button from "@/components/Animation/Standard/Button";
+
 import style from "./AddColumn.module.scss";
 
 export default function AddColumn({ data, dispatch }: ComponentProps) {
@@ -19,13 +23,29 @@ export default function AddColumn({ data, dispatch }: ComponentProps) {
   const list = data.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
 
-  let keysColumn: string[] | null = null;
-  if (currentBoard) keysColumn = Object.keys(currentBoard?.columns);
+  let keysColumn: KeysColumn[] = [];
 
-  const [subInputs, setInputs] = useState<string[]>(keysColumn || []);
+  // responsible for initializing the existed columns to the subInputs
+  if (!currentBoard) return;
+
+  for (const [key, value] of Object.entries(currentBoard.columns)) {
+    keysColumn.push({
+      columnId: value.columnId,
+      columnName: key,
+      isNew: false,
+    });
+  }
+
+  const [subInputs, setInputs] = useState<KeysColumn[]>(keysColumn || []);
+
+  const columnsLength = subInputs.length;
+  const addColumnBtn = columnsLength >= 5 ? "Only 5 Columns" : "Add New Column";
 
   const addInput = function () {
-    setInputs([...subInputs, ""]);
+    setInputs([
+      ...subInputs,
+      { columnId: uuidv4(), columnName: "", isNew: true },
+    ]);
   };
 
   const removeInput = (index: number) => {
@@ -37,67 +57,76 @@ export default function AddColumn({ data, dispatch }: ComponentProps) {
   };
 
   const handleSubtaskChange = (i: number, value: string) => {
-    const updatedSubtasks = [...subInputs];
-    updatedSubtasks[i] = value;
+    const updatedSubtasks: KeysColumn[] = [...subInputs];
+    updatedSubtasks[i].columnName = value;
     setInputs(updatedSubtasks);
   };
 
   const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
 
-    console.log(subInputs);
-
-    // dispatch(addColumn({
-    //   updatedColumn: subInputs,
-    // }))
+    dispatch(
+      addColumn({
+        newColumn: subInputs,
+      })
+    );
   };
 
   return (
     <WrappedOverlay onClose={closeAddColumn}>
-      <div
-        className={style.addcolumn}
-        // Preventing to disappear the AddTask since the overlay is wrapped
-        onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
-      >
-        <h2>Add New Column</h2>
+      <Card onClose={closeAddColumn}>
+        <div
+          className={style.addcolumn}
+          // Preventing to disappear the AddTask since the overlay is wrapped
+          onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
+        >
+          {/* <div className={style.addcolumn__close}>
+          <button onClick={closeAddColumn}>
+            <Image src={remove} alt="" width={15} height={15} />
+          </button>
+        </div> */}
 
-        <form autoComplete="off" onSubmit={handlerSubmit}>
-          <div className={style.addcolumn__name}>
-            <span>Name</span>
-            <p>Platform Launch</p>
-          </div>
+          <h2>Add New Column</h2>
 
-          <div className={style.addcolumn__subInput}>
-            <span>Columns</span>
+          <form autoComplete="off" onSubmit={handlerSubmit}>
+            <div className={style.addcolumn__name}>
+              <span>Name</span>
+              <p>Platform Launch</p>
+            </div>
 
-            <AnimatePresence initial={false}>
-              {subInputs.map((subtask, i) => (
-                <div key={i}>
-                  <SubInput
-                    className={style["addcolumn__subInput--input"]}
-                    value={subtask}
-                    onChange={(e) => handleSubtaskChange(i, e.target.value)}
-                    removeSubInput={removeInput}
-                    index={i}
-                  />
-                </div>
-              ))}
-            </AnimatePresence>
+            <div className={style.addcolumn__subInput}>
+              <span>Columns</span>
 
-            <Button
-              type="button"
-              className={style["addcolumn__subInput--insert"]}
-              onClick={addInput}
-            >
-              Add New Column
+              <AnimatePresence initial={false}>
+                {subInputs.map((subtask: KeysColumn, i: number) => (
+                  <div key={i}>
+                    <SubInput
+                      className={style["addcolumn__subInput--input"]}
+                      value={subtask.columnName}
+                      onChange={(e) => handleSubtaskChange(i, e.target.value)}
+                      removeSubInput={removeInput}
+                      index={i}
+                    />
+                  </div>
+                ))}
+              </AnimatePresence>
+
+              <Button
+                type="button"
+                className={style["addcolumn__subInput--insert"]}
+                onClick={addInput}
+                disabled={columnsLength >= 5}
+              >
+                {addColumnBtn}
+              </Button>
+            </div>
+
+            <Button type="submit" className={style.addcolumn__submit}>
+              Save Changes
             </Button>
-          </div>
-
-          <Button type="submit" className={style.addcolumn__submit}>
-            Save Changes
-          </Button>
-        </form>
-      </div>
+          </form>
+        </div>
+      </Card>
     </WrappedOverlay>
   );
 }

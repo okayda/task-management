@@ -1,11 +1,13 @@
 import { motion, useAnimation } from "framer-motion";
 import { ClickAnimated } from "../Animation";
 
-// Only used for ModalTask Component
+// Only used for modal TaskItem Component
 export default function CheckboxLabel({
   children,
+  className,
 }: {
   children: React.ReactNode;
+  className: string;
 }) {
   const controls = useAnimation();
 
@@ -15,6 +17,7 @@ export default function CheckboxLabel({
 
   return (
     <motion.label
+      className={className}
       onClick={animatedClick}
       initial={{ scale: 1 }}
       animate={controls}

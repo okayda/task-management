@@ -1,0 +1,36 @@
+@use "../../../../scss/index.scss" as *;
+
+.card {
+  position: relative;
+  z-index: $z-4;
+  padding: rem(32px);
+  width: 100%;
+  max-width: rem(480px);
+  background-color: theme(main);
+  border-radius: 9px;
+
+  @include mobile() {
+    padding: rem(42px) rem(32px);
+    border-radius: 0;
+    height: 100vh;
+  }
+
+  &__close {
+    display: none;
+    line-height: 0;
+
+    @include mobile() {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    button {
+      padding: 8px;
+      background-color: rgba(8, 8, 8, 0.1);
+      border-top-left-radius: 9px;
+      border-bottom-left-radius: 9px;
+    }
+  }
+}

@@ -74,3 +74,22 @@ export const ClickAnimated = {
     duration: 0.3,
   },
 };
+
+// Used in all modals & forms components
+export const OpenAnimated = {
+  hidden: {
+    opacity: 0,
+    scale: 0.3,
+    transition: {
+      duration: 0.15,
+    },
+  },
+
+  enter: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.25,
+    },
+  },
+};

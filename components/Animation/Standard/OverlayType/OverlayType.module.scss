@@ -3,6 +3,9 @@
 .overlay,
 .wrappedOverlay {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: $z-3;
   top: 0;
   left: 0;

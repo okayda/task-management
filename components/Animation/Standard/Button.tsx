@@ -6,6 +6,7 @@ interface ButtonProps {
   type: "button" | "reset" | "submit" | undefined;
   className: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -13,6 +14,7 @@ export default function Button({
   type,
   className,
   onClick,
+  disabled = false,
 }: ButtonProps) {
   const controls = useAnimation();
 
@@ -28,6 +30,7 @@ export default function Button({
       onClick={animatedClick}
       initial={{ scale: 1 }}
       animate={controls}
+      disabled={disabled}
     >
       {children}
     </motion.button>

@@ -7,6 +7,9 @@ import { ComponentProps, SubTasks, List } from "@/types";
 import { findItem, findCurrentColumns } from "./taskItemMethods";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
+import Card from "@/components/Animation/Standard/Card/Card";
+import CheckboxLabel from "@/components/Animation/Standard/CheckboxLabel";
+import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
 
 import { toggleModalTask } from "@/redux/features/display-slice";
 import {
@@ -14,12 +17,8 @@ import {
   updateStatusItem,
 } from "@/redux/features/kanban-slice";
 
-import CheckboxLabel from "@/components/Animation/Standard/CheckboxLabel";
-import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
-
 import Ellipsis from "../Ellipsis/Ellipsis";
 import ellipImg from "../../../public/assets/icon-vertical-ellipsis.svg";
-import remove from "../../../public/assets/icon-cross.svg";
 
 interface ModalTaskProps extends ComponentProps {
   targetTaskId: string | null;
@@ -50,8 +49,12 @@ export default function ModalTask({
     );
   };
 
-  const getItem = findItem({ currentBoard, targetTaskId });
   const getColumn = findCurrentColumns({ currentBoard, targetTaskId });
+  const getItem = findItem({
+    currentBoard,
+    currentColumn: getColumn,
+    targetTaskId,
+  });
 
   let boardColumns: string[] = [];
   let currentColumn: string | null = null;
@@ -112,69 +115,67 @@ export default function ModalTask({
 
   return (
     <WrappedOverlay onClose={closeModalTask}>
-      <div
-        className={style.modaltask}
-        // Preventing to disappear the AddTask since the overlay is wrapped
-        onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
-      >
-        <div className={style.modaltask__close}>
-          <button onClick={closeModalTask}>
-            <Image src={remove} alt="" width={15} height={15} />
-          </button>
+      <Card onClose={closeModalTask}>
+        <div
+          className={style.modaltask}
+          // Preventing to disappear the AddTask since the overlay is wrapped
+          onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
+        >
+          <div className={style.modaltask__title}>
+            <h2>{title}</h2>
+
+            <button
+              onClick={showEllipModal}
+              className={style["modaltask__title--ellipsis"]}
+            >
+              <Image src={ellipImg} alt="" width={5} height={20} />
+            </button>
+
+            {ellip && <Ellipsis />}
+          </div>
+
+          <p>{description}</p>
+
+          <div className={style.modaltask__subtasks}>
+            <span>
+              Subtask ( {completedSubTasks} of {lengthSubTasks} )
+            </span>
+
+            {lengthSubTasks ? (
+              <ul>
+                {subTasks?.map((li: SubTasks, i: number) => (
+                  <li key={li.subTitle}>
+                    <CheckboxLabel
+                      className={style[toggleCheck(li.isComplete)]}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={li.isComplete}
+                        onChange={() => checkboxHandler(i)}
+                      />
+                      {li.subTitle}
+                    </CheckboxLabel>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No subtasks</p>
+            )}
+          </div>
+
+          <div>
+            <span>Current Status</span>
+
+            <DropStatus
+              columnsKeys={boardColumns}
+              shown={showStatus}
+              setShown={setShowStatus}
+              status={status}
+              changeStatusHandler={changeStatusHandler}
+            />
+          </div>
         </div>
-
-        <div className={style.modaltask__title}>
-          <h2>{title}</h2>
-
-          <button
-            onClick={showEllipModal}
-            className={style["modaltask__title--ellipsis"]}
-          >
-            <Image src={ellipImg} alt="" width={5} height={20} />
-          </button>
-
-          {ellip && <Ellipsis />}
-        </div>
-
-        <p>{description}</p>
-
-        <div className={style.modaltask__subtasks}>
-          <span>
-            Subtask ( {completedSubTasks} of {lengthSubTasks} )
-          </span>
-
-          {lengthSubTasks ? (
-            <ul>
-              {subTasks?.map((li: SubTasks, i: number) => (
-                <li key={li.subTitle}>
-                  <CheckboxLabel className={style[toggleCheck(li.isComplete)]}>
-                    <input
-                      type="checkbox"
-                      checked={li.isComplete}
-                      onChange={() => checkboxHandler(i)}
-                    />
-                    {li.subTitle}
-                  </CheckboxLabel>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No subtasks</p>
-          )}
-        </div>
-
-        <div>
-          <span>Current Status</span>
-
-          <DropStatus
-            columnsKeys={boardColumns}
-            shown={showStatus}
-            setShown={setShowStatus}
-            status={status}
-            changeStatusHandler={changeStatusHandler}
-          />
-        </div>
-      </div>
+      </Card>
     </WrappedOverlay>
   );
 }

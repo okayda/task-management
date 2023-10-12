@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TypeKanban, Item, List } from "@/types";
+import { TypeKanban, Item, Column, List, KeysColumn } from "@/types";
 
 const initialState = {
   data: {
@@ -16,7 +16,7 @@ const initialState = {
             columnId: "",
             values: [],
           },
-          doiing: {
+          doing: {
             columnId: "",
             values: [],
           },
@@ -81,17 +81,56 @@ export const kanban = createSlice({
 
     // AddColumn Component
     addColumn(state, action) {
-      const updatedColumn = action.payload.updatedColumn;
+      const newColumn = action.payload.newColumn;
 
       const list = state.data.sideNavList;
       const currentBoard: List | undefined = list.find((li) => li.isActive);
 
       if (!currentBoard) return;
 
-      // for (const [key, value] of Object.entries(currentBoard.columns)) {
+      const existedColumns = currentBoard.columns;
+      const newColumnObj: Column = {};
 
-      // }
-      updatedColumn.forEach((el: any, i: number) => {});
+      newColumn.forEach((column: KeysColumn) => {
+        // these column vals are from the user
+        const targetColumn = column.columnId;
+        const newColumnName = column.columnName;
+        const isNewColumn = column.isNew;
+
+        for (const [currentColumn, value] of Object.entries(existedColumns)) {
+          // if the condition passed the change
+          // to the specific column will gonna happen
+          if (isNewColumn) {
+            newColumnObj[newColumnName] = {
+              columnId: targetColumn,
+              values: [],
+            };
+            return;
+          }
+
+          if (
+            newColumnName === currentColumn &&
+            value.columnId === targetColumn
+          ) {
+            newColumnObj[currentColumn] = {
+              ...value,
+            };
+            return;
+          }
+
+          if (
+            newColumnName !== currentColumn &&
+            value.columnId === targetColumn
+          ) {
+            newColumnObj[newColumnName] = {
+              ...value,
+            };
+            return;
+          }
+        }
+      });
+
+      currentBoard.columns = newColumnObj;
     },
 
     // ModalTask Component
