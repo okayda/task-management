@@ -1,13 +1,14 @@
 @use "../../../scss/index.scss" as *;
 
-.addColumn {
+.addBoardDrag {
   h2 {
     color: theme(title);
     font-size: rem(18px);
     margin-bottom: rem(16px);
   }
 
-  span {
+  span,
+  label {
     display: block;
     margin-bottom: 8px;
     font-weight: 700;
@@ -16,16 +17,27 @@
     font-size: rem(12px);
   }
 
+  input {
+    transition: border 0.3s;
+
+    &:focus {
+      outline: none;
+      border: 2px solid $darkBlue;
+    }
+  }
+
   &__name {
+    width: 100%;
     margin-bottom: rem(16px);
 
-    p {
-      opacity: 0.3;
+    input {
+      background-color: transparent;
+      width: 100%;
       color: theme(title);
       border-radius: 4px;
       font-size: rem(13px);
+      padding: 6px rem(12px);
       border: 2px solid rgba(130, 143, 163, 0.4);
-      padding: 8px rem(12px);
     }
   }
 

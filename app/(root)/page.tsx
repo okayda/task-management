@@ -9,8 +9,9 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { getData, sendData } from "@/redux/features/kanban-action";
 
 import SideNav from "@/components/SideNav/SideNav";
-import AddTask from "@/components/Forms/ItemTask/AddTask";
-import AddColumn from "@/components/Forms/AddColumn/AddColumn";
+import AddTask from "@/components/Forms/AddTask/AddTask";
+import AddColumnBoard from "@/components/Forms/AddColumn/AddColumn";
+import AddBoardDrag from "@/components/Forms/AddBoardDrag/AddBoardDrag";
 import Drag from "@/components/Drag/Drag";
 import TaskItem from "@/components/Modals/TaskItem/TaskItem";
 
@@ -25,9 +26,8 @@ export default function page() {
 
   const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
 
-  const { showAddTask, showAddColumn, showTaskItem } = useAppSelector(
-    (state) => state.displayReducer.data
-  );
+  const { showAddTask, showAddColumn, showAddBoardDrag, showTaskItem } =
+    useAppSelector((state) => state.displayReducer.data);
 
   useEffect(() => {
     if (initialExecute) {
@@ -35,27 +35,33 @@ export default function page() {
       dispatch(getData());
       initialExecute = false;
 
-      // prevent send the initial state to the localStorage
+      // preventing to send the initial state to the localStorage
       return;
     }
 
     dispatch(sendData(kanbanData));
   }, [kanbanData]);
 
+  const props = {
+    data: kanbanData,
+    dispatch: dispatch,
+  };
+
   return (
     <div className={`main-container ${currentTheme}`}>
-      {/* Modals */}
       <AnimatePresence>
-        {showAddTask && <AddTask data={kanbanData} dispatch={dispatch} />}
+        {/* Form */}
+        {showAddTask && <AddTask {...props} />}
 
-        {showAddColumn && <AddColumn data={kanbanData} dispatch={dispatch} />}
+        {/* Form */}
+        {showAddColumn && <AddColumnBoard {...props} />}
 
+        {/* Form */}
+        {showAddBoardDrag && <AddBoardDrag {...props} />}
+
+        {/* Modal */}
         {showTaskItem.display && (
-          <TaskItem
-            data={kanbanData}
-            dispatch={dispatch}
-            targetTaskId={showTaskItem.targetTaskId}
-          />
+          <TaskItem {...props} targetTaskId={showTaskItem.targetTaskId} />
         )}
       </AnimatePresence>
 
@@ -65,9 +71,9 @@ export default function page() {
         hideScrollbars={false}
         ignoreElements={".card-item"}
       >
-        <SideNav data={kanbanData} dispatch={dispatch} />
+        <SideNav {...props} />
 
-        <Drag data={kanbanData} dispatch={dispatch} />
+        <Drag {...props} />
       </ScrollContainer>
     </div>
   );

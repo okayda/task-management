@@ -6,6 +6,9 @@ import Switch from "react-switch";
 import Image from "next/image";
 import style from "./SideNav.module.scss";
 
+import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
+import { toggleAddBoardDrag } from "@/redux/features/display-slice";
+
 import boardWhite from "../../public/assets/icon-board-white.svg";
 import boardBlue from "../../public/assets/icon-board-blue.svg";
 import boardGray from "../../public/assets/icon-board-gray.svg";
@@ -14,7 +17,9 @@ import dark from "../../public/assets/icon-dark-theme.svg";
 import light from "../../public/assets/icon-light-theme.svg";
 import hideSide from "../../public/assets/icon-hide-sidebar.svg";
 
-import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
+const alterIcn = function (isActive: boolean): string {
+  return isActive ? boardWhite : boardGray;
+};
 
 export default React.memo(({ data, dispatch }: ComponentProps) => {
   // id is not valid
@@ -26,12 +31,12 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     dispatch(changeBoard({ titleId: id }));
   };
 
-  const handlerTheme = function (): void {
-    dispatch(changeTheme({ theme: !theme }));
+  const openAddColumnBoard = function (): void {
+    dispatch(toggleAddBoardDrag({ showAddBoardDrag: true }));
   };
 
-  const alterIcn = function (isActive: boolean): string {
-    return isActive ? boardWhite : boardGray;
+  const handlerTheme = function (): void {
+    dispatch(changeTheme({ theme: !theme }));
   };
 
   return (
@@ -68,7 +73,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
               })}
 
               <li className={style.createBoard}>
-                <button>
+                <button onClick={openAddColumnBoard}>
                   <Image src={boardBlue} alt="" width={16} height={16} />
 
                   <div>

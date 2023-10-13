@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { AnimatePresence } from "framer-motion";
-import { ComponentProps, List, KeysColumn } from "@/types";
+import { ComponentProps, List, AddColumns } from "@/types";
 
 import { toggleAddColumn } from "@/redux/features/display-slice";
 import { addColumn } from "@/redux/features/kanban-slice";
@@ -15,95 +14,91 @@ import Button from "@/components/Animation/Standard/Button";
 
 import style from "./AddColumn.module.scss";
 
-export default function AddColumn({ data, dispatch }: ComponentProps) {
-  const closeAddColumn = function (): void {
+export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
+  const closeAddColumnBoard = function (): void {
     dispatch(toggleAddColumn({ showAddColumn: false }));
   };
+
+  const addColumns: AddColumns[] = [];
 
   const list = data.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
 
-  let keysColumn: KeysColumn[] = [];
-
-  // responsible for initializing the existed columns to the subInputs
+  // responsible for initializing the existed columns to the addInputs
   if (!currentBoard) return;
 
   for (const [key, value] of Object.entries(currentBoard.columns)) {
-    keysColumn.push({
+    addColumns.push({
       columnId: value.columnId,
       columnName: key,
       isNew: false,
     });
   }
+  // ******************************
 
-  const [subInputs, setInputs] = useState<KeysColumn[]>(keysColumn || []);
+  const [addInputs, setAddInputs] = useState<AddColumns[]>(addColumns);
 
-  const columnsLength = subInputs.length;
-  const addColumnBtn = columnsLength >= 5 ? "Only 5 Columns" : "Add New Column";
+  const columnsLength: number = addInputs.length;
+  const addColumnBtn: string =
+    columnsLength >= 5 ? "Only 5 Columns" : "Add New Column";
 
-  const addInput = function () {
-    setInputs([
-      ...subInputs,
+  const addInput = function (): void {
+    setAddInputs([
+      ...addInputs,
       { columnId: uuidv4(), columnName: "", isNew: true },
     ]);
   };
 
-  const removeInput = (index: number) => {
-    if (subInputs.length === 1) return;
+  const removeInput = function (index: number): void {
+    if (addInputs.length === 1) return;
 
-    const updatedSubtasks = [...subInputs];
-    updatedSubtasks.splice(index, 1);
-    setInputs(updatedSubtasks);
+    const updatedAddInputs = [...addInputs];
+    updatedAddInputs.splice(index, 1);
+    setAddInputs(updatedAddInputs);
   };
 
-  const handleSubtaskChange = (i: number, value: string) => {
-    const updatedSubtasks: KeysColumn[] = [...subInputs];
-    updatedSubtasks[i].columnName = value;
-    setInputs(updatedSubtasks);
+  const handlerSubInputChange = function (i: number, value: string): void {
+    const updatedAddInputs: AddColumns[] = [...addInputs];
+    updatedAddInputs[i].columnName = value;
+    setAddInputs(updatedAddInputs);
   };
 
-  const handlerSubmit = function (e: React.FormEvent) {
+  const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
 
     dispatch(
       addColumn({
-        newColumn: subInputs,
+        newColumn: addInputs,
       })
     );
   };
 
   return (
-    <WrappedOverlay onClose={closeAddColumn}>
-      <Card onClose={closeAddColumn}>
+    <WrappedOverlay onClose={closeAddColumnBoard}>
+      <Card onClose={closeAddColumnBoard}>
         <div
-          className={style.addcolumn}
+          className={style.addColumn}
           // Preventing to disappear the AddTask since the overlay is wrapped
           onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
         >
-          {/* <div className={style.addcolumn__close}>
-          <button onClick={closeAddColumn}>
-            <Image src={remove} alt="" width={15} height={15} />
-          </button>
-        </div> */}
-
           <h2>Add New Column</h2>
 
           <form autoComplete="off" onSubmit={handlerSubmit}>
-            <div className={style.addcolumn__name}>
+            <div className={style.addColumn__name}>
               <span>Name</span>
               <p>Platform Launch</p>
             </div>
 
-            <div className={style.addcolumn__subInput}>
+            <div className={style.addColumn__subInput}>
               <span>Columns</span>
 
               <AnimatePresence initial={false}>
-                {subInputs.map((subtask: KeysColumn, i: number) => (
+                {addInputs.map((subtask: AddColumns, i: number) => (
                   <div key={i}>
                     <SubInput
-                      className={style["addcolumn__subInput--input"]}
+                      className={style["addColumn__subInput--input"]}
                       value={subtask.columnName}
-                      onChange={(e) => handleSubtaskChange(i, e.target.value)}
+                      onChange={(e) => handlerSubInputChange(i, e.target.value)}
                       removeSubInput={removeInput}
                       index={i}
                     />
@@ -113,7 +108,7 @@ export default function AddColumn({ data, dispatch }: ComponentProps) {
 
               <Button
                 type="button"
-                className={style["addcolumn__subInput--insert"]}
+                className={style["addColumn__subInput--insert"]}
                 onClick={addInput}
                 disabled={columnsLength >= 5}
               >
@@ -121,7 +116,7 @@ export default function AddColumn({ data, dispatch }: ComponentProps) {
               </Button>
             </div>
 
-            <Button type="submit" className={style.addcolumn__submit}>
+            <Button type="submit" className={style.addColumn__submit}>
               Save Changes
             </Button>
           </form>

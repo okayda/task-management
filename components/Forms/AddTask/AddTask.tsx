@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,7 +16,6 @@ import { addTask } from "@/redux/features/kanban-slice";
 
 import Button from "../../Animation/Standard/Button";
 
-import remove from "../../../public/assets/icon-cross.svg";
 import style from "./AddTask.module.scss";
 
 export default function AddTask({ data, dispatch }: ComponentProps) {

@@ -4,6 +4,7 @@ const initialState = {
   data: {
     showAddTask: false,
     showAddColumn: false,
+    showAddBoardDrag: false,
 
     // targetTaskId will only change to the valid id
     // if the display turn to "true" basically was used to display the modal
@@ -26,6 +27,10 @@ export const display = createSlice({
       state.data.showAddColumn = action.payload.showAddColumn;
     },
 
+    toggleAddBoardDrag(state, action) {
+      state.data.showAddBoardDrag = action.payload.showAddBoardDrag;
+    },
+
     toggleModalTask(state, action) {
       state.data.showTaskItem = action.payload.showModalTask;
     },
@@ -34,5 +39,9 @@ export const display = createSlice({
 
 export default display.reducer;
 
-export const { toggleAddTask, toggleAddColumn, toggleModalTask } =
-  display.actions;
+export const {
+  toggleAddTask,
+  toggleAddColumn,
+  toggleAddBoardDrag,
+  toggleModalTask,
+} = display.actions;

@@ -9,13 +9,6 @@ export type Item = {
   subTasks: SubTasks[];
 };
 
-// Only used in AddColumn Component & AddColumn action at kanban-action.ts
-export type KeysColumn = {
-  columnId: string;
-  columnName: string;
-  isNew: boolean;
-};
-
 export type Column = {
   [key: string]: {
     columnId: string;
@@ -40,4 +33,16 @@ export type TypeKanban = {
 export type ComponentProps = {
   data: TypeKanban;
   dispatch: AppDispatch;
+};
+
+export type BoardColumns = {
+  columnId: string;
+  columnName: string;
+};
+
+// Only used in AddColumn Component & AddColumn action at kanban-action.ts
+export type AddColumns = {
+  columnId: string;
+  columnName: string;
+  isNew: boolean;
 };
