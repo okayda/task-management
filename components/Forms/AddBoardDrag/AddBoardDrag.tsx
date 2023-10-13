@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { AnimatePresence } from "framer-motion";
 import { ComponentProps, BoardColumns } from "@/types";
 
 import { toggleAddBoardDrag } from "@/redux/features/display-slice";
+import { addBoardDrag } from "@/redux/features/kanban-slice";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
@@ -24,7 +25,7 @@ export default function AddBoardDrag({ data, dispatch }: ComponentProps) {
       columnName: "",
     },
   ];
-
+  const [boardName, setBoardName] = useState("");
   const [boardInputs, setBoardInputs] = useState<BoardColumns[]>(boardColumns);
 
   const columnsLength: number = boardInputs.length;
@@ -43,14 +44,26 @@ export default function AddBoardDrag({ data, dispatch }: ComponentProps) {
     setBoardInputs(updatedBoardInputs);
   };
 
+  const handlerBoardNameChange = function (e: ChangeEvent<HTMLInputElement>) {
+    setBoardName(e.target.value.trim());
+  };
+
   const handlerSubInputChange = function (i: number, value: string): void {
     const updatedBoardInputs: BoardColumns[] = [...boardInputs];
-    updatedBoardInputs[i].columnName = value;
+    updatedBoardInputs[i].columnName = value.trim();
     setBoardInputs(updatedBoardInputs);
   };
 
   const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
+
+    dispatch(
+      addBoardDrag({
+        newBoardId: uuidv4(),
+        newBoardName: boardName,
+        newBoardColumns: boardInputs,
+      })
+    );
   };
 
   return (
@@ -66,7 +79,13 @@ export default function AddBoardDrag({ data, dispatch }: ComponentProps) {
           <form autoComplete="off" onSubmit={handlerSubmit}>
             <div className={style.addBoardDrag__name}>
               <label htmlFor="boardName">Name</label>
-              <input type="text" name="boardName" id="boardName" required />
+              <input
+                type="text"
+                name="boardName"
+                id="boardName"
+                required
+                onChange={handlerBoardNameChange}
+              />
             </div>
 
             <div className={style.addBoardDrag__subInput}>

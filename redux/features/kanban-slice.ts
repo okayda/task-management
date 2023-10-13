@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TypeKanban, Item, Column, List, AddColumns } from "@/types";
+import {
+  TypeKanban,
+  Item,
+  Column,
+  List,
+  BoardColumns,
+  AddColumns,
+} from "@/types";
 
 const initialState = {
   data: {
@@ -133,8 +140,31 @@ export const kanban = createSlice({
       currentBoard.columns = newColumnObj;
     },
 
-    // AddColumnBoard Component
-    addBoard(state, action) {},
+    // AddBoardDrag Component
+    addBoardDrag(state, action) {
+      const { newBoardId, newBoardName, newBoardColumns } = action.payload;
+      const list = state.data.sideNavList;
+      const newColumnObj: Column = {};
+
+      newBoardColumns.forEach((column: BoardColumns) => {
+        const id = column.columnId;
+        const name = column.columnName;
+
+        newColumnObj[name] = {
+          columnId: id,
+          values: [],
+        };
+      });
+
+      const newBoard: List = {
+        titleId: newBoardId,
+        title: newBoardName,
+        isActive: false,
+        columns: newColumnObj,
+      };
+
+      list.push(newBoard);
+    },
 
     // ModalTask Component
     updateSubTasksItem(state, action) {
@@ -211,7 +241,7 @@ export const {
   replaceKanban,
   addTask,
   addColumn,
-  addBoard,
+  addBoardDrag,
   updateSubTasksItem,
   updateStatusItem,
   changeTheme,
