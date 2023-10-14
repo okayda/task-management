@@ -1,18 +1,22 @@
 "use client";
 
-import style from "./Header.module.scss";
+import { useState } from "react";
 import Image from "next/image";
-import logoMobile from "../../public/assets/logo-mobile.svg";
-import logoNameDark from "../../public/assets/logo-dark.svg";
-import logoNameLight from "../../public/assets/logo-light.svg";
-import arrowDown from "../../public/assets/icon-chevron-down.svg";
-
-import plusImg from "../../public/assets/plus.svg";
-import ellipImg from "../../public/assets/icon-vertical-ellipsis.svg";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { toggleAddTask } from "@/redux/features/display-slice";
+
+import EllipsisHeader from "../Modals/EllipsisHeader/EllipsisHeader";
+
+import logoMobile from "../../public/assets/logo-mobile.svg";
+import logoNameDark from "../../public/assets/logo-dark.svg";
+import logoNameLight from "../../public/assets/logo-light.svg";
+import arrowDown from "../../public/assets/icon-chevron-down.svg";
+import ellipImg from "../../public/assets/icon-vertical-ellipsis.svg";
+import plusImg from "../../public/assets/plus.svg";
+
+import style from "./Header.module.scss";
 
 export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,7 +27,11 @@ export default function Header() {
   const currentTheme = !theme ? "light" : "dark";
   const logoName = !theme ? logoNameDark : logoNameLight;
 
-  // only for mobile layout and only way to show the mobile side nav list modal
+  const [ellip, setEllip] = useState<boolean>(false);
+
+  const showEllipModal = function (): void {
+    setEllip((prev) => !prev);
+  };
 
   const handlerNewTask = function (): void {
     dispatch(toggleAddTask({ showAddTask: true }));
@@ -57,9 +65,11 @@ export default function Header() {
               <Image alt="" src={plusImg} width={20} height={20} />
             </button>
 
-            <button>
+            <button onClick={showEllipModal}>
               <Image src={ellipImg} alt="" width={5} height={20} />
             </button>
+
+            {ellip && <EllipsisHeader />}
           </div>
         </div>
       </div>
