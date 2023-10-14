@@ -22,13 +22,12 @@
   color: none;
   background: none;
 }
-
 /**************************************/
 
 // main scroll bar
 ::-webkit-scrollbar {
-  height: 0.6rem;
-  width: 0.6rem;
+  height: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -57,7 +56,6 @@ body {
   box-sizing: border-box;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-
   -webkit-font-smoothing: antialiased;
 }
 

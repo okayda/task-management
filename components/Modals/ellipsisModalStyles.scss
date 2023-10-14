@@ -1,11 +1,11 @@
-@use "../../../scss/index.scss" as *;
+@use "../../scss/index.scss" as *;
 
-.ellipsis {
+@mixin ellipsisModalStyles($top, $right, $transformY) {
   position: absolute;
-  top: 36%;
-  right: -20%;
+  top: $top;
+  right: $right;
   z-index: $z-5;
-  transform: translate(20%, 36%);
+  transform: translate(0, $transformY);
 
   padding: rem(16px);
   display: flex;
@@ -19,9 +19,9 @@
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
   @include mobile() {
-    top: 38%;
+    top: $top;
     right: 0;
-    transform: translateY(38%);
+    transform: translateY($transformY);
   }
 
   button {
@@ -33,11 +33,11 @@
     }
   }
 
-  &__edit {
+  &__primary {
     color: $mediumGray;
   }
 
-  &__delete {
+  &__secondary {
     color: #ea5555;
   }
 }

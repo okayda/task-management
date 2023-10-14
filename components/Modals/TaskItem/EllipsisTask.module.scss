@@ -1,0 +1,8 @@
+@use "../ellipsisModalStyles.scss" as *;
+
+.ellipsisTask {
+  // top: 36%;
+  // right: -20%;
+  // transform: translate(0, 36%);
+  @include ellipsisModalStyles(36%, -20%, 36%);
+}

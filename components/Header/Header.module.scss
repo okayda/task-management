@@ -36,19 +36,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    button {
-      transition: $transition;
-      color: theme(title);
-      display: flex;
-      align-items: center;
-      gap: rem(8px);
-      font-size: $fluidTitle;
-      font-weight: 700;
-    }
   }
 
   &__launch {
+    transition: $transition;
+    color: theme(title);
+    display: flex;
+    align-items: center;
+    gap: rem(8px);
+    font-size: $fluidTitle;
+    font-weight: 700;
+
     img {
       @include tablet() {
         display: none;
@@ -57,6 +55,7 @@
   }
 
   &__sub {
+    position: relative;
     display: flex;
     align-items: center;
     gap: rem(24px);

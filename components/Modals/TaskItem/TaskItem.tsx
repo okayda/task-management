@@ -17,7 +17,7 @@ import {
   updateStatusItem,
 } from "@/redux/features/kanban-slice";
 
-import Ellipsis from "../Ellipsis/Ellipsis";
+import Ellipsis from "./EllipsisTask";
 import ellipImg from "../../../public/assets/icon-vertical-ellipsis.svg";
 
 interface ModalTaskProps extends ComponentProps {
