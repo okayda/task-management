@@ -1,0 +1,5 @@
+@use "../taskStyles.scss" as *;
+
+.editTask {
+  @include taskStyles();
+}

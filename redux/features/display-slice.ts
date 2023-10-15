@@ -12,6 +12,11 @@ const initialState = {
       display: false,
       targetTaskId: null,
     },
+
+    showEditTask: {
+      display: false,
+      targetTaskId: null,
+    },
   },
 };
 
@@ -21,6 +26,10 @@ export const display = createSlice({
   reducers: {
     toggleAddTask(state, action) {
       state.data.showAddTask = action.payload.showAddTask;
+    },
+
+    toggleEditTask(state, action) {
+      state.data.showEditTask = action.payload.showEditTask;
     },
 
     toggleAddColumn(state, action) {
@@ -41,6 +50,7 @@ export default display.reducer;
 
 export const {
   toggleAddTask,
+  toggleEditTask,
   toggleAddColumn,
   toggleAddBoardDrag,
   toggleModalTask,

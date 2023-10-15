@@ -95,7 +95,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
           // Preventing to disappear the AddTask since the overlay is wrapped
           onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
         >
-          <h3>Add New Task</h3>
+          <h2>Add New Task</h2>
 
           <form autoComplete="off" onSubmit={handlerSubmit}>
             <div className={style.addtask__title}>

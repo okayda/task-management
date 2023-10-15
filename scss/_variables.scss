@@ -10,6 +10,9 @@ $z-4: 25;
 // modal inside of modal
 $z-5: 30;
 
+// z-index: 35;
+// Maximum z-index I used is 35 it was only define in the Card component as an optional value
+
 // Used only for large area of background-color
 $transition: background-color 0.3s linear;
 // Used only for buttons background-color

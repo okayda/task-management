@@ -10,6 +10,7 @@ import { getData, sendData } from "@/redux/features/kanban-action";
 
 import SideNav from "@/components/SideNav/SideNav";
 import AddTask from "@/components/Forms/AddTask/AddTask";
+import EditTask from "@/components/Forms/EditTask/EditTask";
 import AddColumnBoard from "@/components/Forms/AddColumn/AddColumn";
 import AddBoardDrag from "@/components/Forms/AddBoardDrag/AddBoardDrag";
 import Drag from "@/components/Drag/Drag";
@@ -26,8 +27,13 @@ export default function page() {
 
   const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
 
-  const { showAddTask, showAddColumn, showAddBoardDrag, showTaskItem } =
-    useAppSelector((state) => state.displayReducer.data);
+  const {
+    showAddTask,
+    showEditTask,
+    showAddColumn,
+    showAddBoardDrag,
+    showTaskItem,
+  } = useAppSelector((state) => state.displayReducer.data);
 
   useEffect(() => {
     if (initialExecute) {
@@ -62,6 +68,11 @@ export default function page() {
         {/* Modal */}
         {showTaskItem.display && (
           <TaskItem {...props} targetTaskId={showTaskItem.targetTaskId} />
+        )}
+
+        {/* Form */}
+        {showEditTask.display && (
+          <EditTask {...props} targetTaskId={showEditTask.targetTaskId} />
         )}
       </AnimatePresence>
 

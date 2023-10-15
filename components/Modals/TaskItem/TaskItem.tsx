@@ -4,7 +4,7 @@ import style from "./TaskItem.module.scss";
 import { useState } from "react";
 import { ComponentProps, SubTasks, List } from "@/types";
 
-import { findItem, findCurrentColumns } from "./taskItemMethods";
+import { findItem, findCurrentColumns } from "@/Utils/taskMethods";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
@@ -32,10 +32,10 @@ export default function ModalTask({
   const list = data.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
 
-  const [ellip, setEllip] = useState<boolean>(false);
+  const [showEllip, setShowEllip] = useState<boolean>(false);
 
   const showEllipModal = function (): void {
-    setEllip((prev) => !prev);
+    setShowEllip((prev) => !prev);
   };
 
   const closeModalTask = function (): void {
@@ -131,7 +131,7 @@ export default function ModalTask({
               <Image src={ellipImg} alt="" width={5} height={20} />
             </button>
 
-            {ellip && <Ellipsis />}
+            {showEllip && <Ellipsis targetTaskId={targetTaskId} />}
           </div>
 
           <p>{description}</p>

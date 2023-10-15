@@ -1,5 +1,6 @@
 @use "../../scss/index.scss" as *;
 
+// Only used on TaskItem & EllipsisHeader component
 @mixin ellipsisModalStyles($top, $right, $transformY) {
   position: absolute;
   top: $top;
