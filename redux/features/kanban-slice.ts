@@ -14,6 +14,8 @@ import {
   handleUpdatePosition,
 } from "../actions/update-action";
 
+import { handleEditTask } from "../actions/edit-action";
+
 export const kanban = createSlice({
   name: "kanban",
   initialState: initialKanbanState,
@@ -37,6 +39,8 @@ export const kanban = createSlice({
     // AddTask Component
     addTask(state, action) {
       handleAddTask(state, action.payload);
+
+      console.log("exuted");
     },
 
     // AddColumnBoard Component
@@ -68,6 +72,10 @@ export const kanban = createSlice({
     updatePosition(state, action) {
       handleUpdatePosition(state, action.payload);
     },
+
+    editTask(state, action) {
+      handleEditTask(state, action.payload);
+    },
   },
 });
 
@@ -83,4 +91,5 @@ export const {
   changeTheme,
   changeBoard,
   updatePosition,
+  editTask,
 } = kanban.actions;

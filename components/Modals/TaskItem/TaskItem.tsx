@@ -66,7 +66,7 @@ export default function ModalTask({
 
   const title = getItem?.itemTitle;
 
-  const description = getItem?.description;
+  const description = getItem?.description.trim() || "No description";
 
   const completedSubTasks = getItem?.subTasks.filter(
     (item) => item.isComplete

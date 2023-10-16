@@ -32,19 +32,23 @@ export const handleUpdateStatusItem = function (
   const currentBoard: List | undefined = list.find((li) => li.isActive);
 
   if (!currentBoard) return;
-  // change item into a different column
+
+  // getting the item
   const targetItem: Item | undefined = currentBoard.columns[
     currColumn
   ].values.find((item) => item.itemId === targetTaskId);
 
+  // changing the item into a different column
   if (!targetItem) return;
   currentBoard.columns[newColumn].values.push(targetItem);
+  // **************************************
 
   //remove item from the previous column
   const updated = currentBoard.columns[currColumn].values.filter(
     (item) => item.itemId !== targetTaskId
   );
 
+  // update the columns
   currentBoard.columns[currColumn].values = updated;
 };
 

@@ -15,7 +15,6 @@ export default function DescriptionInput({
         rows={4}
         onChange={(e) => onChange(e.target.value)}
         value={value}
-        required
       ></textarea>
     </div>
   );

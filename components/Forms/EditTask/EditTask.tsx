@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import { ComponentProps, SubTasks, List } from "@/types";
 
 import { toggleEditTask } from "@/redux/features/display-slice";
+import { editTask } from "@/redux/features/kanban-slice";
 
 import { findItem, findCurrentColumns } from "@/Utils/taskMethods";
 
@@ -77,23 +78,24 @@ export default function EditTask({
     setSubtasks([...subtasks, { subTitle: "", isComplete: false }]);
   };
 
-  const removeSubtask = (index: number) => {
-    if (!subtasks || subtasks.length === 1) return;
-
-    console.log("awit");
+  const removeSubtask = (posIndex: number) => {
+    if (!subtasks) return;
 
     // removing the subtask input value
-    subtasks.splice(index, 1);
-    setSubtasks(subtasks);
+    const updatedSubtasks = subtasks.filter((subtask, i) => {
+      if (posIndex !== i) return subtask;
+    });
+    setSubtasks(updatedSubtasks);
   };
 
-  const handleSubtaskChange = (index: number, value: string) => {
+  const handleSubtaskChange = (posIndex: number, value: string) => {
     if (!subtasks) return;
 
     // updating the specific subtask subTitle value
-    const updatedSubtasks = subtasks.map((subtask, i) =>
-      i === index ? { ...subtask, subTitle: value } : subtask
-    );
+    const updatedSubtasks = subtasks.map((subtask, i) => {
+      if (posIndex === i) return { ...subtask, subTitle: value };
+      else return subtask;
+    });
     setSubtasks(updatedSubtasks);
   };
 
@@ -106,11 +108,28 @@ export default function EditTask({
 
   const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
+    if (!subtasks) return;
 
-    console.log(title);
-    console.log(description);
-    console.log(subtasks);
-    console.log(status);
+    // remove white spaces & empty input
+    const subTasks: SubTasks[] = subtasks
+      .filter((value: SubTasks) => value.subTitle.trim())
+      .map((value: SubTasks) => ({
+        ...value,
+        subTitle: value.subTitle.trim(),
+      }));
+
+    dispatch(
+      editTask({
+        targetTaskId,
+        title: title?.trim(),
+        description: description?.trim() || "No description",
+        subtasks: subTasks,
+        currColumn: currentColumn,
+        newColumn: status,
+      })
+    );
+
+    closeEditTask();
   };
 
   return (

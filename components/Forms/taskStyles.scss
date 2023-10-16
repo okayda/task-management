@@ -1,6 +1,6 @@
 @use "../../scss/index.scss" as *;
 
-// Only used on AddTask & EditTask component
+// Only used on AddTask & EditTask Component
 @mixin taskStyles() {
   h2 {
     color: theme(title);

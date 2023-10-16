@@ -47,8 +47,6 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   };
 
   const removeSubtask = (index: number) => {
-    if (subtasks.length === 1) return;
-
     const updatedSubtasks = [...subtasks];
     updatedSubtasks.splice(index, 1);
     setSubtasks(updatedSubtasks);
@@ -63,14 +61,13 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
 
-    const desc = description.trim() || "No description";
+    const desc = description;
 
-    // Checking if there is any empty items in the subTaks Input
-    // If yes will not be included
+    // remove white spaces & empty input
     const subTasks = subtasks
-      .filter((li) => li.trim())
-      .map((li) => ({
-        subTitle: li.trim(),
+      .filter((value: string) => value.trim())
+      .map((value: string) => ({
+        subTitle: value.trim(),
         isComplete: false,
       }));
 
@@ -79,12 +76,14 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
         formData: {
           itemId: uuidv4(),
           itemTitle: title,
-          description: desc,
+          description: desc.trim() || "No description",
           subTasks,
         },
         targetColumn: status,
       })
     );
+
+    closeAddTask();
   };
 
   return (
