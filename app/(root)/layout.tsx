@@ -3,7 +3,7 @@ import "./global.scss";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { ReduxProvider } from "@/redux/Provider";
+import { ReduxProvider } from "@/redux/provider/Provider";
 
 import Header from "@/components/Header/Header";
 

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import {
   toggleModalTask,
   toggleEditTask,

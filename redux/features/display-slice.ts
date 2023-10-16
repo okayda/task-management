@@ -1,28 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  data: {
-    showAddTask: false,
-    showAddColumn: false,
-    showAddBoardDrag: false,
-
-    // targetTaskId will only change to the valid id
-    // if the display turn to "true" basically was used to display the modal
-    showTaskItem: {
-      display: false,
-      targetTaskId: null,
-    },
-
-    showEditTask: {
-      display: false,
-      targetTaskId: null,
-    },
-  },
-};
+import { initialDisplayState } from "../initialState";
 
 export const display = createSlice({
   name: "display",
-  initialState,
+  initialState: initialDisplayState,
   reducers: {
     toggleAddTask(state, action) {
       state.data.showAddTask = action.payload.showAddTask;

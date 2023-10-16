@@ -1,6 +1,6 @@
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/redux/provider/store";
 import { TypeKanban, Item } from "@/types";
-import { replaceKanban } from "./kanban-slice";
+import { replaceKanban } from "../features/kanban-slice";
 import { v4 as uuidv4 } from "uuid";
 import { dataList } from "@/constants/dataList";
 

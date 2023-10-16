@@ -1,4 +1,4 @@
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/redux/provider/store";
 
 export type SubTasks = { subTitle: string; isComplete: boolean };
 

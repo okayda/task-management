@@ -80,6 +80,8 @@ export default function EditTask({
   const removeSubtask = (index: number) => {
     if (!subtasks || subtasks.length === 1) return;
 
+    console.log("awit");
+
     // removing the subtask input value
     subtasks.splice(index, 1);
     setSubtasks(subtasks);

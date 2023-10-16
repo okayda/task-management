@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import ScrollContainer from "react-indiana-drag-scroll";
 
-import { AppDispatch, useAppSelector } from "@/redux/store";
-import { getData, sendData } from "@/redux/features/kanban-action";
+import { AppDispatch, useAppSelector } from "@/redux/provider/store";
+import { getData, sendData } from "@/redux/actions/fetch-action";
 
 import SideNav from "@/components/SideNav/SideNav";
 import AddTask from "@/components/Forms/AddTask/AddTask";
