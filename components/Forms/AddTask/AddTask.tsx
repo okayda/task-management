@@ -8,6 +8,8 @@ import { ComponentProps, List } from "@/types";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
+import TitleInput from "@/components/Animation/Standard/TitleInput";
+import DescriptionInput from "@/components/Animation/Standard/DescriptionInput";
 import SubInput from "@/components/Animation/Standard/SubInput";
 import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
 
@@ -97,24 +99,17 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
           <h2>Add New Task</h2>
 
           <form autoComplete="off" onSubmit={handlerSubmit}>
-            <div className={style.addtask__title}>
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </div>
+            <TitleInput
+              className={style.addtask__title}
+              onChange={setTitle}
+              value={title}
+            />
 
-            <div className={style.addtask__description}>
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                rows={4}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
+            <DescriptionInput
+              className={style.addtask__subtask}
+              onChange={setDescription}
+              value={description}
+            />
 
             <div className={style.addtask__subtask}>
               <span>Subtasks</span>

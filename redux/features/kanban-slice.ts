@@ -39,8 +39,6 @@ export const kanban = createSlice({
     // AddTask Component
     addTask(state, action) {
       handleAddTask(state, action.payload);
-
-      console.log("exuted");
     },
 
     // AddColumnBoard Component

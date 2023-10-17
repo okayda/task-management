@@ -194,7 +194,7 @@ export default function EditTask({
             </div>
 
             <Button type="submit" className={style.editTask__submit}>
-              Create Task
+              Save Changes
             </Button>
           </form>
         </div>
