@@ -24,6 +24,8 @@
 
   textarea,
   input {
+    transition: border 0.35s;
+
     background-color: transparent;
     color: theme(title);
     font-size: rem(13px);

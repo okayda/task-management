@@ -16,6 +16,15 @@
     font-size: rem(12px);
   }
 
+  input {
+    transition: border 0.35s;
+
+    &:focus {
+      outline: none;
+      border: 2px solid $darkBlue;
+    }
+  }
+
   &__name {
     margin-bottom: rem(16px);
 
