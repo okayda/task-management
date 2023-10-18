@@ -79,6 +79,8 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
       return;
     }
 
+    ToastSuccess("Added new task");
+
     const desc = description;
 
     // remove white spaces & empty input

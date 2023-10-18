@@ -74,6 +74,8 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
       return;
     }
 
+    ToastSuccess("Board change applied");
+
     // remove white spaces & empty input
     // convert into an object
     const columnInputs: string[] = subInputs

@@ -124,6 +124,8 @@ export default function EditTask({
       return;
     }
 
+    ToastSuccess("Task change applied");
+
     // remove white spaces & empty input
     // convert into an object
     const subTasks: SubTasks[] = subtasks

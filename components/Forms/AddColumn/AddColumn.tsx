@@ -6,6 +6,11 @@ import { ComponentProps, List, AddColumns } from "@/types";
 import { toggleAddColumn } from "@/redux/features/display-slice";
 import { addColumn } from "@/redux/features/kanban-slice";
 
+import {
+  ToastError,
+  ToastSuccess,
+} from "@/components/Animation/Standard/ToastType";
+
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
 import SubInput from "@/components/Animation/Standard/SubInput";
@@ -41,6 +46,11 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
   const addColumnBtn: string =
     columnsLength >= 5 ? "Only 5 Columns" : "Add New Column";
 
+  // remove white spaces & empty input
+  const columnInputs: AddColumns[] = subInput.filter((value: AddColumns) =>
+    value.columnName.trim()
+  );
+
   const addInput = function (): void {
     // adding a new subInput value
     setSubInput([
@@ -68,10 +78,13 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
   const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
 
-    // remove white spaces & empty input
-    const columnInputs: AddColumns[] = subInput.filter((value: AddColumns) =>
-      value.columnName.trim()
-    );
+    // Checking if there is any values in the column inputs
+    if (!columnInputs.length) {
+      ToastError("Atleast one column");
+      return;
+    }
+
+    ToastSuccess("Modify column applied");
 
     dispatch(
       addColumn({
@@ -98,7 +111,11 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
               <p>Platform Launch</p>
             </div>
 
-            <div className={style.addColumn__subInput}>
+            <div
+              className={`${style.addColumn__subInput} ${
+                !columnInputs.length && style.addColumn__error
+              }`}
+            >
               <span>Columns</span>
 
               <AnimatePresence initial={false}>

@@ -97,6 +97,24 @@
     }
   }
 
+  &__error {
+    span {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "Atleast one column";
+        bottom: 0;
+        right: 0;
+        color: #ea5555;
+      }
+    }
+
+    input {
+      border-color: #ea5555;
+    }
+  }
+
   &__submit {
     width: 100%;
     padding: rem(8px) 0;
