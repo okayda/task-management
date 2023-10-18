@@ -72,7 +72,7 @@ export default function EditTask({
   if (subtasks) subtasksLength = subtasks.length;
 
   const subtasksBtn: string =
-    subtasksLength >= 5 ? "Only 5 Subtask" : "Add New Subtask";
+    subtasksLength >= 5 ? "Only 5 Subtasks" : "Add New Subtask";
 
   const [status, setStatus] = useState<string | null>(currentColumn);
   // displaying the status dropdown

@@ -50,6 +50,12 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
 
   const isEmptyTitle = Boolean(title?.trim());
 
+  let subtasksLength: number = 0;
+  if (subtasks) subtasksLength = subtasks.length;
+
+  const subtasksBtn: string =
+    subtasksLength >= 5 ? "Only 5 Subtasks" : "Add New Subtask";
+
   const addSubtask = function () {
     // adding a new subtask value
     setSubtasks([...subtasks, ""]);
@@ -154,8 +160,9 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
                 type="button"
                 className={style["addtask__subtask--insert"]}
                 onClick={addSubtask}
+                disabled={subtasksLength >= 5}
               >
-                Add New Subtask
+                {subtasksBtn}
               </Button>
             </div>
 
