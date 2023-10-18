@@ -105,7 +105,7 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
             <TitleInput
               title="Name"
               className={`${style.editBoard__title} ${
-                !isEmptyTitle && style.editBoard__error
+                !isEmptyTitle && style.editBoard__errorTitle
               }`}
               onChange={setTitle}
               value={title}
@@ -118,7 +118,10 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
                 {subInputs?.map((subInput, i) => (
                   <SubInput
                     key={i}
-                    className={style["editBoard__subtask--input"]}
+                    className={`${style["editBoard__subtask--input"]} ${
+                      !subInput.trim().length &&
+                      style["editBoard__subtask--error"]
+                    }`}
                     value={subInput}
                     onChange={(e) => handleSubInputChange(i, e.target.value)}
                     removeSubInput={removeSubInput}

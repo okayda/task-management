@@ -107,7 +107,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
             />
 
             <DescriptionInput
-              className={style.addtask__subtask}
+              className={style.addtask__description}
               onChange={setDescription}
               value={description}
             />

@@ -24,34 +24,19 @@
 
   textarea,
   input {
-    transition: border 0.35s;
-
     background-color: transparent;
     color: theme(title);
     font-size: rem(13px);
     border-radius: 4px;
     border: 2px solid rgba(130, 143, 163, 0.4);
     padding: rem(8px) rem(12px);
-
-    &:focus {
-      outline: none;
-      border: 2px solid $darkBlue;
-    }
   }
 
   textarea {
     resize: none;
   }
 
-  &__title,
-  &__description,
-  &__status {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: rem(18px);
-  }
-
-  &__error {
+  &__errorTitle {
     label {
       position: relative;
 
@@ -69,12 +54,31 @@
     }
   }
 
+  &__title,
+  &__description,
+  &__status {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: rem(18px);
+
+    input,
+    textarea {
+      transition: 0.35s;
+
+      &:focus {
+        outline: none;
+        border: 2px solid $darkBlue;
+      }
+    }
+  }
+
   &__subtask {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-bottom: rem(14px);
 
+    //input className
     &--input {
       display: flex;
       flex-direction: row;
@@ -83,9 +87,15 @@
 
       input {
         width: 100%;
+
+        &:focus {
+          outline: none;
+          border-color: rgb(183, 132, 255);
+        }
       }
     }
 
+    //button className
     &--insert {
       margin-top: 6px;
       width: 100%;
@@ -99,6 +109,13 @@
 
       &:hover {
         filter: brightness(85%);
+      }
+    }
+
+    //error input className
+    &--error {
+      input {
+        border-color: $darkBlue;
       }
     }
   }
