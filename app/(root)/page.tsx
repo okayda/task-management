@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import ScrollContainer from "react-indiana-drag-scroll";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import { getData, sendData } from "@/redux/actions/fetch-action";
 
@@ -13,6 +16,7 @@ import AddTask from "@/components/Forms/AddTask/AddTask";
 import EditTask from "@/components/Forms/EditTask/EditTask";
 import AddColumnBoard from "@/components/Forms/AddColumn/AddColumn";
 import AddBoardDrag from "@/components/Forms/AddBoardDrag/AddBoardDrag";
+import EditBoard from "@/components/Forms/EditBoard/EditBoard";
 import Drag from "@/components/Drag/Drag";
 import TaskItem from "@/components/Modals/TaskItem/TaskItem";
 
@@ -32,6 +36,7 @@ export default function page() {
     showEditTask,
     showAddColumn,
     showAddBoardDrag,
+    showEditBoard,
     showTaskItem,
   } = useAppSelector((state) => state.displayReducer.data);
 
@@ -54,38 +59,56 @@ export default function page() {
   };
 
   return (
-    <div className={`main-container ${currentTheme}`}>
-      <AnimatePresence>
-        {/* Form */}
-        {showAddTask && <AddTask {...props} />}
+    <>
+      <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
-        {/* Form */}
-        {showAddColumn && <AddColumnBoard {...props} />}
+      <div className={`main-container ${currentTheme}`}>
+        <AnimatePresence>
+          {/* Form */}
+          {showAddTask && <AddTask {...props} />}
 
-        {/* Form */}
-        {showAddBoardDrag && <AddBoardDrag {...props} />}
+          {/* Form */}
+          {showAddColumn && <AddColumnBoard {...props} />}
 
-        {/* Modal */}
-        {showTaskItem.display && (
-          <TaskItem {...props} targetTaskId={showTaskItem.targetTaskId} />
-        )}
+          {/* Form */}
+          {showAddBoardDrag && <AddBoardDrag {...props} />}
 
-        {/* Form */}
-        {showEditTask.display && (
-          <EditTask {...props} targetTaskId={showEditTask.targetTaskId} />
-        )}
-      </AnimatePresence>
+          {/* Form */}
+          {showEditBoard && <EditBoard {...props} />}
 
-      <ScrollContainer
-        className="container"
-        vertical={false}
-        hideScrollbars={false}
-        ignoreElements={".card-item"}
-      >
-        <SideNav {...props} />
+          {/* Modal */}
+          {showTaskItem.display && (
+            <TaskItem {...props} targetTaskId={showTaskItem.targetTaskId} />
+          )}
 
-        <Drag {...props} />
-      </ScrollContainer>
-    </div>
+          {/* Form */}
+          {showEditTask.display && (
+            <EditTask {...props} targetTaskId={showEditTask.targetTaskId} />
+          )}
+        </AnimatePresence>
+
+        <ScrollContainer
+          className="container"
+          vertical={false}
+          hideScrollbars={false}
+          ignoreElements={".card-item"}
+        >
+          <SideNav {...props} />
+
+          <Drag {...props} />
+        </ScrollContainer>
+      </div>
+    </>
   );
 }

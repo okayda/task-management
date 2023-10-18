@@ -5,7 +5,7 @@
   h2 {
     color: theme(title);
     font-size: rem(18px);
-    margin-bottom: rem(12px);
+    margin-bottom: rem(20px);
   }
 
   &__subtask span,
@@ -49,6 +49,24 @@
     display: flex;
     flex-direction: column;
     margin-bottom: rem(18px);
+  }
+
+  &__error {
+    label {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "Required";
+        bottom: 0;
+        right: 0;
+        color: #ea5555;
+      }
+    }
+
+    input {
+      border-color: #ea5555;
+    }
   }
 
   &__subtask {

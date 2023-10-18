@@ -111,6 +111,7 @@ export default function EditTask({
     if (!subtasks) return;
 
     // remove white spaces & empty input
+    // convert into an object
     const subTasks: SubTasks[] = subtasks
       .filter((value: SubTasks) => value.subTitle.trim())
       .map((value: SubTasks) => ({

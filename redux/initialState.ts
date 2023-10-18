@@ -34,6 +34,7 @@ export const initialDisplayState = {
     showAddTask: false,
     showAddColumn: false,
     showAddBoardDrag: false,
+    showEditBoard: false,
 
     // targetTaskId will only change to the valid id
     // if the display turn to "true" basically was used to display the modal

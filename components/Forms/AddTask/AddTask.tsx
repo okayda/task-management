@@ -66,6 +66,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
     const desc = description;
 
     // remove white spaces & empty input
+    // convert into an object
     const subTasks = subtasks
       .filter((value: string) => value.trim())
       .map((value: string) => ({

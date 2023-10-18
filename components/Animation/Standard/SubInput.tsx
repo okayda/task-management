@@ -21,7 +21,6 @@ export default function SubInput({
   return (
     <div className={className}>
       <motion.input
-        required
         variants={ScaleAnimated}
         initial="hidden"
         animate="enter"
