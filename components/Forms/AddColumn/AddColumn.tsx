@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 import { AnimatePresence } from "framer-motion";
 import { ComponentProps, List, AddColumns } from "@/types";
 
@@ -24,7 +23,7 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
   const list = data.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
 
-  // responsible for initializing the existed columns to the addInputs
+  // responsible for initializing the existed columns to the subInput
   if (!currentBoard) return;
 
   for (const [key, value] of Object.entries(currentBoard.columns)) {
@@ -36,41 +35,51 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
   }
   // ******************************
 
-  const [addInputs, setAddInputs] = useState<AddColumns[]>(addColumns);
+  const [subInput, setSubInput] = useState<AddColumns[]>(addColumns);
 
-  const columnsLength: number = addInputs.length;
+  const columnsLength: number = subInput.length;
   const addColumnBtn: string =
     columnsLength >= 5 ? "Only 5 Columns" : "Add New Column";
 
   const addInput = function (): void {
-    setAddInputs([
-      ...addInputs,
+    // adding a new subInput value
+    setSubInput([
+      ...subInput,
       { columnId: uuidv4(), columnName: "", isNew: true },
     ]);
   };
 
   const removeInput = function (index: number): void {
-    if (addInputs.length === 1) return;
+    if (subInput.length === 1) return;
 
-    const updatedAddInputs = [...addInputs];
+    // removing the subInput value
+    const updatedAddInputs = [...subInput];
     updatedAddInputs.splice(index, 1);
-    setAddInputs(updatedAddInputs);
+    setSubInput(updatedAddInputs);
   };
 
   const handlerSubInputChange = function (i: number, value: string): void {
-    const updatedAddInputs: AddColumns[] = [...addInputs];
+    // updating the specific columnName value
+    const updatedAddInputs: AddColumns[] = [...subInput];
     updatedAddInputs[i].columnName = value;
-    setAddInputs(updatedAddInputs);
+    setSubInput(updatedAddInputs);
   };
 
   const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
 
+    // remove white spaces & empty input
+    const columnInputs: AddColumns[] = subInput.filter((value: AddColumns) =>
+      value.columnName.trim()
+    );
+
     dispatch(
       addColumn({
-        newColumn: addInputs,
+        newColumn: columnInputs,
       })
     );
+
+    closeAddColumnBoard();
   };
 
   return (
@@ -93,10 +102,13 @@ export default function AddColumnBoard({ data, dispatch }: ComponentProps) {
               <span>Columns</span>
 
               <AnimatePresence initial={false}>
-                {addInputs.map((subtask: AddColumns, i: number) => (
+                {subInput.map((subtask: AddColumns, i: number) => (
                   <div key={i}>
                     <SubInput
-                      className={style["addColumn__subInput--input"]}
+                      className={`${style["addColumn__subInput--input"]} ${
+                        !subtask.columnName.trim().length &&
+                        style["addColumn__subInput--error"]
+                      }`}
                       value={subtask.columnName}
                       onChange={(e) => handlerSubInputChange(i, e.target.value)}
                       removeSubInput={removeInput}

@@ -48,6 +48,7 @@
       margin-bottom: 0;
     }
 
+    //input className
     &--input {
       display: flex;
       flex-direction: row;
@@ -63,9 +64,15 @@
         padding: rem(8px) rem(12px);
         border: 2px solid rgba(130, 143, 163, 0.4);
         width: 100%;
+
+        &:focus {
+          outline: none;
+          border-color: rgb(183, 132, 255);
+        }
       }
     }
 
+    //button className
     &--insert {
       margin-top: rem(12px);
       width: 100%;
@@ -79,6 +86,13 @@
 
       &:hover {
         filter: brightness(85%);
+      }
+    }
+
+    //error input className
+    &--error {
+      input {
+        border-color: $darkBlue;
       }
     }
   }

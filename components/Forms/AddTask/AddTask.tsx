@@ -3,8 +3,15 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
-
 import { ComponentProps, List } from "@/types";
+
+import { toggleAddTask } from "@/redux/features/display-slice";
+import { addTask } from "@/redux/features/kanban-slice";
+
+import {
+  ToastError,
+  ToastSuccess,
+} from "@/components/Animation/Standard/ToastType";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
@@ -12,9 +19,6 @@ import TitleInput from "@/components/Animation/Standard/TitleInput";
 import DescriptionInput from "@/components/Animation/Standard/DescriptionInput";
 import SubInput from "@/components/Animation/Standard/SubInput";
 import DropStatus from "@/components/Animation/Standard/DropStatus/DropStatus";
-
-import { toggleAddTask } from "@/redux/features/display-slice";
-import { addTask } from "@/redux/features/kanban-slice";
 
 import Button from "../../Animation/Standard/Button";
 
@@ -44,24 +48,36 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   const [description, setDescription] = useState<string>("");
   const [subtasks, setSubtasks] = useState<string[]>([""]);
 
+  const isEmptyTitle = Boolean(title?.trim());
+
   const addSubtask = function () {
+    // adding a new subtask value
     setSubtasks([...subtasks, ""]);
   };
 
-  const removeSubtask = (index: number) => {
+  const removeSubtask = (posIndex: number) => {
+    // removing the subtask value
     const updatedSubtasks = [...subtasks];
-    updatedSubtasks.splice(index, 1);
+    updatedSubtasks.splice(posIndex, 1);
     setSubtasks(updatedSubtasks);
   };
 
-  const handleSubtaskChange = (index: number, value: string) => {
+  const handleSubtaskChange = (posIndex: number, value: string) => {
+    // updating the specific subtask subTitle value
     const updatedSubtasks = [...subtasks];
-    updatedSubtasks[index] = value;
+    updatedSubtasks[posIndex] = value;
     setSubtasks(updatedSubtasks);
   };
 
   const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
+
+    // Error toast notification
+    if (!isEmptyTitle) {
+      ToastError("Name should not be empty");
+      setTitle("");
+      return;
+    }
 
     const desc = description;
 
@@ -101,7 +117,9 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
 
           <form autoComplete="off" onSubmit={handlerSubmit}>
             <TitleInput
-              className={style.addtask__title}
+              className={`${style.addtask__title} ${
+                !isEmptyTitle && style.addtask__errorTitle
+              }`}
               onChange={setTitle}
               value={title}
             />
@@ -119,7 +137,9 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
                 {subtasks.map((subtask, i) => (
                   <SubInput
                     key={i}
-                    className={style["addtask__subtask--input"]}
+                    className={`${style["addtask__subtask--input"]}  ${
+                      !subtask.trim().length && style["addtask__subtask--error"]
+                    }`}
                     value={subtask}
                     onChange={(e) => handleSubtaskChange(i, e.target.value)}
                     removeSubInput={removeSubtask}

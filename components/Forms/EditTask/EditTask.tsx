@@ -7,6 +7,11 @@ import { editTask } from "@/redux/features/kanban-slice";
 
 import { findItem, findCurrentColumns } from "@/Utils/taskMethods";
 
+import {
+  ToastError,
+  ToastSuccess,
+} from "@/components/Animation/Standard/ToastType";
+
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
 import TitleInput from "@/components/Animation/Standard/TitleInput";
@@ -61,6 +66,8 @@ export default function EditTask({
     getItem?.subTasks
   );
 
+  const isEmptyTitle = Boolean(title?.trim());
+
   let subtasksLength: number = 0;
   if (subtasks) subtasksLength = subtasks.length;
 
@@ -110,6 +117,13 @@ export default function EditTask({
     e.preventDefault();
     if (!subtasks) return;
 
+    // Error toast notification
+    if (!isEmptyTitle) {
+      ToastError("Name should not be empty");
+      setTitle("");
+      return;
+    }
+
     // remove white spaces & empty input
     // convert into an object
     const subTasks: SubTasks[] = subtasks
@@ -145,7 +159,9 @@ export default function EditTask({
 
           <form autoComplete="off" onSubmit={handlerSubmit}>
             <TitleInput
-              className={style.editTask__title}
+              className={`${style.editTask__title} ${
+                !isEmptyTitle && style.editTask__errorTitle
+              }`}
               onChange={setTitle}
               value={title}
             />
@@ -163,7 +179,10 @@ export default function EditTask({
                 {subtasks?.map((subtask, i) => (
                   <SubInput
                     key={i}
-                    className={style["editTask__subtask--input"]}
+                    className={`${style["editTask__subtask--input"]} ${
+                      !subtask.subTitle.trim().length &&
+                      style["editTask__subtask--error"]
+                    }`}
                     value={subtask.subTitle}
                     onChange={(e) => handleSubtaskChange(i, e.target.value)}
                     removeSubInput={removeSubtask}

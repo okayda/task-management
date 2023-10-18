@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ComponentProps, SubTasks, List } from "@/types";
+import { ComponentProps, List } from "@/types";
 
 import { toggleEditBoard } from "@/redux/features/display-slice";
 
-import { toast } from "react-toastify";
+import {
+  ToastError,
+  ToastSuccess,
+} from "@/components/Animation/Standard/ToastType";
 
 import { WrappedOverlay } from "@/components/Animation/Standard/OverlayType/OverlayType";
 import Card from "@/components/Animation/Standard/Card/Card";
@@ -41,16 +44,15 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
   const subInputBtn: string =
     subInputsLength >= 5 ? "Only 5 Columns" : "Add New Column";
 
-  const addInputs = function () {
+  const addInput = function () {
     // adding a new subInput value
     setSubInputs([...subInputs, ""]);
   };
 
   const removeSubInput = function (posIndex: number) {
     // removing the subInput value
-    const updatedSubInputs = subInputs.filter((subInput, i) => {
-      if (posIndex !== i) return subInput;
-    });
+    const updatedSubInputs = [...subInputs];
+    updatedSubInputs.splice(posIndex, 1);
 
     setSubInputs(updatedSubInputs);
   };
@@ -67,16 +69,7 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
 
     // Error toast notification
     if (!isEmptyTitle) {
-      toast.error("Name should not be empty", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      ToastError("Name should not be empty");
       setTitle("");
       return;
     }
@@ -133,7 +126,7 @@ export default function EditBoard({ data, dispatch }: ComponentProps) {
               <Button
                 type="button"
                 className={style["editBoard__subtask--insert"]}
-                onClick={addInputs}
+                onClick={addInput}
                 disabled={subInputsLength >= 5}
               >
                 {subInputBtn}
