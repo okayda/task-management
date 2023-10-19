@@ -36,9 +36,14 @@ export const initialDisplayState = {
     showAddNewBoard: false,
     showEditBoard: false,
 
-    // targetTaskId will only change to the valid id
-    // if the display turn to "true" basically was used to display the modal
+    // targetTaskId will only change to the valid id if
+    // the display turn to "true" basically was used to display the modal
     showTaskItem: {
+      display: false,
+      targetTaskId: null,
+    },
+
+    showDeleteTask: {
       display: false,
       targetTaskId: null,
     },

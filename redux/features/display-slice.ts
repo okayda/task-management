@@ -9,6 +9,10 @@ export const display = createSlice({
       state.data.showAddTask = action.payload.showAddTask;
     },
 
+    toggleDeleteTask(state, action) {
+      state.data.showDeleteTask = action.payload.showDeleteTask;
+    },
+
     toggleEditTask(state, action) {
       state.data.showEditTask = action.payload.showEditTask;
     },
@@ -35,6 +39,8 @@ export default display.reducer;
 
 export const {
   toggleAddTask,
+  toggleDeleteTask,
+
   toggleEditTask,
   toggleAddColumnBoard,
   toggleAddNewBoard,

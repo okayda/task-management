@@ -17,6 +17,7 @@ import AddNewBoard from "@/components/Forms/AddNewBoard/AddNewBoard";
 import AddColumnBoard from "@/components/Forms/AddColumnBoard/AddColumnBoard";
 
 import AddTask from "@/components/Forms/AddTask/AddTask";
+import DeleteTask from "@/components/Modals/DeleteTask/DeleteTask";
 import EditTask from "@/components/Forms/EditTask/EditTask";
 
 import Drag from "@/components/Drag/Drag";
@@ -35,6 +36,8 @@ export default function page() {
 
   const {
     showAddTask,
+    showDeleteTask,
+
     showEditTask,
     showAddColumnBoard,
     showAddNewBoard,
@@ -94,6 +97,11 @@ export default function page() {
           {/* Modal */}
           {showTaskItem.display && (
             <TaskItem {...props} targetTaskId={showTaskItem.targetTaskId} />
+          )}
+
+          {/* Modal */}
+          {showDeleteTask.display && (
+            <DeleteTask {...props} targetTaskId={showDeleteTask.targetTaskId} />
           )}
 
           {/* Form */}
