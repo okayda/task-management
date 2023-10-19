@@ -45,7 +45,9 @@ export const initialDisplayState = {
 
     showDeleteTask: {
       display: false,
+      title: undefined,
       targetTaskId: null,
+      targetColumn: null,
     },
 
     showEditTask: {

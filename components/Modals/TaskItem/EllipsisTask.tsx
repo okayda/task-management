@@ -9,13 +9,17 @@ import {
 import style from "./EllipsisTask.module.scss";
 
 export default function EllipsisTask({
+  title,
   targetTaskId,
+  targetColumn,
 }: {
+  title: string | undefined;
   targetTaskId: string | null;
+  targetColumn: string | null;
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
-  const showDeleteTask = function (): void {
+  const closeModalTask = function (): void {
     dispatch(
       toggleModalTask({
         showModalTask: {
@@ -24,26 +28,25 @@ export default function EllipsisTask({
         },
       })
     );
+  };
+
+  const showDeleteTask = function (): void {
+    closeModalTask();
 
     dispatch(
       toggleDeleteTask({
         showDeleteTask: {
+          title,
           display: true,
-          targetTaskId: targetTaskId,
+          targetTaskId,
+          targetColumn,
         },
       })
     );
   };
 
   const showEditTask = function (): void {
-    dispatch(
-      toggleModalTask({
-        showModalTask: {
-          display: false,
-          targetTaskId: null,
-        },
-      })
-    );
+    closeModalTask();
 
     dispatch(
       toggleEditTask({

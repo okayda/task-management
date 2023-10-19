@@ -16,6 +16,8 @@ import {
 
 import { handleEditTask, handleEditBoard } from "../actions/edit-action";
 
+import { handleDeleteTask } from "../actions/delete-action";
+
 export const kanban = createSlice({
   name: "kanban",
   initialState: initialKanbanState,
@@ -81,6 +83,10 @@ export const kanban = createSlice({
       // board columns
       handleAddEditColumn(state, action.payload.newColumn);
     },
+
+    deleteTask(state, action) {
+      handleDeleteTask(state, action.payload);
+    },
   },
 });
 
@@ -98,4 +104,5 @@ export const {
   updatePosition,
   editTask,
   editBoard,
+  deleteTask,
 } = kanban.actions;

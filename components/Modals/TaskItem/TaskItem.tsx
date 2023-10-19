@@ -131,7 +131,13 @@ export default function ModalTask({
               <Image src={ellipImg} alt="" width={5} height={20} />
             </button>
 
-            {showEllip && <Ellipsis targetTaskId={targetTaskId} />}
+            {showEllip && (
+              <Ellipsis
+                title={title}
+                targetTaskId={targetTaskId}
+                targetColumn={currentColumn}
+              />
+            )}
           </div>
 
           <p>{description}</p>

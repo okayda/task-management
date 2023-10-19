@@ -101,7 +101,12 @@ export default function page() {
 
           {/* Modal */}
           {showDeleteTask.display && (
-            <DeleteTask {...props} targetTaskId={showDeleteTask.targetTaskId} />
+            <DeleteTask
+              {...props}
+              title={showDeleteTask.title}
+              targetTaskId={showDeleteTask.targetTaskId}
+              targetColumn={showDeleteTask.targetColumn}
+            />
           )}
 
           {/* Form */}
