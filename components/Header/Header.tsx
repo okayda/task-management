@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import { toggleAddTask } from "@/redux/features/display-slice";
+import { toggleDeleteBoard } from "@/redux/features/display-slice";
+import { List } from "@/types";
 
 import EllipsisHeader from "../Modals/EllipsisHeader/EllipsisHeader";
 
@@ -21,6 +23,14 @@ import style from "./Header.module.scss";
 export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
+  const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
+
+  const list = kanbanData.sideNavList;
+  const currentBoard: List | undefined = list.find((li) => li.isActive);
+
+  const titleBoard = currentBoard?.title;
+  const targetBoardId = currentBoard?.titleId;
+
   // false => Light theme
   // true => Dark theme
   const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
@@ -33,7 +43,7 @@ export default function Header() {
     setEllip((prev) => !prev);
   };
 
-  const handlerNewTask = function (): void {
+  const showNewTask = function (): void {
     dispatch(toggleAddTask({ showAddTask: true }));
   };
 
@@ -58,7 +68,7 @@ export default function Header() {
           <div className={style.header__sub}>
             <button
               className={style["header__sub--cross"]}
-              onClick={handlerNewTask}
+              onClick={showNewTask}
             >
               <span>Add New Task</span>
               {/* this img is only for mobile layout */}
@@ -69,7 +79,12 @@ export default function Header() {
               <Image src={ellipImg} alt="" width={5} height={20} />
             </button>
 
-            {ellip && <EllipsisHeader />}
+            {ellip && (
+              <EllipsisHeader
+                title={titleBoard}
+                targetBoardId={targetBoardId}
+              />
+            )}
           </div>
         </div>
       </div>

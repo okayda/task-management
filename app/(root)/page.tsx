@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import ScrollContainer from "react-indiana-drag-scroll";
 
-import { ToastContainer } from "react-toastify";
+import { Toast } from "@/components/Animation/Standard/ToastType";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
@@ -13,11 +13,12 @@ import { getData, sendData } from "@/redux/actions/fetch-action";
 
 import SideNav from "@/components/SideNav/SideNav";
 import AddNewBoard from "@/components/Forms/AddNewBoard/AddNewBoard";
+import DeleteBoard from "@/components/Modals/DeleteModal/DeleteBoard";
 
 import AddColumnBoard from "@/components/Forms/AddColumnBoard/AddColumnBoard";
 
 import AddTask from "@/components/Forms/AddTask/AddTask";
-import DeleteTask from "@/components/Modals/DeleteTask/DeleteTask";
+import DeleteTask from "@/components/Modals/DeleteModal/DeleteTask";
 import EditTask from "@/components/Forms/EditTask/EditTask";
 
 import Drag from "@/components/Drag/Drag";
@@ -40,7 +41,10 @@ export default function page() {
 
     showEditTask,
     showAddColumnBoard,
+
     showAddNewBoard,
+    showDeleteBoard,
+
     showEditBoard,
     showTaskItem,
   } = useAppSelector((state) => state.displayReducer.data);
@@ -65,18 +69,7 @@ export default function page() {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      <Toast />
 
       <div className={`main-container ${currentTheme}`}>
         <AnimatePresence>
@@ -93,6 +86,15 @@ export default function page() {
 
           {/* Form */}
           {showAddNewBoard && <AddNewBoard {...props} />}
+
+          {/* Modal */}
+          {showDeleteBoard.display && (
+            <DeleteBoard
+              {...props}
+              title={showDeleteBoard.title}
+              targetBoardId={showDeleteBoard.targetBoardId}
+            />
+          )}
 
           {/* Modal */}
           {showTaskItem.display && (

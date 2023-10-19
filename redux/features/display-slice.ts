@@ -25,6 +25,10 @@ export const display = createSlice({
       state.data.showAddNewBoard = action.payload.showAddNewBoard;
     },
 
+    toggleDeleteBoard(state, action) {
+      state.data.showDeleteBoard = action.payload.showDeleteBoard;
+    },
+
     toggleEditBoard(state, action) {
       state.data.showEditBoard = action.payload.showEditBoard;
     },
@@ -43,7 +47,10 @@ export const {
 
   toggleEditTask,
   toggleAddColumnBoard,
+
   toggleAddNewBoard,
+  toggleDeleteBoard,
+
   toggleEditBoard,
   toggleModalTask,
 } = display.actions;
