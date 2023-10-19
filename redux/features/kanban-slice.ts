@@ -4,7 +4,7 @@ import { initialKanbanState } from "../initialState";
 import { handleThemeChange, handleChangeBoard } from "../actions/change-action";
 import {
   handleAddTask,
-  handleAddColumn,
+  handleAddEditColumn,
   handleAddBoardDrag,
 } from "../actions/add-action";
 
@@ -14,7 +14,7 @@ import {
   handleUpdatePosition,
 } from "../actions/update-action";
 
-import { handleEditTask } from "../actions/edit-action";
+import { handleEditTask, handleEditBoard } from "../actions/edit-action";
 
 export const kanban = createSlice({
   name: "kanban",
@@ -42,8 +42,8 @@ export const kanban = createSlice({
     },
 
     // AddColumnBoard Component
-    addColumn(state, action) {
-      handleAddColumn(state, action.payload.newColumn);
+    addEditColumn(state, action) {
+      handleAddEditColumn(state, action.payload.newColumn);
     },
 
     // AddBoardDrag Component
@@ -74,6 +74,13 @@ export const kanban = createSlice({
     editTask(state, action) {
       handleEditTask(state, action.payload);
     },
+
+    editBoard(state, action) {
+      // board title
+      handleEditBoard(state, action.payload);
+      // board columns
+      handleAddEditColumn(state, action.payload.newColumn);
+    },
   },
 });
 
@@ -82,7 +89,7 @@ export default kanban.reducer;
 export const {
   replaceKanban,
   addTask,
-  addColumn,
+  addEditColumn,
   addBoardDrag,
   updateSubTasksItem,
   updateStatusItem,
@@ -90,4 +97,5 @@ export const {
   changeBoard,
   updatePosition,
   editTask,
+  editBoard,
 } = kanban.actions;

@@ -53,3 +53,19 @@ export const handleEditTask = function (
     currentBoard.columns[currColumn].values = updated;
   }
 };
+
+export const handleEditBoard = function (
+  state: { data: TypeKanban },
+  action: { newTitle: string }
+) {
+  const { newTitle } = action;
+
+  const list = state.data.sideNavList;
+  const currentBoard: List | undefined = list.find((li) => li.isActive);
+
+  if (!currentBoard) return;
+
+  console.log(newTitle);
+
+  currentBoard.title = newTitle;
+};

@@ -4,7 +4,7 @@ import { ComponentProps } from "@/types";
 import { updatePosition } from "@/redux/features/kanban-slice";
 import {
   toggleModalTask,
-  toggleAddColumn,
+  toggleAddColumnBoard,
 } from "@/redux/features/display-slice";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
@@ -49,10 +49,10 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     );
   };
 
-  const openAddColumn = function (): void {
+  const openAddColumnBoard = function (): void {
     dispatch(
-      toggleAddColumn({
-        showAddColumn: true,
+      toggleAddColumnBoard({
+        showAddColumnBoard: true,
       })
     );
   };
@@ -129,7 +129,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
       <div className={style.drag__emptyColumn}>
         <div className={style["drag__emptyColumn--title"]}>&nbsp;</div>
-        <button onClick={openAddColumn}>New Column</button>
+        <button onClick={openAddColumnBoard}>New Column</button>
       </div>
     </div>
   );

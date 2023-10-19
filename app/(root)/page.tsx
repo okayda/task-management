@@ -14,9 +14,8 @@ import { getData, sendData } from "@/redux/actions/fetch-action";
 import SideNav from "@/components/SideNav/SideNav";
 import AddTask from "@/components/Forms/AddTask/AddTask";
 import EditTask from "@/components/Forms/EditTask/EditTask";
-import AddColumnBoard from "@/components/Forms/AddColumn/AddColumn";
+import AddColumnBoard from "@/components/Forms/AddColumnBoard/AddColumnBoard";
 import AddBoardDrag from "@/components/Forms/AddBoardDrag/AddBoardDrag";
-import EditBoard from "@/components/Forms/EditBoard/EditBoard";
 import Drag from "@/components/Drag/Drag";
 import TaskItem from "@/components/Modals/TaskItem/TaskItem";
 
@@ -34,7 +33,7 @@ export default function page() {
   const {
     showAddTask,
     showEditTask,
-    showAddColumn,
+    showAddColumnBoard,
     showAddBoardDrag,
     showEditBoard,
     showTaskItem,
@@ -79,13 +78,15 @@ export default function page() {
           {showAddTask && <AddTask {...props} />}
 
           {/* Form */}
-          {showAddColumn && <AddColumnBoard {...props} />}
+          {showAddColumnBoard && (
+            <AddColumnBoard {...props} disableTitle={true} />
+          )}
+
+          {/* Form */}
+          {showEditBoard && <AddColumnBoard {...props} disableTitle={false} />}
 
           {/* Form */}
           {showAddBoardDrag && <AddBoardDrag {...props} />}
-
-          {/* Form */}
-          {showEditBoard && <EditBoard {...props} />}
 
           {/* Modal */}
           {showTaskItem.display && (

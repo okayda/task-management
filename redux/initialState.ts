@@ -32,7 +32,7 @@ export const initialKanbanState = {
 export const initialDisplayState = {
   data: {
     showAddTask: false,
-    showAddColumn: false,
+    showAddColumnBoard: false,
     showAddBoardDrag: false,
     showEditBoard: false,
 

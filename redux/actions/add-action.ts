@@ -21,7 +21,7 @@ export const handleAddTask = function (
   currentBoard.columns[targetColumn].values.push(formData);
 };
 
-export const handleAddColumn = function (
+export const handleAddEditColumn = function (
   state: { data: TypeKanban },
   action: AddColumns[]
 ) {

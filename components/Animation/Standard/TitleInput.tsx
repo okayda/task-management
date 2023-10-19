@@ -3,11 +3,13 @@ export default function TitleInput({
   className,
   onChange,
   value = "",
+  disabled,
 }: {
   title?: string;
   className: string;
-  onChange: (e: string) => void;
+  onChange?: (e: string) => void;
   value?: string;
+  disabled?: boolean;
 }) {
   return (
     <div className={className}>
@@ -15,8 +17,9 @@ export default function TitleInput({
       <input
         type="text"
         id="title"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange && onChange(e.target.value)}
         value={value}
+        disabled={disabled}
       />
     </div>
   );
