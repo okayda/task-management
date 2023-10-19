@@ -78,7 +78,7 @@ export default function AddTask({ data, dispatch }: ComponentProps) {
   const handlerSubmit = function (e: React.FormEvent) {
     e.preventDefault();
 
-    // Error toast notification
+    // checking valid title
     if (!isEmptyTitle) {
       ToastError("Name should not be empty");
       setTitle("");

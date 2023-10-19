@@ -33,7 +33,7 @@ export const initialDisplayState = {
   data: {
     showAddTask: false,
     showAddColumnBoard: false,
-    showAddBoardDrag: false,
+    showAddNewBoard: false,
     showEditBoard: false,
 
     // targetTaskId will only change to the valid id

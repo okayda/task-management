@@ -12,10 +12,13 @@ import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import { getData, sendData } from "@/redux/actions/fetch-action";
 
 import SideNav from "@/components/SideNav/SideNav";
+import AddNewBoard from "@/components/Forms/AddNewBoard/AddNewBoard";
+
+import AddColumnBoard from "@/components/Forms/AddColumnBoard/AddColumnBoard";
+
 import AddTask from "@/components/Forms/AddTask/AddTask";
 import EditTask from "@/components/Forms/EditTask/EditTask";
-import AddColumnBoard from "@/components/Forms/AddColumnBoard/AddColumnBoard";
-import AddBoardDrag from "@/components/Forms/AddBoardDrag/AddBoardDrag";
+
 import Drag from "@/components/Drag/Drag";
 import TaskItem from "@/components/Modals/TaskItem/TaskItem";
 
@@ -34,7 +37,7 @@ export default function page() {
     showAddTask,
     showEditTask,
     showAddColumnBoard,
-    showAddBoardDrag,
+    showAddNewBoard,
     showEditBoard,
     showTaskItem,
   } = useAppSelector((state) => state.displayReducer.data);
@@ -86,7 +89,7 @@ export default function page() {
           {showEditBoard && <AddColumnBoard {...props} disableTitle={false} />}
 
           {/* Form */}
-          {showAddBoardDrag && <AddBoardDrag {...props} />}
+          {showAddNewBoard && <AddNewBoard {...props} />}
 
           {/* Modal */}
           {showTaskItem.display && (

@@ -117,7 +117,7 @@ export default function EditTask({
     e.preventDefault();
     if (!subtasks) return;
 
-    // Error toast notification
+    // checking valid title
     if (!isEmptyTitle) {
       ToastError("Name should not be empty");
       setTitle("");

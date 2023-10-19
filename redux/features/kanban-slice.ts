@@ -5,7 +5,7 @@ import { handleThemeChange, handleChangeBoard } from "../actions/change-action";
 import {
   handleAddTask,
   handleAddEditColumn,
-  handleAddBoardDrag,
+  handleAddNewBoard,
 } from "../actions/add-action";
 
 import {
@@ -47,8 +47,8 @@ export const kanban = createSlice({
     },
 
     // AddBoardDrag Component
-    addBoardDrag(state, action) {
-      handleAddBoardDrag(state, action.payload);
+    addNewBoard(state, action) {
+      handleAddNewBoard(state, action.payload);
     },
 
     // Modals TaskItem Component
@@ -90,7 +90,7 @@ export const {
   replaceKanban,
   addTask,
   addEditColumn,
-  addBoardDrag,
+  addNewBoard,
   updateSubTasksItem,
   updateStatusItem,
   changeTheme,

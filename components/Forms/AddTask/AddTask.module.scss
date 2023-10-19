@@ -1,5 +1,5 @@
-@use "../taskStyles.scss" as *;
+@use "../FormStyle.scss" as *;
 
 .addtask {
-  @include taskStyles();
+  @include formStyle();
 }

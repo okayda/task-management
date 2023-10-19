@@ -71,7 +71,7 @@ export const handleAddEditColumn = function (
   currentBoard.columns = newColumnObj;
 };
 
-export const handleAddBoardDrag = function (
+export const handleAddNewBoard = function (
   state: { data: TypeKanban },
   action: {
     newBoardId: string;

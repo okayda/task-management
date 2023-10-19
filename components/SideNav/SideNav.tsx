@@ -7,7 +7,7 @@ import Image from "next/image";
 import style from "./SideNav.module.scss";
 
 import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
-import { toggleAddBoardDrag } from "@/redux/features/display-slice";
+import { toggleAddNewBoard } from "@/redux/features/display-slice";
 
 import boardWhite from "../../public/assets/icon-board-white.svg";
 import boardBlue from "../../public/assets/icon-board-blue.svg";
@@ -31,8 +31,8 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     dispatch(changeBoard({ titleId: id }));
   };
 
-  const openAddColumnBoard = function (): void {
-    dispatch(toggleAddBoardDrag({ showAddBoardDrag: true }));
+  const openAddNewBoard = function (): void {
+    dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
   };
 
   const handlerTheme = function (): void {
@@ -73,7 +73,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
               })}
 
               <li className={style.createBoard}>
-                <button onClick={openAddColumnBoard}>
+                <button onClick={openAddNewBoard}>
                   <Image src={boardBlue} alt="" width={16} height={16} />
 
                   <div>
