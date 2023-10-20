@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { ComponentProps } from "@/types";
+import { ComponentProps, Item } from "@/types";
 import { updatePosition } from "@/redux/features/kanban-slice";
 import {
   toggleModalTask,
@@ -109,37 +109,47 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                           {...provided.droppableProps}
                           ref={provided.innerRef}
                         >
-                          {column.items.values.map((item: any, index: any) => {
-                            return (
-                              <div
-                                className="card-item"
-                                onClick={() => showModalTask(item.itemId)}
-                                key={item.itemId}
-                              >
-                                <Draggable
-                                  draggableId={item.itemId}
-                                  index={index}
-                                >
-                                  {(provided, _) => {
-                                    return (
-                                      <div
-                                        className={style.drag__item}
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                      >
-                                        <h4>{item.itemTitle}</h4>
+                          {column.items.values.map(
+                            (item: Item, index: number) => {
+                              const countCompletedSubTask =
+                                item.subTasks.reduce(
+                                  (count, task) =>
+                                    count + (task.isComplete ? 1 : 0),
+                                  0
+                                );
 
-                                        <p>
-                                          0 of {item.subTasks.length} subtasks
-                                        </p>
-                                      </div>
-                                    );
-                                  }}
-                                </Draggable>
-                              </div>
-                            );
-                          })}
+                              return (
+                                <div
+                                  className="card-item"
+                                  onClick={() => showModalTask(item.itemId)}
+                                  key={item.itemId}
+                                >
+                                  <Draggable
+                                    draggableId={item.itemId}
+                                    index={index}
+                                  >
+                                    {(provided, _) => {
+                                      return (
+                                        <div
+                                          className={style.drag__item}
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                        >
+                                          <h4>{item.itemTitle}</h4>
+
+                                          <p>
+                                            {countCompletedSubTask} of{" "}
+                                            {item.subTasks.length} subtasks
+                                          </p>
+                                        </div>
+                                      );
+                                    }}
+                                  </Draggable>
+                                </div>
+                              );
+                            }
+                          )}
                           {provided.placeholder}
                         </div>
                       );
