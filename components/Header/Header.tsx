@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import { toggleAddTask } from "@/redux/features/display-slice";
-import { toggleDeleteBoard } from "@/redux/features/display-slice";
+import { toggleMobileNav } from "@/redux/features/display-slice";
 import { List } from "@/types";
 
 import EllipsisHeader from "../Modals/EllipsisHeader/EllipsisHeader";
@@ -53,6 +53,10 @@ export default function Header() {
     dispatch(toggleAddTask({ showAddTask: true }));
   };
 
+  const openMobileNav = function (): void {
+    dispatch(toggleMobileNav({ showMobileNav: true }));
+  };
+
   return (
     <header className={`${style.header} ${currentTheme}`}>
       <div className={style.header__container}>
@@ -64,7 +68,7 @@ export default function Header() {
           </picture>
         </div>
         <div className={style.header__menu}>
-          <button className={style.header__launch}>
+          <button className={style.header__launch} onClick={openMobileNav}>
             {boardTitle}
             <Image src={arrowDown} alt="" width={10} height={7} />
           </button>

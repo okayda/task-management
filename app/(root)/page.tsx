@@ -36,6 +36,8 @@ export default function page() {
   const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
 
   const {
+    showMobileNav,
+
     showAddTask,
     showDeleteTask,
 
@@ -123,7 +125,7 @@ export default function page() {
           hideScrollbars={false}
           ignoreElements={".card-item"}
         >
-          <SideNav {...props} />
+          <SideNav {...props} showMobileNav={showMobileNav} />
 
           <Drag {...props} />
         </ScrollContainer>

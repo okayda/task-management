@@ -11,6 +11,7 @@
 
   // only for mobile layout
   &__mobileShow {
+    z-index: $z-5;
     display: block;
   }
 

@@ -3,7 +3,16 @@ import { FadeAnimated } from "../../Animation";
 import style from "./OverlayType.module.scss";
 
 export const Overlay = function ({ onClose }: { onClose: () => void }) {
-  return <div className={style.overlay} onClick={onClose} />;
+  return (
+    <motion.div
+      className={style.overlay}
+      onClick={onClose}
+      variants={FadeAnimated}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    />
+  );
 };
 
 export const WrappedOverlay = function ({

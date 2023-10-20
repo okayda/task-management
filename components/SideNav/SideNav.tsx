@@ -1,13 +1,19 @@
 "use client";
 import React from "react";
+import { AnimatePresence } from "framer-motion";
 import { ComponentProps } from "@/types";
 
 import Switch from "react-switch";
 import Image from "next/image";
 import style from "./SideNav.module.scss";
 
+import { Overlay } from "../Animation/Standard/OverlayType/OverlayType";
+
 import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
-import { toggleAddNewBoard } from "@/redux/features/display-slice";
+import {
+  toggleAddNewBoard,
+  toggleMobileNav,
+} from "@/redux/features/display-slice";
 
 import boardWhite from "../../public/assets/icon-board-white.svg";
 import boardBlue from "../../public/assets/icon-board-blue.svg";
@@ -21,7 +27,11 @@ const alterIcn = function (isActive: boolean): string {
   return isActive ? boardWhite : boardGray;
 };
 
-export default React.memo(({ data, dispatch }: ComponentProps) => {
+interface SideNavProps extends ComponentProps {
+  showMobileNav: boolean;
+}
+
+export default React.memo(({ data, dispatch, showMobileNav }: SideNavProps) => {
   // id is not valid
   if (!data.userId) return null;
 
@@ -29,12 +39,18 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
   const { isDarkTheme: theme, sideNavList: list } = data;
 
+  const closeMobileNav = function (): void {
+    dispatch(toggleMobileNav({ showMobileNav: false }));
+  };
+
   const changeBoardHandler = function (id: string): void {
     dispatch(changeBoard({ titleId: id }));
   };
 
   const showAddNewBoard = function (): void {
     dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
+
+    closeMobileNav();
   };
 
   const handlerTheme = function (): void {
@@ -43,9 +59,15 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
   return (
     <>
-      {/* {showNav && <Overlay onClose={setShowNav} />} */}
-      {/* ${showNav && style.sidenav__mobileShow} */}
-      <div className={`${style.sidenav}`}>
+      <AnimatePresence>
+        {showMobileNav && <Overlay onClose={closeMobileNav} />}
+      </AnimatePresence>
+
+      <div
+        className={`${style.sidenav}  ${
+          showMobileNav && style.sidenav__mobileShow
+        }`}
+      >
         <div className={style.sidenav__container}>
           <div>
             <h3>all boards ({boardsLength})</h3>

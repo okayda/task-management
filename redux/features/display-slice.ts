@@ -5,6 +5,10 @@ export const display = createSlice({
   name: "display",
   initialState: initialDisplayState,
   reducers: {
+    toggleMobileNav(state, action) {
+      state.data.showMobileNav = action.payload.showMobileNav;
+    },
+
     toggleAddTask(state, action) {
       state.data.showAddTask = action.payload.showAddTask;
     },
@@ -42,6 +46,8 @@ export const display = createSlice({
 export default display.reducer;
 
 export const {
+  toggleMobileNav,
+
   toggleAddTask,
   toggleDeleteTask,
 
