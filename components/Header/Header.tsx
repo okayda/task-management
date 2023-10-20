@@ -27,6 +27,9 @@ export default function Header() {
 
   const list = kanbanData.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
+  const boardsLength = list.length;
+
+  console.log(boardsLength);
 
   const titleBoard = currentBoard?.title;
   const targetBoardId = currentBoard?.titleId;
@@ -65,27 +68,29 @@ export default function Header() {
             <Image src={arrowDown} alt="" width={10} height={7} />
           </button>
 
-          <div className={style.header__sub}>
-            <button
-              className={style["header__sub--cross"]}
-              onClick={showNewTask}
-            >
-              <span>Add New Task</span>
-              {/* this img is only for mobile layout */}
-              <Image alt="" src={plusImg} width={20} height={20} />
-            </button>
+          {boardsLength > 0 && (
+            <div className={style.header__sub}>
+              <button
+                className={style["header__sub--cross"]}
+                onClick={showNewTask}
+              >
+                <span>Add New Task</span>
+                {/* this img is only for mobile layout */}
+                <Image alt="" src={plusImg} width={20} height={20} />
+              </button>
 
-            <button onClick={showEllipModal}>
-              <Image src={ellipImg} alt="" width={5} height={20} />
-            </button>
+              <button onClick={showEllipModal}>
+                <Image src={ellipImg} alt="" width={5} height={20} />
+              </button>
 
-            {ellip && (
-              <EllipsisHeader
-                title={titleBoard}
-                targetBoardId={targetBoardId}
-              />
-            )}
-          </div>
+              {ellip && (
+                <EllipsisHeader
+                  title={titleBoard}
+                  targetBoardId={targetBoardId}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </header>
