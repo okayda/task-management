@@ -25,6 +25,8 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   // id is not valid
   if (!data.userId) return null;
 
+  const boardsLength = data.sideNavList.length;
+
   const { isDarkTheme: theme, sideNavList: list } = data;
 
   const changeBoardHandler = function (id: string): void {
@@ -45,11 +47,9 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
       {/* ${showNav && style.sidenav__mobileShow} */}
       <div className={`${style.sidenav}`}>
         <div className={style.sidenav__container}>
-          {/* TODO Add length of drag boards */}
           <div>
-            <h3>all boards (3)</h3>
+            <h3>all boards ({boardsLength})</h3>
             <ul>
-              {/* TODO Add one list of board */}
               {list.map((board) => {
                 // Is used for avoiding the empty className
                 const prop: {
