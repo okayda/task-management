@@ -1,0 +1,29 @@
+@use "../FormStyle.scss" as *;
+
+.addColumn {
+  @include formStyle();
+
+  &__titleHide {
+    input {
+      opacity: 0.3;
+    }
+  }
+
+  &__error {
+    span {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "Atleast one column";
+        bottom: 0;
+        right: 0;
+        color: #ea5555;
+      }
+    }
+
+    input {
+      border-color: #ea5555;
+    }
+  }
+}

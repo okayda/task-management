@@ -1,0 +1,139 @@
+@use "../../scss/index.scss" as *;
+
+// Only used on all forms on this folder
+@mixin formStyle() {
+  h2 {
+    color: theme(title);
+    font-size: rem(18px);
+    margin-bottom: rem(20px);
+  }
+
+  &__subtask span,
+  &__status span,
+  label {
+    letter-spacing: 0.5px;
+    color: theme(subTitle);
+    font-weight: 700;
+    font-size: rem(13px);
+  }
+
+  &__status span,
+  label {
+    margin-bottom: 8px;
+  }
+
+  textarea,
+  input {
+    background-color: transparent;
+    color: theme(title);
+    font-size: rem(13px);
+    border-radius: 4px;
+    border: 2px solid rgba(130, 143, 163, 0.4);
+    padding: rem(8px) rem(12px);
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  &__errorTitle {
+    label {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "Required";
+        bottom: 0;
+        right: 0;
+        color: $red;
+      }
+    }
+
+    input {
+      border-color: $red;
+    }
+  }
+
+  &__title,
+  &__description,
+  &__status {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: rem(18px);
+
+    input,
+    textarea {
+      transition: border 0.35s;
+
+      &:focus {
+        outline: none;
+        border: 2px solid $darkBlue;
+      }
+    }
+  }
+
+  &__subtask {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: rem(14px);
+
+    //input className
+    &--input {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: rem(16px);
+
+      input {
+        transition: border 0.35s;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+          border-color: rgb(183, 132, 255);
+        }
+      }
+    }
+
+    //button className
+    &--insert {
+      margin-top: 6px;
+      width: 100%;
+      background-color: theme(addBtn);
+      padding: rem(8px);
+      font-size: rem(13.5px);
+      border-radius: 100px;
+      color: $darkBlue;
+      font-weight: 700;
+      transition: $transitionBtn;
+
+      &:hover {
+        filter: brightness(85%);
+      }
+    }
+
+    //error input className
+    &--error {
+      input {
+        border-color: $darkBlue;
+      }
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    padding: rem(8px) 0;
+    background-color: $darkBlue;
+    border-radius: 100px;
+    color: $white;
+    font-weight: 700;
+    font-size: rem(13.5px);
+    letter-spacing: 0.5px;
+    transition: $transitionBtn;
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+}

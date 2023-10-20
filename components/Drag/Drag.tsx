@@ -6,6 +6,7 @@ import { updatePosition } from "@/redux/features/kanban-slice";
 import {
   toggleModalTask,
   toggleAddColumnBoard,
+  toggleAddNewBoard,
 } from "@/redux/features/display-slice";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
@@ -60,6 +61,24 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
       toggleAddColumnBoard({
         showAddColumnBoard: true,
       })
+    );
+  };
+
+  const showAddNewBoard = function (): void {
+    dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
+  };
+
+  // If no existed board will gonna display this
+  // Call To Action
+  const CTA = function () {
+    return (
+      <div className={style.dragEmpty__content}>
+        <p>This board is empty. Create a new column to get started.</p>
+        <button onClick={showAddNewBoard}>
+          Create New Board
+          <Image src={plus} alt="" height={20} width={20} />
+        </button>
+      </div>
     );
   };
 
@@ -134,15 +153,10 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
           )}
         </DragDropContext>
       ) : (
-        <div className={style.dragEmpty__content}>
-          <p>This board is empty. Create a new column to get started.</p>
-          <button>
-            Create New Board
-            <Image src={plus} alt="" height={20} width={20} />
-          </button>
-        </div>
+        <CTA />
       )}
 
+      {/* Hide the AddNewColumn if there is no existed board */}
       {boardsLength > 0 && (
         <div className={style.drag__emptyColumn}>
           <div className={style["drag__emptyColumn--title"]}>&nbsp;</div>

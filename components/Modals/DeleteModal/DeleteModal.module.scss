@@ -1,0 +1,69 @@
+@use "../../../scss/index.scss" as *;
+
+.delete {
+  h2 {
+    font-size: rem(18px);
+    margin-bottom: rem(16px);
+    color: $red;
+  }
+
+  span,
+  p {
+    color: $mediumGray;
+  }
+
+  span {
+    display: block;
+    font-size: rem(14px);
+  }
+
+  &__subTitle {
+    font-weight: 700;
+    margin-bottom: rem(14px);
+  }
+
+  p {
+    font-size: rem(13px);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin-bottom: rem(16px);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: rem(24px);
+  }
+
+  &__btn {
+    display: flex;
+    gap: rem(16px);
+
+    button {
+      transition: $transitionBtn;
+      font-weight: 700;
+      font-size: rem(13px);
+      border-radius: 100px;
+      flex-grow: 1;
+      padding: 8px rem(16px);
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    &--primary {
+      color: $white;
+      background-color: $red;
+    }
+
+    &--secondary {
+      color: $darkBlue;
+      background-color: $veryLightBlue;
+    }
+  }
+}
