@@ -31,7 +31,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     dispatch(changeBoard({ titleId: id }));
   };
 
-  const openAddNewBoard = function (): void {
+  const showAddNewBoard = function (): void {
     dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
   };
 
@@ -73,7 +73,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
               })}
 
               <li className={style.createBoard}>
-                <button onClick={openAddNewBoard}>
+                <button onClick={showAddNewBoard}>
                   <Image src={boardBlue} alt="" width={16} height={16} />
 
                   <div>

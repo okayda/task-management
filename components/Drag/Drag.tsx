@@ -16,6 +16,8 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   // id is not valid
   if (!data.userId) return null;
 
+  const boardsLength = data.sideNavList.length;
+
   const columnsObj: any = {};
 
   let targetDrag: string | null = null;
@@ -38,7 +40,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     dispatch(updatePosition({ targetId: targetDrag, newPosition }));
   };
 
-  const openModalTask = function (itemId: string): void {
+  const showModalTask = function (itemId: string): void {
     dispatch(
       toggleModalTask({
         showModalTask: {
@@ -49,7 +51,9 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
     );
   };
 
-  const openAddColumnBoard = function (): void {
+  const showAddColumnBoard = function (): void {
+    console.log("Display");
+
     dispatch(
       toggleAddColumnBoard({
         showAddColumnBoard: true,
@@ -89,7 +93,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
                           return (
                             <div
                               className="card-item"
-                              onClick={() => openModalTask(item.itemId)}
+                              onClick={() => showModalTask(item.itemId)}
                               key={item.itemId}
                             >
                               <Draggable
@@ -127,10 +131,12 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
         )}
       </DragDropContext>
 
-      <div className={style.drag__emptyColumn}>
-        <div className={style["drag__emptyColumn--title"]}>&nbsp;</div>
-        <button onClick={openAddColumnBoard}>New Column</button>
-      </div>
+      {boardsLength > 0 && (
+        <div className={style.drag__emptyColumn}>
+          <div className={style["drag__emptyColumn--title"]}>&nbsp;</div>
+          <button onClick={showAddColumnBoard}>New Column</button>
+        </div>
+      )}
     </div>
   );
 });

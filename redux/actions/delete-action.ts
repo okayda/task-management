@@ -18,3 +18,21 @@ export const handleDeleteTask = function (
 
   currentBoard.columns[targetColumn].values = updatedValues;
 };
+
+export const handleDeleteBoard = function (
+  state: { data: TypeKanban },
+  action: { targetBoardId: string }
+) {
+  const { targetBoardId } = action;
+
+  const list = state.data.sideNavList;
+
+  // Delete the target board
+  const updatedBoards = list.filter((li: List) => li.titleId !== targetBoardId);
+
+  // Make the first element board active
+  // (basically it will make the user directed to the first board) if there is a boards exist
+  if (updatedBoards.length) updatedBoards[0].isActive = true;
+
+  state.data.sideNavList = updatedBoards;
+};

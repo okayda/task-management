@@ -84,6 +84,15 @@ export const handleAddNewBoard = function (
   const list = state.data.sideNavList;
   const newColumnObj: Column = {};
 
+  // disabling the current active board
+  // in order to direct the user to the newly created board
+  list.forEach((li: List) => {
+    if (li.isActive) {
+      li.isActive = false;
+      return;
+    }
+  });
+
   newBoardColumns.forEach((column: BoardColumns) => {
     const id = column.columnId;
     const name = column.columnName;
@@ -97,7 +106,7 @@ export const handleAddNewBoard = function (
   const newBoard: List = {
     titleId: newBoardId,
     title: newBoardName,
-    isActive: false,
+    isActive: true,
     columns: newColumnObj,
   };
 

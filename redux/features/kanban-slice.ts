@@ -16,7 +16,7 @@ import {
 
 import { handleEditTask, handleEditBoard } from "../actions/edit-action";
 
-import { handleDeleteTask } from "../actions/delete-action";
+import { handleDeleteTask, handleDeleteBoard } from "../actions/delete-action";
 
 export const kanban = createSlice({
   name: "kanban",
@@ -87,6 +87,10 @@ export const kanban = createSlice({
     deleteTask(state, action) {
       handleDeleteTask(state, action.payload);
     },
+
+    deleteBoard(state, action) {
+      handleDeleteBoard(state, action.payload);
+    },
   },
 });
 
@@ -105,4 +109,5 @@ export const {
   editTask,
   editBoard,
   deleteTask,
+  deleteBoard,
 } = kanban.actions;
