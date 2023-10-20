@@ -1,5 +1,45 @@
 @use "../../scss/index.scss" as *;
 
+.dragEmpty {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 90px);
+  min-width: 100%;
+
+  @include tablet() {
+    min-width: calc(100% - rem(300px));
+  }
+
+  &__content {
+    text-align: center;
+    padding: 0 rem(20px);
+
+    p {
+      color: theme(title);
+      font-size: rem(17px);
+      margin-bottom: rem(18px);
+    }
+
+    button {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 4px;
+      margin: 0 auto;
+      color: $white;
+      font-weight: 700;
+      border-radius: 100px;
+      background-color: $darkBlue;
+      font-size: rem(15px);
+      padding: rem(12px) rem(16px);
+    }
+  }
+}
+
 .drag {
   position: absolute;
   left: 0;
