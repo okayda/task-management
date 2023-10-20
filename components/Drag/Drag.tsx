@@ -55,8 +55,6 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   };
 
   const showAddColumnBoard = function (): void {
-    console.log("Display");
-
     dispatch(
       toggleAddColumnBoard({
         showAddColumnBoard: true,

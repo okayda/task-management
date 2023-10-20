@@ -26,6 +26,16 @@ interface AddColumnBoardProp extends ComponentProps {
   disableTitle: boolean;
 }
 
+const checkForDuplicates = (arr: AddColumns[]) => {
+  const columnNames = arr.map((item) => item.columnName);
+  const duplicates = columnNames.filter(
+    (item, index) => columnNames.indexOf(item) !== index
+  );
+  if (duplicates.length > 0) return true;
+
+  return false;
+};
+
 export default function AddColumnBoard({
   data,
   dispatch,
@@ -104,10 +114,16 @@ export default function AddColumnBoard({
   const handlerSubmit = function (e: React.FormEvent): void {
     e.preventDefault();
 
-    // checking valid title
+    // checking valid title (Only for Edit Board form)
     if (!disableTitle && !isEmptyTitle) {
       ToastError("Name should not be empty");
       setTitle("");
+      return;
+    }
+
+    // checking if there is any duplicated column name (Only for Add Column form)
+    if (checkForDuplicates(columnInputs)) {
+      ToastError("Duplicated column name");
       return;
     }
 

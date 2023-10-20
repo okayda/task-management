@@ -49,6 +49,7 @@ export const handleAddEditColumn = function (
           columnId: targetColumn,
           values: [],
         };
+        console.log("New column");
         return;
       }
 
