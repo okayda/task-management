@@ -8,19 +8,25 @@ import {
 import style from "./EllipsisHeader.module.scss";
 
 export default function EllipsisHeader({
+  closeEllipModal,
   title,
   targetBoardId,
 }: {
+  closeEllipModal: () => void;
   title: string | undefined;
   targetBoardId: string | undefined;
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
   const showEditBoard = function (): void {
+    closeEllipModal();
+
     dispatch(toggleEditBoard({ showEditBoard: true }));
   };
 
   const showDeleteBoard = function (): void {
+    closeEllipModal();
+
     dispatch(
       toggleDeleteBoard({
         showDeleteBoard: { display: true, title, targetBoardId },

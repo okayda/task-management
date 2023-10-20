@@ -40,8 +40,12 @@ export default function Header() {
 
   const [ellip, setEllip] = useState<boolean>(false);
 
-  const showEllipModal = function (): void {
+  const toggleEllipModal = function (): void {
     setEllip((prev) => !prev);
+  };
+
+  const closeEllipModal = function (): void {
+    setEllip(false);
   };
 
   const showNewTask = function (): void {
@@ -77,12 +81,13 @@ export default function Header() {
                 <Image alt="" src={plusImg} width={20} height={20} />
               </button>
 
-              <button onClick={showEllipModal}>
+              <button onClick={toggleEllipModal}>
                 <Image src={ellipImg} alt="" width={5} height={20} />
               </button>
 
               {ellip && (
                 <EllipsisHeader
+                  closeEllipModal={closeEllipModal}
                   title={titleBoard}
                   targetBoardId={targetBoardId}
                 />
