@@ -27,6 +27,7 @@ export default function Header() {
 
   const list = kanbanData.sideNavList;
   const currentBoard: List | undefined = list.find((li) => li.isActive);
+  const boardTitle = currentBoard?.title;
   const boardsLength = list.length;
 
   const titleBoard = currentBoard?.title;
@@ -64,9 +65,7 @@ export default function Header() {
         </div>
         <div className={style.header__menu}>
           <button className={style.header__launch}>
-            {/* // TODO: change title if the user click specific board. */}
-            Platform Launch
-            {/* this img is only for mobile layout */}
+            {boardTitle}
             <Image src={arrowDown} alt="" width={10} height={7} />
           </button>
 
