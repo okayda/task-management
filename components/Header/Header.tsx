@@ -29,8 +29,6 @@ export default function Header() {
   const currentBoard: List | undefined = list.find((li) => li.isActive);
   const boardsLength = list.length;
 
-  console.log(boardsLength);
-
   const titleBoard = currentBoard?.title;
   const targetBoardId = currentBoard?.titleId;
 

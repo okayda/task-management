@@ -70,7 +70,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   // Call To Action
   const CTA = function () {
     return (
-      <div className={style.dragEmpty__content}>
+      <div className={style.CTA__content}>
         <p>This board is empty. Create a new column to get started.</p>
         <button onClick={showAddNewBoard}>
           Create New Board
@@ -81,7 +81,7 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   };
 
   return (
-    <div className={boardsLength ? style.drag : style.dragEmpty}>
+    <div className={boardsLength ? style.drag : style.CTA}>
       {boardsLength ? (
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columnsObj, updateDrag)}
@@ -103,9 +103,15 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
 
                   <Droppable droppableId={columnId} key={columnId}>
                     {(provided, _) => {
+                      const isColumnEmpty: boolean = Boolean(
+                        column.items.values.length
+                      );
+
                       return (
                         <div
-                          className={style.drag__column}
+                          className={`${style.drag__column} ${
+                            !isColumnEmpty && style.drag__emptyColumnItem
+                          }`}
                           {...provided.droppableProps}
                           ref={provided.innerRef}
                         >
