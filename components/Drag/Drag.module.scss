@@ -82,6 +82,14 @@
       background-color: #67e2ae;
     }
 
+    &--4 {
+      background-color: #2a3fdb;
+    }
+
+    &--5 {
+      background-color: #c36e6e;
+    }
+
     span {
       width: 15px;
       height: 15px;
@@ -115,7 +123,7 @@
 
     h4 {
       color: theme(title);
-      font-weight: 400;
+      font-weight: 700;
       margin-bottom: rem(10px);
     }
 
