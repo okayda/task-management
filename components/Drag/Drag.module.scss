@@ -99,14 +99,14 @@
     }
 
     span {
-      width: 15px;
-      height: 15px;
+      width: rem(15px);
+      height: rem(15px);
       border-radius: 100%;
     }
 
     h3 {
       text-align: left;
-      font-size: 12px;
+      font-size: rem(12px);
       text-transform: uppercase;
       letter-spacing: 2.4px;
     }
@@ -119,18 +119,17 @@
   }
 
   &__item {
-    transition: all 0.25s;
+    transition: $transition;
     font-size: 15px;
-    border: 6px;
     background-color: theme(main);
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 4px -2px,
-      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-    padding: 24px 16px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    padding: rem(24px) rem(16px);
     border-radius: 9px;
-    margin-bottom: 24px;
+    margin-bottom: rem(24px);
 
     &:hover {
-      opacity: 0.5;
+      box-shadow: $darkBlue 0px 0px 0px 1px;
     }
 
     h4 {
@@ -159,8 +158,8 @@
     height: 100%;
 
     &--title {
-      height: 18px;
-      margin-bottom: 24px;
+      height: rem(18px);
+      margin-bottom: rem(24px);
     }
 
     button {

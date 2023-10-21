@@ -160,7 +160,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 26px;
+      gap: rem(26px);
       padding: rem(10px) 0;
       border-radius: 6px;
 
@@ -183,7 +183,7 @@
       @include tablet {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: rem(15px);
         margin-left: rem(32px);
       }
     }

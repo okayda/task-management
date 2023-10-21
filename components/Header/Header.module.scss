@@ -21,7 +21,7 @@
     img {
       @include tablet() {
         width: rem(153px);
-        height: 26px;
+        height: rem(26px);
       }
     }
 
