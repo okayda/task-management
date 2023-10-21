@@ -13,8 +13,10 @@
   height: 100vh;
   transition: $transition;
   background: rgba(0, 0, 0, 0.5);
+}
 
-  // @include tablet() {
-  //   display: none;
-  // }
+.overlay {
+  @include tablet() {
+    display: none;
+  }
 }

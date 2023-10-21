@@ -1,33 +1,65 @@
 @use "../../scss/index.scss" as *;
 
-.sidenav {
+.showDesktopNavBtn {
   display: none;
   position: fixed;
-  transform: translate(-50%);
-  top: rem(80px);
-  left: 50%;
-  z-index: $z-2;
-  width: rem(300px);
+  left: 0;
+  bottom: rem(20px);
+  z-index: $z-5;
+  transition: $transitionBtn;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  padding: rem(14px) rem(20px);
+  background-color: $darkBlue;
 
-  // only for mobile layout
-  &__mobileShow {
-    z-index: $z-5;
-    display: block;
+  &:hover {
+    opacity: 0.6;
   }
 
   @include tablet() {
     display: block;
-    transform: none;
-    top: rem(90px);
-    left: 0;
+  }
+}
+
+.hideDesktopNavBtn {
+  display: none;
+
+  @include tablet() {
+    display: block;
+  }
+}
+
+.sidenav {
+  display: none;
+  width: rem(340px);
+  position: fixed;
+  top: rem(80px);
+  z-index: $z-2;
+
+  &__mobileShowNav {
+    z-index: $z-5;
+    display: block;
+    transform: translateX(-50%) !important;
+    left: 50%;
+
+    @include tablet() {
+      transform: none !important;
+      left: auto;
+    }
+  }
+
+  @include tablet() {
+    display: block;
+    width: rem(300px);
     height: 100%;
+    top: rem(90px);
   }
 
   &__container {
     transition: $transition;
     color: $mediumGray;
     background-color: theme(main);
-    max-width: rem(300px);
+    max-width: rem(340px);
     padding: rem(16px) 0 rem(32px);
     margin: 0 auto;
     border-radius: 9px;
@@ -38,6 +70,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      max-width: rem(300px);
       height: calc(100% - rem(90px));
       border-radius: 0;
       box-shadow: none;

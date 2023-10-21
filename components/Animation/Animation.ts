@@ -1,3 +1,22 @@
+// Used in SideNav Component
+export const SideNavAnimated = {
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+    },
+  },
+
+  hidden: {
+    x: "-100%",
+    opacity: 0,
+    transition: {
+      duration: 0.25,
+    },
+  },
+};
+
 // Used in DropStatus Component
 export const ShowStatusAnimated = {
   enter: {
