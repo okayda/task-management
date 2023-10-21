@@ -41,4 +41,22 @@
   &__secondary {
     color: $red;
   }
+
+  &__logout {
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: theme(title);
+    background-color: $veryLightBlue;
+    border-radius: 6px;
+    padding: 10px;
+
+    p {
+      color: $darkBlue;
+      font-weight: 700;
+      font-size: rem(16px);
+    }
+  }
 }

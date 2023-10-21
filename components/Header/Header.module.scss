@@ -38,6 +38,22 @@
     align-items: center;
   }
 
+  &__account {
+    display: none;
+    border: 2px dashed $darkBlue;
+    transition: $transitionBtn;
+    border-radius: 100px;
+    padding: 6px;
+
+    &:hover {
+      scale: 1.2;
+    }
+
+    @include tablet() {
+      display: block;
+    }
+  }
+
   &__launch {
     text-overflow: ellipsis;
     transition: $transition;
@@ -90,6 +106,12 @@
           display: none;
         }
       }
+    }
+
+    &--ellip {
+      background-color: $veryLightBlue;
+      padding: 10px;
+      border-radius: 4px;
     }
   }
 }

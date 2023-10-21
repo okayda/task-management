@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
@@ -82,6 +82,10 @@ export default function Header() {
           </picture>
         </div>
         <div className={style.header__menu}>
+          <div className={style.header__account}>
+            <UserButton afterSignOutUrl="/sign-in" />
+          </div>
+
           <button className={style.header__launch} onClick={openMobileNav}>
             {title}
             <Image src={arrowDown} alt="" width={10} height={7} />
@@ -97,7 +101,10 @@ export default function Header() {
                 <Image alt="" src={plusImg} width={20} height={20} />
               </button>
 
-              <button onClick={handlerHeaderEllipModal}>
+              <button
+                className={style["header__sub--ellip"]}
+                onClick={handlerHeaderEllipModal}
+              >
                 <Image src={ellipImg} alt="" width={5} height={20} />
               </button>
 
