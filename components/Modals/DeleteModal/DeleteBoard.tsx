@@ -46,7 +46,7 @@ export default function DeleteBoard({
       })
     );
 
-    // closeDeleteBoard();
+    closeDeleteBoard();
   };
 
   return (

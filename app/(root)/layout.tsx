@@ -14,9 +14,9 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "TaskM",
+  title: "Management",
   description:
-    "TaskM is the process of organizing and tracking your tasks in order to achieve your goals. It can help you stay on track, avoid procrastination, and get more done.",
+    "Management is the process of organizing and tracking your tasks in order to achieve your goals. It can help you stay on track, avoid procrastination, and get more done.",
 };
 
 export default function RootLayout({
