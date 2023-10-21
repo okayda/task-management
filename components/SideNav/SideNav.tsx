@@ -104,10 +104,9 @@ export default React.memo(({ data, dispatch, showMobileNav }: SideNavProps) => {
                   className?: string;
                 } = {};
 
-                // active list
-                if (board.isActive) {
-                  prop.className = style.sidenav__active;
-                }
+                // active & deactive list
+                if (board.isActive) prop.className = style.sidenav__active;
+                else prop.className = style.sidenav__deactive;
 
                 return (
                   <li {...prop} key={board.titleId}>

@@ -65,6 +65,7 @@
     border-radius: 9px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
       rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border: none !important;
 
     @include tablet() {
       display: flex;
@@ -89,7 +90,7 @@
     width: 95%;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
 
     button {
       text-align: left;
@@ -105,7 +106,12 @@
 
     .createBoard {
       button {
+        transition: $transitionBtn;
         color: #635fc7;
+
+        &:hover {
+          opacity: 0.6;
+        }
       }
 
       div {
@@ -136,6 +142,17 @@
     }
   }
 
+  &__deactive {
+    @include tablet() {
+      &:hover {
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        outline: 2px dashed #a8a4ff;
+        outline-width: 2px;
+      }
+    }
+  }
+
   &__btn {
     &--switch {
       margin: rem(8px) rem(32px) 0;
@@ -153,10 +170,15 @@
     }
 
     &--hide {
+      transition: $transitionBtn;
       color: inherit;
       display: none;
       font-weight: 700;
       font-size: rem(15px);
+
+      &:hover {
+        opacity: 0.6;
+      }
 
       @include tablet {
         display: flex;
