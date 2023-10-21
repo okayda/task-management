@@ -148,7 +148,7 @@ export default function AddNewBoard({ data, dispatch }: ComponentProps) {
             </div>
 
             <Button type="submit" className={style.addBoardDrag__submit}>
-              Save Changes
+              Create New Board
             </Button>
           </form>
         </div>

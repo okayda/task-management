@@ -62,6 +62,7 @@
     gap: rem(24px);
 
     &--cross {
+      font-weight: 700;
       background-color: $darkBlue;
       color: $white;
       padding: rem(6px) rem(14px);

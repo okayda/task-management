@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ComponentProps } from "@/types";
 
@@ -15,6 +15,7 @@ import { changeTheme, changeBoard } from "@/redux/features/kanban-slice";
 import {
   toggleAddNewBoard,
   toggleMobileNav,
+  toggleDesktopNav,
 } from "@/redux/features/display-slice";
 
 import { addEllipsis } from "@/Utils/utils";
@@ -34,132 +35,132 @@ const alterIcn = function (isActive: boolean): string {
 
 interface SideNavProps extends ComponentProps {
   showMobileNav: boolean;
+  showDesktopNav: boolean;
 }
 
-export default React.memo(({ data, dispatch, showMobileNav }: SideNavProps) => {
-  // id is not valid
-  if (!data.userId) return null;
+export default React.memo(
+  ({ data, dispatch, showMobileNav, showDesktopNav }: SideNavProps) => {
+    // id is not valid
+    if (!data.userId) return null;
 
-  const boardsLength = data.sideNavList.length;
-  const { isDarkTheme: theme, sideNavList: list } = data;
+    const boardsLength = data.sideNavList.length;
+    const { isDarkTheme: theme, sideNavList: list } = data;
 
-  const closeMobileNav = function (): void {
-    dispatch(toggleMobileNav({ showMobileNav: false }));
-  };
+    const closeMobileNav = function (): void {
+      dispatch(toggleMobileNav({ showMobileNav: false }));
+    };
 
-  const [showDesktopNav, setShowDesktopNav] = useState(true);
+    const openDesktopNav = function (): void {
+      dispatch(toggleDesktopNav({ showDesktopNav: true }));
+    };
 
-  const openDesktopNav = function (): void {
-    setShowDesktopNav(true);
-  };
+    const closeDesktopNav = function (): void {
+      dispatch(toggleDesktopNav({ showDesktopNav: false }));
+      closeMobileNav();
+    };
 
-  const closeDesktopNav = function (): void {
-    setShowDesktopNav(false);
-    closeMobileNav();
-  };
+    const changeBoardHandler = function (id: string): void {
+      dispatch(changeBoard({ titleId: id }));
+    };
 
-  const changeBoardHandler = function (id: string): void {
-    dispatch(changeBoard({ titleId: id }));
-  };
+    const showAddNewBoard = function (): void {
+      dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
+      closeMobileNav();
+    };
 
-  const showAddNewBoard = function (): void {
-    dispatch(toggleAddNewBoard({ showAddNewBoard: true }));
+    const handlerTheme = function (): void {
+      dispatch(changeTheme({ theme: !theme }));
+    };
 
-    closeMobileNav();
-  };
+    return (
+      <>
+        <button
+          className={`${
+            showDesktopNav ? style.hideDesktopNavBtn : style.showDesktopNavBtn
+          }`}
+          onClick={openDesktopNav}
+        >
+          <Image src={showSide} alt="" width={18} height={16} />
+        </button>
 
-  const handlerTheme = function (): void {
-    dispatch(changeTheme({ theme: !theme }));
-  };
+        <AnimatePresence>
+          {showMobileNav && <Overlay onClose={closeMobileNav} />}
+        </AnimatePresence>
 
-  return (
-    <>
-      <button
-        className={`${
-          showDesktopNav ? style.hideDesktopNavBtn : style.showDesktopNavBtn
-        }`}
-        onClick={openDesktopNav}
-      >
-        <Image src={showSide} alt="" width={18} height={16} />
-      </button>
+        <motion.div
+          initial="visible"
+          animate={showDesktopNav || showMobileNav ? "visible" : "hidden"}
+          variants={SideNavAnimated}
+          className={`${style.sidenav}  ${
+            showMobileNav && style.sidenav__mobileShowNav
+          }`}
+        >
+          <div className={style.sidenav__container}>
+            <div>
+              <h3>all boards ({boardsLength})</h3>
+              <ul>
+                {list.map((board) => {
+                  const prop: {
+                    className?: string;
+                  } = {};
 
-      <AnimatePresence>
-        {showMobileNav && <Overlay onClose={closeMobileNav} />}
-      </AnimatePresence>
+                  // active & deactive list
+                  if (board.isActive) prop.className = style.sidenav__active;
+                  else prop.className = style.sidenav__deactive;
 
-      <motion.div
-        initial="visible"
-        animate={showDesktopNav || showMobileNav ? "visible" : "hidden"}
-        variants={SideNavAnimated}
-        className={`${style.sidenav}  ${
-          showMobileNav && style.sidenav__mobileShowNav
-        }`}
-      >
-        <div className={style.sidenav__container}>
-          <div>
-            <h3>all boards ({boardsLength})</h3>
-            <ul>
-              {list.map((board) => {
-                const prop: {
-                  className?: string;
-                } = {};
+                  return (
+                    <li {...prop} key={board.titleId}>
+                      <button onClick={() => changeBoardHandler(board.titleId)}>
+                        <Image
+                          src={alterIcn(board.isActive)}
+                          alt=""
+                          width={16}
+                          height={16}
+                        />
+                        {addEllipsis(board.title)}
+                      </button>
+                    </li>
+                  );
+                })}
 
-                // active & deactive list
-                if (board.isActive) prop.className = style.sidenav__active;
-                else prop.className = style.sidenav__deactive;
+                <li className={style.createBoard}>
+                  <button onClick={showAddNewBoard}>
+                    <Image src={boardBlue} alt="" width={16} height={16} />
 
-                return (
-                  <li {...prop} key={board.titleId}>
-                    <button onClick={() => changeBoardHandler(board.titleId)}>
-                      <Image
-                        src={alterIcn(board.isActive)}
-                        alt=""
-                        width={16}
-                        height={16}
-                      />
-                      {addEllipsis(board.title)}
-                    </button>
-                  </li>
-                );
-              })}
-
-              <li className={style.createBoard}>
-                <button onClick={showAddNewBoard}>
-                  <Image src={boardBlue} alt="" width={16} height={16} />
-
-                  <div>
-                    <Image src={purplePlus} alt="" width={16} height={16} />
-                    Create New Brand
-                  </div>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div className={style.sidenav__btn}>
-            <div className={style["sidenav__btn--switch"]}>
-              <Image src={dark} alt="" width={16} height={16} />
-              <Switch
-                onChange={handlerTheme}
-                checked={theme}
-                width={46}
-                height={22}
-                onColor="#635fc7"
-                offColor="#635fc7"
-              />
-              <Image src={light} alt="" width={19} height={19} />
+                    <div>
+                      <Image src={purplePlus} alt="" width={16} height={16} />
+                      Create New Board
+                    </div>
+                  </button>
+                </li>
+              </ul>
             </div>
 
-            <button
-              className={style["sidenav__btn--hide"]}
-              onClick={closeDesktopNav}
-            >
-              <Image src={hideSide} alt="" width={18} height={16} />
-              Hide Sidebar
-            </button>
+            <div className={style.sidenav__btn}>
+              <div className={style["sidenav__btn--switch"]}>
+                <Image src={dark} alt="" width={16} height={16} />
+                <Switch
+                  onChange={handlerTheme}
+                  checked={theme}
+                  width={46}
+                  height={22}
+                  onColor="#635fc7"
+                  offColor="#635fc7"
+                />
+                <Image src={light} alt="" width={19} height={19} />
+              </div>
+
+              <button
+                className={style["sidenav__btn--hide"]}
+                onClick={closeDesktopNav}
+              >
+                <Image src={hideSide} alt="" width={18} height={16} />
+                Hide Sidebar
+              </button>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    </>
-  );
-});
+        </motion.div>
+      </>
+    );
+  }
+);

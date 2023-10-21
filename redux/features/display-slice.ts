@@ -5,8 +5,16 @@ export const display = createSlice({
   name: "display",
   initialState: initialDisplayState,
   reducers: {
+    toggleHeaderEllipModal(state, action) {
+      state.data.showHeaderEllipModal = action.payload.showHeaderEllipModal;
+    },
+
     toggleMobileNav(state, action) {
       state.data.showMobileNav = action.payload.showMobileNav;
+    },
+
+    toggleDesktopNav(state, action) {
+      state.data.showDesktopNav = action.payload.showDesktopNav;
     },
 
     toggleAddTask(state, action) {
@@ -46,7 +54,10 @@ export const display = createSlice({
 export default display.reducer;
 
 export const {
+  toggleHeaderEllipModal,
+
   toggleMobileNav,
+  toggleDesktopNav,
 
   toggleAddTask,
   toggleDeleteTask,

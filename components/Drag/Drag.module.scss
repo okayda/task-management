@@ -2,6 +2,8 @@
 
 // CTA styles
 .CTA {
+  transition: $transition !important;
+
   position: absolute;
   top: 0;
   right: 0;
@@ -41,8 +43,14 @@
   }
 }
 
+// Full width of the Drag board
+.dragFullSpace {
+  left: 0 !important;
+}
+
 // DnD styles
 .drag {
+  transition: left 0.2s ease;
   position: absolute;
   left: 0;
   top: 0;
@@ -111,7 +119,7 @@
   }
 
   &__item {
-    transition: $transition;
+    transition: all 0.25s;
     font-size: 15px;
     border: 6px;
     background-color: theme(main);
@@ -120,6 +128,10 @@
     padding: 24px 16px;
     border-radius: 9px;
     margin-bottom: 24px;
+
+    &:hover {
+      opacity: 0.5;
+    }
 
     h4 {
       color: theme(title);

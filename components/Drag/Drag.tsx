@@ -15,7 +15,11 @@ import { onDragEnd } from "./DragHandler";
 import plus from "../../public/assets/plus.svg";
 import style from "./Drag.module.scss";
 
-export default React.memo(({ data, dispatch }: ComponentProps) => {
+interface DragProps extends ComponentProps {
+  showDesktopNav: boolean;
+}
+
+export default React.memo(({ data, dispatch, showDesktopNav }: DragProps) => {
   // id is not valid
   if (!data.userId) return null;
 
@@ -81,7 +85,11 @@ export default React.memo(({ data, dispatch }: ComponentProps) => {
   };
 
   return (
-    <div className={boardsLength ? style.drag : style.CTA}>
+    <div
+      className={`${boardsLength ? style.drag : style.CTA} ${
+        !showDesktopNav && style.dragFullSpace
+      }`}
+    >
       {boardsLength ? (
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columnsObj, updateDrag)}

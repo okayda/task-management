@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
-import { toggleAddTask } from "@/redux/features/display-slice";
-import { toggleMobileNav } from "@/redux/features/display-slice";
 import { List } from "@/types";
+
+import {
+  toggleAddTask,
+  toggleMobileNav,
+  toggleHeaderEllipModal,
+} from "@/redux/features/display-slice";
 
 import { addEllipsis } from "@/Utils/utils";
 
@@ -38,20 +42,20 @@ export default function Header() {
   let title: string | undefined = "";
   if (boardTitle) title = addEllipsis(boardTitle);
 
+  const { showHeaderEllipModal } = useAppSelector(
+    (state) => state.displayReducer.data
+  );
+
   // false => Light theme
   // true => Dark theme
   const theme = useAppSelector((state) => state.kanbanReducer.data.isDarkTheme);
   const currentTheme = !theme ? "light" : "dark";
   const logoName = !theme ? logoNameDark : logoNameLight;
 
-  const [ellip, setEllip] = useState<boolean>(false);
-
-  const toggleEllipModal = function (): void {
-    setEllip((prev) => !prev);
-  };
-
-  const closeEllipModal = function (): void {
-    setEllip(false);
+  const handlerHeaderEllipModal = function (): void {
+    dispatch(
+      toggleHeaderEllipModal({ showHeaderEllipModal: !showHeaderEllipModal })
+    );
   };
 
   const showNewTask = function (): void {
@@ -68,7 +72,6 @@ export default function Header() {
         <div className={style.header__logo}>
           <picture>
             <source srcSet={logoName.src} media="(min-width: 768px)" />
-
             <Image
               priority={true}
               src={logoMobile}
@@ -91,17 +94,15 @@ export default function Header() {
                 onClick={showNewTask}
               >
                 <span>Add New Task</span>
-                {/* this img is only for mobile layout */}
                 <Image alt="" src={plusImg} width={20} height={20} />
               </button>
 
-              <button onClick={toggleEllipModal}>
+              <button onClick={handlerHeaderEllipModal}>
                 <Image src={ellipImg} alt="" width={5} height={20} />
               </button>
 
-              {ellip && (
+              {showHeaderEllipModal && (
                 <EllipsisHeader
-                  closeEllipModal={closeEllipModal}
                   title={titleBoard}
                   targetBoardId={targetBoardId}
                 />

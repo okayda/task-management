@@ -3,29 +3,32 @@ import { AppDispatch } from "@/redux/provider/store";
 import {
   toggleEditBoard,
   toggleDeleteBoard,
+  toggleHeaderEllipModal,
 } from "@/redux/features/display-slice";
 
 import style from "./EllipsisHeader.module.scss";
 
 export default function EllipsisHeader({
-  closeEllipModal,
   title,
   targetBoardId,
 }: {
-  closeEllipModal: () => void;
   title: string | undefined;
   targetBoardId: string | undefined;
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
+  const closeHeaderEllipModal = function (): void {
+    dispatch(toggleHeaderEllipModal({ showHeaderEllipModal: false }));
+  };
+
   const showEditBoard = function (): void {
-    closeEllipModal();
+    closeHeaderEllipModal();
 
     dispatch(toggleEditBoard({ showEditBoard: true }));
   };
 
   const showDeleteBoard = function (): void {
-    closeEllipModal();
+    closeHeaderEllipModal();
 
     dispatch(
       toggleDeleteBoard({

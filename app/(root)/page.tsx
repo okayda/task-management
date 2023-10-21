@@ -11,6 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { AppDispatch, useAppSelector } from "@/redux/provider/store";
 import { getData, sendData } from "@/redux/actions/fetch-action";
 
+import { toggleHeaderEllipModal } from "@/redux/features/display-slice";
+
 import SideNav from "@/components/SideNav/SideNav";
 import AddNewBoard from "@/components/Forms/AddNewBoard/AddNewBoard";
 import DeleteBoard from "@/components/Modals/DeleteModal/DeleteBoard";
@@ -35,8 +37,13 @@ export default function page() {
 
   const kanbanData = useAppSelector((state) => state.kanbanReducer.data);
 
+  const closeHeaderEllipModal = function (): void {
+    dispatch(toggleHeaderEllipModal({ showHeaderEllipModal: false }));
+  };
+
   const {
     showMobileNav,
+    showDesktopNav,
 
     showAddTask,
     showDeleteTask,
@@ -73,7 +80,10 @@ export default function page() {
     <>
       <Toast />
 
-      <div className={`main-container ${currentTheme}`}>
+      <div
+        className={`main-container ${currentTheme}`}
+        onClick={closeHeaderEllipModal}
+      >
         <AnimatePresence>
           {/* Form */}
           {showAddTask && <AddTask {...props} />}
@@ -125,9 +135,13 @@ export default function page() {
           hideScrollbars={false}
           ignoreElements={".card-item"}
         >
-          <SideNav {...props} showMobileNav={showMobileNav} />
+          <SideNav
+            {...props}
+            showMobileNav={showMobileNav}
+            showDesktopNav={showDesktopNav}
+          />
 
-          <Drag {...props} />
+          <Drag {...props} showDesktopNav={showDesktopNav} />
         </ScrollContainer>
       </div>
     </>

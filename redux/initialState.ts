@@ -31,7 +31,11 @@ export const initialKanbanState = {
 
 export const initialDisplayState = {
   data: {
+    showHeaderEllipModal: false,
+
+    showDesktopNav: true,
     showMobileNav: false,
+
     showAddTask: false,
     showAddColumnBoard: false,
     showAddNewBoard: false,
