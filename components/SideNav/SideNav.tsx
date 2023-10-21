@@ -15,6 +15,8 @@ import {
   toggleMobileNav,
 } from "@/redux/features/display-slice";
 
+import { addEllipsis } from "@/Utils/utils";
+
 import boardWhite from "../../public/assets/icon-board-white.svg";
 import boardBlue from "../../public/assets/icon-board-blue.svg";
 import boardGray from "../../public/assets/icon-board-gray.svg";
@@ -88,7 +90,7 @@ export default React.memo(({ data, dispatch, showMobileNav }: SideNavProps) => {
                         width={16}
                         height={16}
                       />
-                      {board.title}
+                      {addEllipsis(board.title)}
                     </button>
                   </li>
                 );

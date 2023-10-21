@@ -17,7 +17,6 @@
 
   @include tablet() {
     display: block;
-    position: fixed;
     transform: none;
     top: rem(90px);
     left: 0;
@@ -54,18 +53,21 @@
   }
 
   ul {
-    padding: 0 0 0 rem(32px);
+    width: 95%;
     display: flex;
     flex-direction: column;
     gap: 4px;
 
     button {
+      text-align: left;
+      word-break: break-word;
+      width: 100%;
       color: inherit;
       display: flex;
       align-items: center;
       gap: 16px;
       font-weight: bold;
-      padding: rem(10px) 0;
+      padding: 10px rem(32px);
     }
 
     .createBoard {
@@ -94,9 +96,8 @@
       border-top-right-radius: 100px;
       border-bottom-right-radius: 100px;
       top: 0;
-      left: rem(-32px);
       content: "";
-      width: 100%;
+      width: 95%;
       height: 100%;
       background-color: $darkBlue;
     }

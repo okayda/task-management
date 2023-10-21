@@ -9,6 +9,8 @@ import { toggleAddTask } from "@/redux/features/display-slice";
 import { toggleMobileNav } from "@/redux/features/display-slice";
 import { List } from "@/types";
 
+import { addEllipsis } from "@/Utils/utils";
+
 import EllipsisHeader from "../Modals/EllipsisHeader/EllipsisHeader";
 
 import logoMobile from "../../public/assets/logo-mobile.svg";
@@ -32,6 +34,9 @@ export default function Header() {
 
   const titleBoard = currentBoard?.title;
   const targetBoardId = currentBoard?.titleId;
+
+  let title: string | undefined = "";
+  if (boardTitle) title = addEllipsis(boardTitle);
 
   // false => Light theme
   // true => Dark theme
@@ -64,12 +69,18 @@ export default function Header() {
           <picture>
             <source srcSet={logoName.src} media="(min-width: 768px)" />
 
-            <Image src={logoMobile} alt="Logo" width={24} height={24} />
+            <Image
+              priority={true}
+              src={logoMobile}
+              alt="Logo"
+              width={24}
+              height={24}
+            />
           </picture>
         </div>
         <div className={style.header__menu}>
           <button className={style.header__launch} onClick={openMobileNav}>
-            {boardTitle}
+            {title}
             <Image src={arrowDown} alt="" width={10} height={7} />
           </button>
 

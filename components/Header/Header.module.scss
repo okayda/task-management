@@ -39,6 +39,7 @@
   }
 
   &__launch {
+    text-overflow: ellipsis;
     transition: $transition;
     color: theme(title);
     display: flex;
