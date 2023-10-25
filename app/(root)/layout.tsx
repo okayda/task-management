@@ -1,7 +1,7 @@
 import "./global.scss";
 
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
+// import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { ReduxProvider } from "@/redux/provider/Provider";
 
@@ -25,15 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={jakarta.className}>
-          <ReduxProvider>
-            <Header />
-            <main>{children}</main>
-          </ReduxProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    // <ClerkProvider>
+    // </ClerkProvider>
+    <html lang="en">
+      <body className={jakarta.className}>
+        <ReduxProvider>
+          <Header />
+          <main>{children}</main>
+        </ReduxProvider>
+      </body>
+    </html>
   );
 }

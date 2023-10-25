@@ -1,6 +1,6 @@
-import { SignedIn, SignOutButton } from "@clerk/nextjs";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+// import { SignedIn, SignOutButton } from "@clerk/nextjs";
+// import Image from "next/image";
+// import { usePathname, useRouter } from "next/navigation";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/provider/store";
@@ -21,8 +21,6 @@ export default function EllipsisHeader({
   title: string | undefined;
   targetBoardId: string | undefined;
 }) {
-  const router = useRouter();
-
   const dispatch = useDispatch<AppDispatch>();
 
   const closeHeaderEllipModal = function (): void {
@@ -57,14 +55,14 @@ export default function EllipsisHeader({
         Delete Board
       </button>
 
-      <SignedIn>
+      {/* <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
           <div className={style.ellipsisHeader__logout}>
             <Image src={logOutImg} alt="" width={20} height={20} />
             <p>Logout</p>
           </div>
         </SignOutButton>
-      </SignedIn>
+      </SignedIn> */}
     </div>
   );
 }
