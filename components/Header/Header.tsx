@@ -82,9 +82,9 @@ export default function Header() {
           </picture>
         </div>
         <div className={style.header__menu}>
-          {/* <div className={style.header__account}>
+          <div className={style.header__account}>
             <UserButton afterSignOutUrl="/sign-in" />
-          </div> */}
+          </div>
 
           <button className={style.header__launch} onClick={openMobileNav}>
             {title}
